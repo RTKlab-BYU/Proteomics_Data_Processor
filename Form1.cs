@@ -363,7 +363,7 @@ namespace Proteomics_Data_Processor
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("Content-Type", "multipart/form-data");
-            //request.Parameters.Clear();
+            request.Parameters.Clear();
             request.RequestFormat = DataFormat.Json;
             request.AddParameter("start_time", now.ToString("yyyy-MM-dd hh:mm:ss"));
 
@@ -467,7 +467,7 @@ namespace Proteomics_Data_Processor
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                exe_location.Text = openFileDialog1.FileName;
+                mq_temp.Text = openFileDialog1.FileName;
             }
         }
 
@@ -701,7 +701,7 @@ namespace Proteomics_Data_Processor
 
                 }
                 string run_name;
-                if (this.results.First().analysis_name !="")
+                if (this.results.First().analysis_name !="" && this.results.First() is not null)
                 {
                     run_name = this.results.First().analysis_name;
                     run_name = run_name.Replace(" ", "_");

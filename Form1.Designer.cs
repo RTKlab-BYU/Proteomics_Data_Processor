@@ -37,7 +37,7 @@ namespace Proteomics_Data_Processor
             this.workerstatus = new System.Windows.Forms.TextBox();
             this.mq_lastupdate = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.workernumber = new System.Windows.Forms.ComboBox();
+            this.mq_workernumber = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tempfolder = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -46,7 +46,7 @@ namespace Proteomics_Data_Processor
             this.mq_lblElapsed = new System.Windows.Forms.TextBox();
             this.output = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.exe_location = new System.Windows.Forms.TextBox();
+            this.mq_temp = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mainsettings = new System.Windows.Forms.TabPage();
             this.start_with_windows = new System.Windows.Forms.CheckBox();
@@ -150,16 +150,16 @@ namespace Proteomics_Data_Processor
             this.label9.TabIndex = 2;
             this.label9.Text = "Worker #:";
             // 
-            // workernumber
+            // mq_workernumber
             // 
-            this.workernumber.FormattingEnabled = true;
-            this.workernumber.Items.AddRange(new object[] {
+            this.mq_workernumber.FormattingEnabled = true;
+            this.mq_workernumber.Items.AddRange(new object[] {
             "1",
             "2"});
-            this.workernumber.Location = new System.Drawing.Point(73, 24);
-            this.workernumber.Name = "workernumber";
-            this.workernumber.Size = new System.Drawing.Size(121, 23);
-            this.workernumber.TabIndex = 19;
+            this.mq_workernumber.Location = new System.Drawing.Point(73, 24);
+            this.mq_workernumber.Name = "mq_workernumber";
+            this.mq_workernumber.Size = new System.Drawing.Size(121, 23);
+            this.mq_workernumber.TabIndex = 19;
             // 
             // label10
             // 
@@ -215,16 +215,16 @@ namespace Proteomics_Data_Processor
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 164);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 15);
+            this.label4.Size = new System.Drawing.Size(115, 15);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Batch File";
+            this.label4.Text = "Maxquant Batch File";
             // 
-            // exe_location
+            // mq_temp
             // 
-            this.exe_location.Location = new System.Drawing.Point(16, 115);
-            this.exe_location.Name = "exe_location";
-            this.exe_location.Size = new System.Drawing.Size(353, 23);
-            this.exe_location.TabIndex = 11;
+            this.mq_temp.Location = new System.Drawing.Point(16, 115);
+            this.mq_temp.Name = "mq_temp";
+            this.mq_temp.Size = new System.Drawing.Size(353, 23);
+            this.mq_temp.TabIndex = 11;
             // 
             // tabControl
             // 
@@ -510,11 +510,11 @@ namespace Proteomics_Data_Processor
             this.maxquant.Controls.Add(this.find_file);
             this.maxquant.Controls.Add(this.button1);
             this.maxquant.Controls.Add(this.mq_lastupdate);
-            this.maxquant.Controls.Add(this.workernumber);
+            this.maxquant.Controls.Add(this.mq_workernumber);
             this.maxquant.Controls.Add(this.workerstatus);
             this.maxquant.Controls.Add(this.tempfolder);
             this.maxquant.Controls.Add(this.label9);
-            this.maxquant.Controls.Add(this.exe_location);
+            this.maxquant.Controls.Add(this.mq_temp);
             this.maxquant.Controls.Add(this.label4);
             this.maxquant.Controls.Add(this.label8);
             this.maxquant.Controls.Add(this.label10);
@@ -540,7 +540,7 @@ namespace Proteomics_Data_Processor
             // 
             // find_file
             // 
-            this.find_file.Location = new System.Drawing.Point(94, 155);
+            this.find_file.Location = new System.Drawing.Point(135, 155);
             this.find_file.Margin = new System.Windows.Forms.Padding(2);
             this.find_file.Name = "find_file";
             this.find_file.Size = new System.Drawing.Size(50, 32);
@@ -697,7 +697,7 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.TextBox workerstatus;
         private System.Windows.Forms.TextBox mq_lastupdate;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox workernumber;
+        private System.Windows.Forms.ComboBox mq_workernumber;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tempfolder;
         private System.Windows.Forms.Button button1;
@@ -706,7 +706,7 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.TextBox mq_lblElapsed;
         private System.Windows.Forms.RichTextBox output;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox exe_location;
+        private System.Windows.Forms.TextBox mq_temp;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mainsettings;
         private System.Windows.Forms.TabPage maxquant;
