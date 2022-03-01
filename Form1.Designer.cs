@@ -107,7 +107,6 @@ namespace Proteomics_Data_Processor
             this.label6.Size = new System.Drawing.Size(105, 15);
             this.label6.TabIndex = 5;
             this.label6.Text = "Last Queue Check:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label7
             // 
@@ -466,7 +465,6 @@ namespace Proteomics_Data_Processor
             this.label5.Size = new System.Drawing.Size(105, 15);
             this.label5.TabIndex = 5;
             this.label5.Text = "Last Queue Check:";
-            this.label5.Click += new System.EventHandler(this.label6_Click);
             // 
             // label14
             // 
