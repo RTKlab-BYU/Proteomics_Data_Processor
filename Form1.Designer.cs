@@ -34,19 +34,19 @@ namespace Proteomics_Data_Processor
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.workerstatus = new System.Windows.Forms.TextBox();
+            this.mq_workerstatus = new System.Windows.Forms.TextBox();
             this.mq_lastupdate = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.mq_workernumber = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.tempfolder = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.mq_exe_location = new System.Windows.Forms.TextBox();
+            this.mq_temp_select = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tmrClock = new System.Windows.Forms.Timer(this.components);
             this.mq_lblElapsed = new System.Windows.Forms.TextBox();
             this.output = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.mq_temp = new System.Windows.Forms.TextBox();
+            this.mq_temp_folder = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.mainsettings = new System.Windows.Forms.TabPage();
             this.start_with_windows = new System.Windows.Forms.CheckBox();
@@ -76,8 +76,10 @@ namespace Proteomics_Data_Processor
             this.pd_last_check = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.maxquant = new System.Windows.Forms.TabPage();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.find_file = new System.Windows.Forms.Button();
+            this.mq_start = new System.Windows.Forms.Button();
+            this.mq_stop = new System.Windows.Forms.Button();
+            this.mq_autostart = new System.Windows.Forms.CheckBox();
+            this.mq_exe_select = new System.Windows.Forms.Button();
             this.msfragger = new System.Windows.Forms.TabPage();
             this.custom = new System.Windows.Forms.TabPage();
             this.pd_batch_file = new System.Windows.Forms.TextBox();
@@ -91,6 +93,8 @@ namespace Proteomics_Data_Processor
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.mq_tmrClock = new System.Windows.Forms.Timer(this.components);
             this.tabControl.SuspendLayout();
             this.mainsettings.SuspendLayout();
             this.pd.SuspendLayout();
@@ -126,12 +130,12 @@ namespace Proteomics_Data_Processor
             this.label8.TabIndex = 7;
             this.label8.Text = "Worker status:";
             // 
-            // workerstatus
+            // mq_workerstatus
             // 
-            this.workerstatus.Location = new System.Drawing.Point(94, 255);
-            this.workerstatus.Name = "workerstatus";
-            this.workerstatus.Size = new System.Drawing.Size(275, 23);
-            this.workerstatus.TabIndex = 15;
+            this.mq_workerstatus.Location = new System.Drawing.Point(94, 255);
+            this.mq_workerstatus.Name = "mq_workerstatus";
+            this.mq_workerstatus.Size = new System.Drawing.Size(275, 23);
+            this.mq_workerstatus.TabIndex = 15;
             // 
             // mq_lastupdate
             // 
@@ -169,26 +173,31 @@ namespace Proteomics_Data_Processor
             this.label10.TabIndex = 3;
             this.label10.Text = "Temp save folder";
             // 
-            // tempfolder
+            // mq_exe_location
             // 
-            this.tempfolder.Location = new System.Drawing.Point(16, 192);
-            this.tempfolder.Name = "tempfolder";
-            this.tempfolder.Size = new System.Drawing.Size(353, 23);
-            this.tempfolder.TabIndex = 14;
+            this.mq_exe_location.Location = new System.Drawing.Point(16, 192);
+            this.mq_exe_location.Name = "mq_exe_location";
+            this.mq_exe_location.Size = new System.Drawing.Size(353, 23);
+            this.mq_exe_location.TabIndex = 14;
             // 
-            // button1
+            // mq_temp_select
             // 
-            this.button1.Location = new System.Drawing.Point(120, 76);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 33);
-            this.button1.TabIndex = 20;
-            this.button1.Text = "Broswer";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.mq_temp_select.Location = new System.Drawing.Point(120, 76);
+            this.mq_temp_select.Name = "mq_temp_select";
+            this.mq_temp_select.Size = new System.Drawing.Size(75, 33);
+            this.mq_temp_select.TabIndex = 20;
+            this.mq_temp_select.Text = "Broswer";
+            this.mq_temp_select.UseVisualStyleBackColor = true;
+            this.mq_temp_select.Click += new System.EventHandler(this.button1_Click);
             // 
             // tmrClock
             // 
             this.tmrClock.Tick += new System.EventHandler(this.tmrClock_Tick);
+            // 
+            // mq_tmrClock
+            // 
+            this.mq_tmrClock.Tick += new System.EventHandler(this.mq_tmrClock_Tick);
+
             // 
             // mq_lblElapsed
             // 
@@ -214,16 +223,16 @@ namespace Proteomics_Data_Processor
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 164);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 15);
+            this.label4.Size = new System.Drawing.Size(128, 15);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Maxquant Batch File";
+            this.label4.Text = "Maxquant.exe location";
             // 
-            // mq_temp
+            // mq_temp_folder
             // 
-            this.mq_temp.Location = new System.Drawing.Point(16, 115);
-            this.mq_temp.Name = "mq_temp";
-            this.mq_temp.Size = new System.Drawing.Size(353, 23);
-            this.mq_temp.TabIndex = 11;
+            this.mq_temp_folder.Location = new System.Drawing.Point(16, 115);
+            this.mq_temp_folder.Name = "mq_temp_folder";
+            this.mq_temp_folder.Size = new System.Drawing.Size(353, 23);
+            this.mq_temp_folder.TabIndex = 11;
             // 
             // tabControl
             // 
@@ -503,16 +512,18 @@ namespace Proteomics_Data_Processor
             // 
             // maxquant
             // 
-            this.maxquant.Controls.Add(this.checkBox2);
+            this.maxquant.Controls.Add(this.mq_start);
+            this.maxquant.Controls.Add(this.mq_stop);
+            this.maxquant.Controls.Add(this.mq_autostart);
             this.maxquant.Controls.Add(this.mq_lblElapsed);
-            this.maxquant.Controls.Add(this.find_file);
-            this.maxquant.Controls.Add(this.button1);
+            this.maxquant.Controls.Add(this.mq_exe_select);
+            this.maxquant.Controls.Add(this.mq_temp_select);
             this.maxquant.Controls.Add(this.mq_lastupdate);
             this.maxquant.Controls.Add(this.mq_workernumber);
-            this.maxquant.Controls.Add(this.workerstatus);
-            this.maxquant.Controls.Add(this.tempfolder);
+            this.maxquant.Controls.Add(this.mq_workerstatus);
+            this.maxquant.Controls.Add(this.mq_exe_location);
             this.maxquant.Controls.Add(this.label9);
-            this.maxquant.Controls.Add(this.mq_temp);
+            this.maxquant.Controls.Add(this.mq_temp_folder);
             this.maxquant.Controls.Add(this.label4);
             this.maxquant.Controls.Add(this.label8);
             this.maxquant.Controls.Add(this.label10);
@@ -526,26 +537,46 @@ namespace Proteomics_Data_Processor
             this.maxquant.Text = "Maxquant";
             this.maxquant.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // mq_start
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(17, 459);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(164, 19);
-            this.checkBox2.TabIndex = 25;
-            this.checkBox2.Text = "Auto start when app starts";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.mq_start.Location = new System.Drawing.Point(34, 531);
+            this.mq_start.Name = "mq_start";
+            this.mq_start.Size = new System.Drawing.Size(92, 30);
+            this.mq_start.TabIndex = 26;
+            this.mq_start.Text = "Start";
+            this.mq_start.UseVisualStyleBackColor = true;
+            this.mq_start.Click += new System.EventHandler(this.mq_start_Click_1);
             // 
-            // find_file
+            // mq_stop
             // 
-            this.find_file.Location = new System.Drawing.Point(135, 155);
-            this.find_file.Margin = new System.Windows.Forms.Padding(2);
-            this.find_file.Name = "find_file";
-            this.find_file.Size = new System.Drawing.Size(50, 32);
-            this.find_file.TabIndex = 21;
-            this.find_file.Text = "File";
-            this.find_file.UseVisualStyleBackColor = true;
-            this.find_file.Click += new System.EventHandler(this.find_file_Click);
+            this.mq_stop.Location = new System.Drawing.Point(224, 526);
+            this.mq_stop.Name = "mq_stop";
+            this.mq_stop.Size = new System.Drawing.Size(115, 35);
+            this.mq_stop.TabIndex = 27;
+            this.mq_stop.Text = "Stop";
+            this.mq_stop.UseVisualStyleBackColor = true;
+            this.mq_stop.Click += new System.EventHandler(this.mq_stop_Click_1);
+            // 
+            // mq_autostart
+            // 
+            this.mq_autostart.AutoSize = true;
+            this.mq_autostart.Location = new System.Drawing.Point(17, 459);
+            this.mq_autostart.Name = "mq_autostart";
+            this.mq_autostart.Size = new System.Drawing.Size(164, 19);
+            this.mq_autostart.TabIndex = 25;
+            this.mq_autostart.Text = "Auto start when app starts";
+            this.mq_autostart.UseVisualStyleBackColor = true;
+            // 
+            // mq_exe_select
+            // 
+            this.mq_exe_select.Location = new System.Drawing.Point(151, 155);
+            this.mq_exe_select.Margin = new System.Windows.Forms.Padding(2);
+            this.mq_exe_select.Name = "mq_exe_select";
+            this.mq_exe_select.Size = new System.Drawing.Size(50, 32);
+            this.mq_exe_select.TabIndex = 21;
+            this.mq_exe_select.Text = "File";
+            this.mq_exe_select.UseVisualStyleBackColor = true;
+            this.mq_exe_select.Click += new System.EventHandler(this.find_file_Click);
             // 
             // msfragger
             // 
@@ -692,19 +723,19 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox workerstatus;
+        private System.Windows.Forms.TextBox mq_workerstatus;
         private System.Windows.Forms.TextBox mq_lastupdate;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox mq_workernumber;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tempfolder;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox mq_exe_location;
+        private System.Windows.Forms.Button mq_temp_select;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Timer tmrClock;
         private System.Windows.Forms.TextBox mq_lblElapsed;
         private System.Windows.Forms.RichTextBox output;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox mq_temp;
+        private System.Windows.Forms.TextBox mq_temp_folder;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage mainsettings;
         private System.Windows.Forms.TabPage maxquant;
@@ -723,14 +754,14 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox system_pwd;
         private System.Windows.Forms.TextBox system_username;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox mq_autostart;
         private System.Windows.Forms.TextBox workerip;
         private System.Windows.Forms.TextBox workername;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox hostip;
-        private System.Windows.Forms.Button find_file;
+        private System.Windows.Forms.Button mq_exe_select;
         private System.Windows.Forms.CheckBox pd_thread_autostart;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button5;
@@ -749,6 +780,11 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button pd_batch_button;
         private System.Windows.Forms.CheckBox start_with_windows;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button mq_start;
+        private System.Windows.Forms.Button mq_stop;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer mq_tmrClock;
     }
 }
 

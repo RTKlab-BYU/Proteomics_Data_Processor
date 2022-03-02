@@ -118,5 +118,41 @@ namespace Proteomics_Data_Processor.Properties {
                 this["system_pwd"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string mq_workernumber {
+            get {
+                return ((string)(this["mq_workernumber"]));
+            }
+            set {
+                this["mq_workernumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mq_temp_folder {
+            get {
+                return ((string)(this["mq_temp_folder"]));
+            }
+            set {
+                this["mq_temp_folder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mq_exe_location {
+            get {
+                return ((string)(this["mq_exe_location"]));
+            }
+            set {
+                this["mq_exe_location"] = value;
+            }
+        }
     }
 }
