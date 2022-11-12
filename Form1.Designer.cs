@@ -81,6 +81,29 @@ namespace Proteomics_Data_Processor
             this.mq_autostart = new System.Windows.Forms.CheckBox();
             this.mq_exe_select = new System.Windows.Forms.Button();
             this.msfragger = new System.Windows.Forms.TabPage();
+            this.label25 = new System.Windows.Forms.Label();
+            this.mf_param_location = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.mf_start = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.mf_stop = new System.Windows.Forms.Button();
+            this.mf_temp_folder = new System.Windows.Forms.TextBox();
+            this.msfragger_file_location = new System.Windows.Forms.TextBox();
+            this.philosopher_location = new System.Windows.Forms.TextBox();
+            this.mf_autostart = new System.Windows.Forms.CheckBox();
+            this.mf_workerstatus = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.mf_lblElapsed = new System.Windows.Forms.TextBox();
+            this.mf_workernumber = new System.Windows.Forms.ComboBox();
+            this.mf_temp_button = new System.Windows.Forms.Button();
+            this.msfragger_file_button = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.philosopher_button = new System.Windows.Forms.Button();
+            this.mf_lastupdate = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.custom = new System.Windows.Forms.TabPage();
             this.pd_batch_file = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -95,10 +118,15 @@ namespace Proteomics_Data_Processor
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.mq_tmrClock = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.mf_tmrClock = new System.Windows.Forms.Timer(this.components);
+            this.label26 = new System.Windows.Forms.Label();
+            this.version_number = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.mainsettings.SuspendLayout();
             this.pd.SuspendLayout();
             this.maxquant.SuspendLayout();
+            this.msfragger.SuspendLayout();
             this.custom.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -194,11 +222,6 @@ namespace Proteomics_Data_Processor
             // 
             this.tmrClock.Tick += new System.EventHandler(this.tmrClock_Tick);
             // 
-            // mq_tmrClock
-            // 
-            this.mq_tmrClock.Tick += new System.EventHandler(this.mq_tmrClock_Tick);
-
-            // 
             // mq_lblElapsed
             // 
             this.mq_lblElapsed.Location = new System.Drawing.Point(73, 314);
@@ -210,7 +233,6 @@ namespace Proteomics_Data_Processor
             // output
             // 
             this.output.BackColor = System.Drawing.SystemColors.Info;
-            this.output.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.output.Location = new System.Drawing.Point(395, 55);
             this.output.Name = "output";
             this.output.ReadOnly = true;
@@ -580,6 +602,29 @@ namespace Proteomics_Data_Processor
             // 
             // msfragger
             // 
+            this.msfragger.Controls.Add(this.label25);
+            this.msfragger.Controls.Add(this.mf_param_location);
+            this.msfragger.Controls.Add(this.button1);
+            this.msfragger.Controls.Add(this.mf_start);
+            this.msfragger.Controls.Add(this.label24);
+            this.msfragger.Controls.Add(this.label22);
+            this.msfragger.Controls.Add(this.label23);
+            this.msfragger.Controls.Add(this.mf_stop);
+            this.msfragger.Controls.Add(this.mf_temp_folder);
+            this.msfragger.Controls.Add(this.msfragger_file_location);
+            this.msfragger.Controls.Add(this.philosopher_location);
+            this.msfragger.Controls.Add(this.mf_autostart);
+            this.msfragger.Controls.Add(this.mf_workerstatus);
+            this.msfragger.Controls.Add(this.label21);
+            this.msfragger.Controls.Add(this.mf_lblElapsed);
+            this.msfragger.Controls.Add(this.mf_workernumber);
+            this.msfragger.Controls.Add(this.mf_temp_button);
+            this.msfragger.Controls.Add(this.msfragger_file_button);
+            this.msfragger.Controls.Add(this.label20);
+            this.msfragger.Controls.Add(this.philosopher_button);
+            this.msfragger.Controls.Add(this.mf_lastupdate);
+            this.msfragger.Controls.Add(this.label18);
+            this.msfragger.Controls.Add(this.label19);
             this.msfragger.Location = new System.Drawing.Point(4, 24);
             this.msfragger.Name = "msfragger";
             this.msfragger.Padding = new System.Windows.Forms.Padding(3);
@@ -587,6 +632,213 @@ namespace Proteomics_Data_Processor
             this.msfragger.TabIndex = 2;
             this.msfragger.Text = "Msfragger";
             this.msfragger.UseVisualStyleBackColor = true;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(19, 332);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(175, 15);
+            this.label25.TabIndex = 28;
+            this.label25.Text = "MSFragger parameters  location";
+            // 
+            // mf_param_location
+            // 
+            this.mf_param_location.Location = new System.Drawing.Point(20, 360);
+            this.mf_param_location.Name = "mf_param_location";
+            this.mf_param_location.Size = new System.Drawing.Size(353, 23);
+            this.mf_param_location.TabIndex = 29;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(199, 323);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(50, 32);
+            this.button1.TabIndex = 30;
+            this.button1.Text = "File";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // mf_start
+            // 
+            this.mf_start.Location = new System.Drawing.Point(38, 620);
+            this.mf_start.Name = "mf_start";
+            this.mf_start.Size = new System.Drawing.Size(92, 30);
+            this.mf_start.TabIndex = 26;
+            this.mf_start.Text = "Start";
+            this.mf_start.UseVisualStyleBackColor = true;
+            this.mf_start.Click += new System.EventHandler(this.mf_start_Click_1);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(18, 253);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(126, 15);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "MSFragger jar location";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(19, 176);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(116, 15);
+            this.label22.TabIndex = 0;
+            this.label22.Text = "Philosopher location";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(13, 39);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(58, 15);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "Worker #:";
+            // 
+            // mf_stop
+            // 
+            this.mf_stop.Location = new System.Drawing.Point(228, 615);
+            this.mf_stop.Name = "mf_stop";
+            this.mf_stop.Size = new System.Drawing.Size(115, 35);
+            this.mf_stop.TabIndex = 27;
+            this.mf_stop.Text = "Stop";
+            this.mf_stop.UseVisualStyleBackColor = true;
+            this.mf_stop.Click += new System.EventHandler(this.mf_stop_Click_1);
+            // 
+            // mf_temp_folder
+            // 
+            this.mf_temp_folder.Location = new System.Drawing.Point(20, 127);
+            this.mf_temp_folder.Name = "mf_temp_folder";
+            this.mf_temp_folder.Size = new System.Drawing.Size(353, 23);
+            this.mf_temp_folder.TabIndex = 11;
+            // 
+            // msfragger_file_location
+            // 
+            this.msfragger_file_location.Location = new System.Drawing.Point(19, 281);
+            this.msfragger_file_location.Name = "msfragger_file_location";
+            this.msfragger_file_location.Size = new System.Drawing.Size(353, 23);
+            this.msfragger_file_location.TabIndex = 14;
+            // 
+            // philosopher_location
+            // 
+            this.philosopher_location.Location = new System.Drawing.Point(20, 204);
+            this.philosopher_location.Name = "philosopher_location";
+            this.philosopher_location.Size = new System.Drawing.Size(353, 23);
+            this.philosopher_location.TabIndex = 14;
+            // 
+            // mf_autostart
+            // 
+            this.mf_autostart.AutoSize = true;
+            this.mf_autostart.Location = new System.Drawing.Point(21, 548);
+            this.mf_autostart.Name = "mf_autostart";
+            this.mf_autostart.Size = new System.Drawing.Size(164, 19);
+            this.mf_autostart.TabIndex = 25;
+            this.mf_autostart.Text = "Auto start when app starts";
+            this.mf_autostart.UseVisualStyleBackColor = true;
+            // 
+            // mf_workerstatus
+            // 
+            this.mf_workerstatus.Location = new System.Drawing.Point(104, 408);
+            this.mf_workerstatus.Name = "mf_workerstatus";
+            this.mf_workerstatus.Size = new System.Drawing.Size(275, 23);
+            this.mf_workerstatus.TabIndex = 15;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(14, 411);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(82, 15);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "Worker status:";
+            // 
+            // mf_lblElapsed
+            // 
+            this.mf_lblElapsed.Location = new System.Drawing.Point(77, 456);
+            this.mf_lblElapsed.Name = "mf_lblElapsed";
+            this.mf_lblElapsed.ReadOnly = true;
+            this.mf_lblElapsed.Size = new System.Drawing.Size(287, 23);
+            this.mf_lblElapsed.TabIndex = 16;
+            this.mf_lblElapsed.TextChanged += new System.EventHandler(this.mf_timer_TextChanged);
+            // 
+            // mf_workernumber
+            // 
+            this.mf_workernumber.FormattingEnabled = true;
+            this.mf_workernumber.Items.AddRange(new object[] {
+            "1",
+            "2"});
+            this.mf_workernumber.Location = new System.Drawing.Point(77, 36);
+            this.mf_workernumber.Name = "mf_workernumber";
+            this.mf_workernumber.Size = new System.Drawing.Size(121, 23);
+            this.mf_workernumber.TabIndex = 19;
+            // 
+            // mf_temp_button
+            // 
+            this.mf_temp_button.Location = new System.Drawing.Point(124, 88);
+            this.mf_temp_button.Name = "mf_temp_button";
+            this.mf_temp_button.Size = new System.Drawing.Size(75, 33);
+            this.mf_temp_button.TabIndex = 20;
+            this.mf_temp_button.Text = "Broswer";
+            this.mf_temp_button.UseVisualStyleBackColor = true;
+            this.mf_temp_button.Click += new System.EventHandler(this.mf_temp_button_Click);
+            // 
+            // msfragger_file_button
+            // 
+            this.msfragger_file_button.Location = new System.Drawing.Point(154, 244);
+            this.msfragger_file_button.Margin = new System.Windows.Forms.Padding(2);
+            this.msfragger_file_button.Name = "msfragger_file_button";
+            this.msfragger_file_button.Size = new System.Drawing.Size(50, 32);
+            this.msfragger_file_button.TabIndex = 21;
+            this.msfragger_file_button.Text = "File";
+            this.msfragger_file_button.UseVisualStyleBackColor = true;
+            this.msfragger_file_button.Click += new System.EventHandler(this.msfragger_file_button_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(19, 101);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(96, 15);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Temp save folder";
+            // 
+            // philosopher_button
+            // 
+            this.philosopher_button.Location = new System.Drawing.Point(155, 167);
+            this.philosopher_button.Margin = new System.Windows.Forms.Padding(2);
+            this.philosopher_button.Name = "philosopher_button";
+            this.philosopher_button.Size = new System.Drawing.Size(50, 32);
+            this.philosopher_button.TabIndex = 21;
+            this.philosopher_button.Text = "File";
+            this.philosopher_button.UseVisualStyleBackColor = true;
+            this.philosopher_button.Click += new System.EventHandler(this.philosopher_button_Click);
+            // 
+            // mf_lastupdate
+            // 
+            this.mf_lastupdate.Location = new System.Drawing.Point(117, 499);
+            this.mf_lastupdate.Name = "mf_lastupdate";
+            this.mf_lastupdate.Size = new System.Drawing.Size(262, 23);
+            this.mf_lastupdate.TabIndex = 16;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(9, 502);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(105, 15);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Last Queue Check:";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(21, 459);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(40, 15);
+            this.label19.TabIndex = 6;
+            this.label19.Text = "Timer:";
             // 
             // custom
             // 
@@ -645,7 +897,7 @@ namespace Proteomics_Data_Processor
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1304, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 26;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -691,11 +943,38 @@ namespace Proteomics_Data_Processor
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
+            // mq_tmrClock
+            // 
+            this.mq_tmrClock.Tick += new System.EventHandler(this.mq_tmrClock_Tick);
+            // 
+            // mf_tmrClock
+            // 
+            this.mf_tmrClock.Tick += new System.EventHandler(this.mf_tmrClock_Tick);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(395, 758);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(138, 15);
+            this.label26.TabIndex = 27;
+            this.label26.Text = "Current Version Number:";
+            // 
+            // version_number
+            // 
+            this.version_number.AutoSize = true;
+            this.version_number.Location = new System.Drawing.Point(551, 758);
+            this.version_number.Name = "version_number";
+            this.version_number.Size = new System.Drawing.Size(0, 15);
+            this.version_number.TabIndex = 27;
+            // 
             // Proteomics_Data_Processor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1304, 782);
+            this.ClientSize = new System.Drawing.Size(800, 782);
+            this.Controls.Add(this.version_number);
+            this.Controls.Add(this.label26);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.output);
             this.Controls.Add(this.menuStrip1);
@@ -710,6 +989,8 @@ namespace Proteomics_Data_Processor
             this.pd.PerformLayout();
             this.maxquant.ResumeLayout(false);
             this.maxquant.PerformLayout();
+            this.msfragger.ResumeLayout(false);
+            this.msfragger.PerformLayout();
             this.custom.ResumeLayout(false);
             this.custom.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -785,6 +1066,32 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Button mq_stop;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Timer mq_tmrClock;
+        private System.Windows.Forms.Button mf_start;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button mf_stop;
+        private System.Windows.Forms.TextBox mf_temp_folder;
+        private System.Windows.Forms.TextBox philosopher_location;
+        private System.Windows.Forms.CheckBox mf_autostart;
+        private System.Windows.Forms.TextBox mf_workerstatus;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox mf_lblElapsed;
+        private System.Windows.Forms.ComboBox mf_workernumber;
+        private System.Windows.Forms.Button mf_temp_button;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button philosopher_button;
+        private System.Windows.Forms.TextBox mf_lastupdate;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Timer mf_tmrClock;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox mf_param_location;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox msfragger_file_location;
+        private System.Windows.Forms.Button msfragger_file_button;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label version_number;
     }
 }
 

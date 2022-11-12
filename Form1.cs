@@ -21,12 +21,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.Win32;
-
-
-
-
-
-
+using System.Reflection;
 
 namespace Proteomics_Data_Processor
 {
@@ -34,6 +29,7 @@ namespace Proteomics_Data_Processor
     {
         BackgroundWorker pd_backgroundWorker = new BackgroundWorker();
         BackgroundWorker mq_backgroundWorker = new BackgroundWorker();
+        BackgroundWorker mf_backgroundWorker = new BackgroundWorker();
 
         string AppName = "Proteomics_Data_Processor";
 
@@ -47,6 +43,7 @@ namespace Proteomics_Data_Processor
             system_username.Text = "search_worker";
             system_pwd.Text = "gmUSxbPugSCm#wRm^PVc$8v5JYRyqdJWNeYzyyVf9YohZU*CAbowLc3PG%xw";
             workername.Text = "worker_" + Gethostname();
+            version_number.Text =  Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
 
             //PD           
@@ -69,6 +66,15 @@ namespace Proteomics_Data_Processor
             mq_backgroundWorker.RunWorkerCompleted += mq_backgroundWorker_RunWorkerCompleted;  //Tell the user how the process went
             mq_backgroundWorker.WorkerReportsProgress = true;
             mq_backgroundWorker.WorkerSupportsCancellation = true; //Allow for the process to be cancelled
+
+            //Msfragger           
+            mf_temp_folder.Text = "c:\\mq_temp";
+            mf_workernumber.Text = "1";
+            mf_backgroundWorker.DoWork += mf_backgroundWorker_DoWork;
+            mf_backgroundWorker.ProgressChanged += mf_backgroundWorker_ProgressChanged;
+            mf_backgroundWorker.RunWorkerCompleted += mf_backgroundWorker_RunWorkerCompleted;  //Tell the user how the process went
+            mf_backgroundWorker.WorkerReportsProgress = true;
+            mf_backgroundWorker.WorkerSupportsCancellation = true; //Allow for the process to be cancelled
 
 
 
@@ -110,11 +116,33 @@ namespace Proteomics_Data_Processor
                     }
                 }
 
+
+
+                if (mf_autostart.Checked)
+                {
+
+                    SaveSettings();
+
+                    if (!mf_backgroundWorker.IsBusy)
+                    {
+                        mf_backgroundWorker.RunWorkerAsync();
+                        output.AppendText(Environment.NewLine + DateTime.Now + " Started Msfragger Worker ");
+
+
+
+                    }
+                }
+
+
+
             }
         }
 
 
         //General purpose methods
+
+
+
 
         private int CountLinesLINQ(string filepath)
                 => File.ReadLines(filepath).Count();
@@ -138,8 +166,13 @@ namespace Proteomics_Data_Processor
             Properties.Settings.Default.mq_exe_location = mq_exe_location.Text;
 
 
+            Properties.Settings.Default.mf_workernumber = mf_workernumber.Text;
+            Properties.Settings.Default.mf_temp_folder = mf_temp_folder.Text;
+            Properties.Settings.Default.philosopher_location = philosopher_location.Text;
+            Properties.Settings.Default.msfragger_file_location = msfragger_file_location.Text;
+            Properties.Settings.Default.mf_param_location = mf_param_location.Text;
 
-
+            
 
         }
 
@@ -404,7 +437,7 @@ namespace Proteomics_Data_Processor
             {
 
                 tmrClock.Enabled = !tmrClock.Enabled;
-                output.AppendText(Environment.NewLine + DateTime.Now + " A new analysis started, " + e.UserState as String);
+                output.AppendText(Environment.NewLine + DateTime.Now + " A new PD analysis started, " + e.UserState as String);
                 StartTime = DateTime.Now;
 
             }
@@ -813,7 +846,7 @@ namespace Proteomics_Data_Processor
 
 
 
-                if (pd_backgroundWorker.CancellationPending)
+                if (mq_backgroundWorker.CancellationPending)
                 {
                     e.Cancel = true;
                     mq_backgroundWorker.ReportProgress(0);
@@ -843,7 +876,7 @@ namespace Proteomics_Data_Processor
             {
                 
                 mq_tmrClock.Enabled = !mq_tmrClock.Enabled;
-                output.AppendText(Environment.NewLine + DateTime.Now + " A new analysis started, " + e.UserState as String);
+                output.AppendText(Environment.NewLine + DateTime.Now + " A new Maxquant analysis started, " + e.UserState as String);
                 StartTime = DateTime.Now;
 
             }
@@ -1041,8 +1074,9 @@ namespace Proteomics_Data_Processor
             request.AddFile("peptide_file", freshdir.FullName + @"\peptides.txt");
             request.AddFile("protein_file", freshdir.FullName + @"\proteinGroups.txt");
             request.AddFile("evidence_file", freshdir.FullName + @"\evidence.txt");
-            string zipPath = @"C:\maxquant_temp\combined\others.zip";
+            string zipPath = new System.IO.DirectoryInfo(freshdir.FullName).Parent.FullName + "\\others.zip";
             ZipFile.CreateFromDirectory(freshdir.FullName, zipPath);
+ 
             request.AddFile("other_file", zipPath);
             var response = client.Execute(request);
 
@@ -1053,13 +1087,450 @@ namespace Proteomics_Data_Processor
 
         }
 
+        private void mf_timer_TextChanged(object sender, EventArgs e)
+        {
+
+        }
 
 
-  
 
 
 
-               }
+
+        //Msfragger related methods
+
+             
+
+
+        // Display the new elapsed time.
+        private void mf_tmrClock_Tick(object sender, EventArgs e)
+        {
+
+            TimeSpan elapsed = DateTime.Now - StartTime;
+
+            // Start with the days if greater than 0.
+            string text = "";
+            if (elapsed.Days > 0)
+                text += elapsed.Days.ToString() + ".";
+
+            // Convert milliseconds into tenths of seconds.
+            int tenths = elapsed.Milliseconds / 100;
+
+            // Compose the rest of the elapsed time.
+            text +=
+                elapsed.Hours.ToString("00") + ":" +
+                elapsed.Minutes.ToString("00") + ":" +
+                elapsed.Seconds.ToString("00") + "." +
+                tenths.ToString("0");
+
+            mf_lblElapsed.Text = text;
+
+
+        }
+
+
+
+
+        private void mf_start_Click_1(object sender, EventArgs e)
+        {
+            SaveSettings();
+
+            if (!mf_backgroundWorker.IsBusy)
+            {
+                mf_backgroundWorker.RunWorkerAsync();
+                output.AppendText(Environment.NewLine + DateTime.Now + " Started Msfragger Worker ");
+            }
+        }
+
+        private void mf_stop_Click_1(object sender, EventArgs e)
+        {
+            //stop the thread.
+            //Check if background worker is doing anything and send a cancellation if it is
+            if (mf_backgroundWorker.IsBusy)
+            {
+                mf_backgroundWorker.CancelAsync();
+            }
+            output.AppendText(Environment.NewLine + DateTime.Now + " Msfragger Worker stopped");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        private void mf_backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            while (true)
+            {
+                MfWorkerPing(); //Notify worker is online
+                                //check if there is pending work and download
+
+                (int queuepk,int lastraw) = MfGetJobs();
+
+
+
+                if (queuepk != 0)
+                {
+
+                    mf_backgroundWorker.ReportProgress(10, $" running Msfragger queue {queuepk}");
+                    MfReportStart(queuepk);
+                    MfprocessStart(lastraw);
+                    MfReadResult(queuepk);
+                    mf_backgroundWorker.ReportProgress(99, $" finished running Msfragger queue {queuepk}");
+
+
+
+
+                }
+
+
+
+
+                if (mf_backgroundWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    mf_backgroundWorker.ReportProgress(0);
+                    return;
+                }
+                Thread.Sleep(30000);
+
+            }
+
+        }
+
+
+
+
+
+        private void mf_backgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            mf_lastupdate.Text = now.ToString();
+            mf_workerstatus.Text = e.UserState as String;
+            if (e.UserState as String == "No Response from Server")
+            {
+                output.AppendText(Environment.NewLine + DateTime.Now + " No Response from Server.");
+
+            }
+            if (e.ProgressPercentage == 10)
+            {
+
+                mf_tmrClock.Enabled = !mf_tmrClock.Enabled;
+                output.AppendText(Environment.NewLine + DateTime.Now + " A new msfragger analysis started, " + e.UserState as String);
+                StartTime = DateTime.Now;
+
+            }
+
+            if (e.ProgressPercentage == 99)
+            {
+                mf_tmrClock.Enabled = !mf_tmrClock.Enabled;
+                mf_workerstatus.Text = e.UserState as String;
+                output.AppendText(Environment.NewLine + DateTime.Now + e.UserState);
+            }
+
+        }
+
+        private void mf_backgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+
+            if (e.Cancelled)
+            {
+                output.AppendText(Environment.NewLine + DateTime.Now + " Maxquant Process was cancelled");
+            }
+            else if (e.Error != null)
+            {
+                output.AppendText(Environment.NewLine + DateTime.Now + " There was an error running the Maxquant process. The thread aborted");
+            }
+            else
+            {
+                output.AppendText(Environment.NewLine + DateTime.Now + " Maxquant Process was completed");
+            }
+        }
+
+
+
+
+
+
+        private void MfWorkerPing()
+        {
+            DateTime now = DateTime.Now;
+            var client = new RestClient(Properties.Settings.Default.hostip);
+
+            client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
+
+            var request = new RestRequest("/msfraggerworker/" + Properties.Settings.Default.mf_workernumber + "/", Method.PUT);
+
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "multipart/form-data");
+            request.Parameters.Clear();
+            request.RequestFormat = DataFormat.Json;
+            request.AddJsonBody(new { pk = Properties.Settings.Default.mf_workernumber, worker_name = Properties.Settings.Default.workername, worker_ip = Properties.Settings.Default.workerip, last_update = now.ToLocalTime() });
+
+            var response = client.Execute(request);
+            if (response.ResponseStatus == ResponseStatus.Completed)
+            {
+                mf_backgroundWorker.ReportProgress(0, "Idle");
+
+
+
+            }
+            else
+
+            {
+                mf_backgroundWorker.ReportProgress(0, "No Response from Server");
+                mf_backgroundWorker.ReportProgress(0, "Idle");
+
+            }
+
+
+
+        }
+
+
+        private (int,int) MfGetJobs() //download all the pending queue query
+        {
+            var client = new RestClient(Properties.Settings.Default.hostip);
+
+            client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
+
+
+            var request = new RestRequest("/msfraggerqueue/", Method.GET);
+
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Accept", "application/json");
+
+            var response = client.Execute(request);
+
+
+            MaxquantQueueResponse nextjob = JsonConvert.DeserializeObject<MaxquantQueueResponse>(response.Content);
+            if (nextjob != null)
+            {
+                return nextjob.GetCurrentJobmf(Properties.Settings.Default.hostip, Properties.Settings.Default.mf_temp_folder);
+            }
+            else
+            {
+                return (0,0);
+            }
+        }
+
+
+
+        private void MfReportStart(int queuepk)
+        {
+            DateTime now = DateTime.Now;
+            var client = new RestClient(Properties.Settings.Default.hostip);
+
+            client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
+
+            var request = new RestRequest("/msfraggerqueue/" + queuepk + "/", Method.PATCH);
+            request.AddObject(new
+            {
+                start_time = now.ToString("yyyy-MM-dd hh:mm:ss"),
+
+            });
+
+            var response = client.Execute(request);
+
+
+        }
+
+
+
+
+        private bool MfprocessStart(int lastraw)
+        {
+
+
+            /*Msfragger command example:  --
+            cd  C:\msfragger_temp
+            REM "C:\Program Files\philiosopher\philosopher"  workspace  --clean
+            REM "C:\Program Files\philiosopher\philosopher"  workspace  --init
+            REM "C:\Program Files\philiosopher\philosopher"  database --id UP000005640 --contam --reviewed
+            java -Xmx32g -jar "C:\Program Files\MSFragger-3.4_20211202\MSFragger-3.4\MSFragger-3.4.jar" C:\Msfragger_settings\test.params temp.raw
+
+
+            "C:\Program Files\philiosopher\philosopher" peptideprophet --database 2021-12-02-decoys-reviewed-contam-UP000005640.fas --decoy rev_ --ppm --accmass --expectscore --decoyprobs --nonparam temp.pepXML
+
+            "C:\Program Files\philiosopher\philosopher" proteinprophet interact-temp.pep.xml
+
+            "C:\Program Files\philiosopher\philosopher" filter --sequential --razor --picked --tag rev_ --pepxml interact-temp.pep.xml --protxml interact.prot.xml
+
+            "C:\Program Files\philiosopher\philosopher" report
+            */
+
+            string strCmdText1 = "cd " + Properties.Settings.Default.mf_temp_folder;
+            string strCmdText2 ='\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + "  workspace  --clean";
+            string strCmdText3 = '\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + "  workspace  --init";
+            string strCmdText4 = '\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + "  database --id UP000005640 --contam --reviewed";
+
+
+            string strCmdText5 = "java -Xmx32g -jar " + '\u0022' + Properties.Settings.Default.msfragger_file_location + '\u0022' + " " + Properties.Settings.Default.mf_param_location + " " + lastraw + ".raw";
+            string strCmdText6 = '\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + " peptideprophet --database 2021-12-02-decoys-reviewed-contam-UP000005640.fas --decoy rev_ --ppm --accmass --expectscore --decoyprobs --nonparam "+ " " + lastraw + ".pepXML";
+            string strCmdText7 = '\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + " proteinprophet interact-" +  lastraw + ".pep.xml ";
+            string strCmdText8 = '\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + " filter --sequential --razor --picked --tag rev_ --pepxml interact-" + lastraw + ".pep.xml --protxml interact.prot.xml";
+            string strCmdText9 = '\u0022' + Properties.Settings.Default.philosopher_location + '\u0022' + " report";
+
+
+            ProcessStartInfo newstartInfo = new ProcessStartInfo();
+            newstartInfo.FileName = "cmd";
+            newstartInfo.Verb = "runas";
+            newstartInfo.RedirectStandardInput = true;
+            newstartInfo.UseShellExecute = false; //The Process object must have the UseShellExecute property set to false in order to redirect IO streams.
+
+            Process newProcess = new Process();
+
+            newProcess.StartInfo = newstartInfo;
+            newProcess.Start();
+            StreamWriter write = newProcess.StandardInput; //Using the Streamwriter to write to the elevated command prompt.
+            write.WriteLine(strCmdText1); // command executes in elevated command prompt
+            write.WriteLine(strCmdText2); // command executes in elevated command prompt
+            write.WriteLine(strCmdText3); // command executes in elevated command prompt
+            write.WriteLine(strCmdText4); // command executes in elevated command prompt
+            write.WriteLine(strCmdText5); // command executes in elevated command prompt
+            write.WriteLine(strCmdText6); // command executes in elevated command prompt
+            write.WriteLine(strCmdText7); // command executes in elevated command prompt
+            write.WriteLine(strCmdText8); // command executes in elevated command prompt
+            write.WriteLine(strCmdText9); // command executes in elevated command prompt
+
+            write.WriteLine("exit()"); //exit
+
+            newProcess.WaitForExit();
+
+
+            return true;
+
+        }
+
+        private void MfReadResult(int queuepk)
+        {
+
+
+
+
+            DirectoryInfo freshdir = new DirectoryInfo(Properties.Settings.Default.mf_temp_folder);
+
+
+            //update queue info
+            DateTime now = DateTime.Now;
+            var client = new RestClient(Properties.Settings.Default.hostip);
+
+            client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
+
+            var request = new RestRequest("/msfraggerqueue/" + queuepk + "/", Method.PUT);
+            client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
+
+            request.AddHeader("cache-control", "no-cache");
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "multipart/form-data");
+            request.Parameters.Clear();
+
+            request.AddParameter("run_status", true);
+            request.AddParameter("precurosr_id", CountLinesLINQ(freshdir.FullName + @"\ion.tsv") - 1);
+            request.AddParameter("psm_id", CountLinesLINQ(freshdir.FullName + @"\psm.tsv") - 1);
+            request.AddParameter("peptide_id", CountLinesLINQ(freshdir.FullName + @"\peptide.tsv") - 1);
+            request.AddParameter("protein_id", CountLinesLINQ(freshdir.FullName + @"\protein.tsv") - 1);
+            request.AddParameter("finished_time", now.ToString("yyyy-MM-dd hh:mm:ss"));
+            request.AddFile("peptide_file", freshdir.FullName + @"\peptide.tsv");
+            request.AddFile("protein_file", freshdir.FullName + @"\protein.tsv");
+            request.AddFile("ion_file", freshdir.FullName + @"\ion.tsv");
+            request.AddFile("psm_file", freshdir.FullName + @"\psm.tsv");
+
+            var response = client.Execute(request);
+
+
+
+
+
+
+        }
+
+        private void mf_temp_button_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog openfolderDialog1 = new FolderBrowserDialog();
+
+
+            if (openfolderDialog1.ShowDialog() == DialogResult.OK)
+            {
+                mf_temp_folder.Text = openfolderDialog1.SelectedPath;
+            }
+
+        }
+
+        private void philosopher_button_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Browse Philosopher.exe Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "exe",
+                Filter = "exe files (*.exe)|*.exe|All files (*.*)|*.*",
+                RestoreDirectory = true,
+
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                philosopher_location.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void msfragger_file_button_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Browse MSFragger-x.x.jar Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "jar",
+                Filter = "jar files (*.jar)|*.jar|All files (*.*)|*.*",
+                RestoreDirectory = true,
+
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                msfragger_file_location.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Browse Msfragger x.params Files",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "params",
+                Filter = "params files (*.params)|*.params|All files (*.*)|*.*",
+                RestoreDirectory = true,
+
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                mf_param_location.Text = openFileDialog1.FileName;
+            }
+        }
+    }
 
 
 
@@ -1136,14 +1607,14 @@ namespace Proteomics_Data_Processor
 
                        // download processing_method and consensus_method
 
-                       webClient.DownloadFile(this.PdQueue.First().processing_method, folderlocation + "\\1.pdProcessingWF");
+                       webClient.DownloadFile(this.PdQueue.Last().processing_method, folderlocation + "\\1.pdProcessingWF");
 
-                       webClient.DownloadFile(this.PdQueue.First().consensus_method, folderlocation + "\\1.pdConsensusWF");
+                       webClient.DownloadFile(this.PdQueue.Last().consensus_method, folderlocation + "\\1.pdConsensusWF");
 
 
                        // down all the raw files file 
 
-                       List<int> rawlist = this.PdQueue.First().rawfile;
+                       List<int> rawlist = this.PdQueue.Last().rawfile;
                        foreach (int number in rawlist)
                        {
                            var request = new RestRequest(number + "/", Method.GET);
@@ -1162,9 +1633,9 @@ namespace Proteomics_Data_Processor
 
                        }
                        string run_name;
-                       if (this.PdQueue.First().analysis_name != "" && this.PdQueue.First() is not null)
+                       if (this.PdQueue.Last().analysis_name != "" && this.PdQueue.Last() is not null)
                        {
-                           run_name = this.PdQueue.First().analysis_name;
+                           run_name = this.PdQueue.Last().analysis_name;
                            run_name = run_name.Replace(" ", "_");
 
                        }
@@ -1173,7 +1644,7 @@ namespace Proteomics_Data_Processor
                            run_name = "result";
 
                        }
-                       return (this.PdQueue.First().pk, run_name, this.PdQueue.First().keep_result, rawlist);
+                       return (this.PdQueue.Last().pk, run_name, this.PdQueue.Last().keep_result, rawlist);
 
                    }
                }
@@ -1253,11 +1724,11 @@ namespace Proteomics_Data_Processor
                     /*down the mqpar.xml file*/
                     WebClient webClient = new WebClient();
 
-                    webClient.DownloadFile(this.MaxquantQueue.First().setting_xml, folderlocation + "\\mqpar.xml");
+                    webClient.DownloadFile(this.MaxquantQueue.Last().setting_xml, folderlocation + "\\mqpar.xml");
 
                     /*down all the raw files file*/
 
-                    List<int> rawlist = this.MaxquantQueue.First().rawfile;
+                    List<int> rawlist = this.MaxquantQueue.Last().rawfile;
                     foreach (int number in rawlist)
                     {
                         var request = new RestRequest(number + "/", Method.GET);
@@ -1278,10 +1749,76 @@ namespace Proteomics_Data_Processor
                     }
 
 
-                    return this.MaxquantQueue.First().pk;
+                    return this.MaxquantQueue.Last().pk;
 
                 }
     }
+
+    public (int, int) GetCurrentJobmf(string hostip, string folderlocation) // check if there is a pending run
+                                                                   // download xml and raw files
+    {
+
+
+
+        var client = new RestClient(hostip);
+
+        client.Authenticator = new HttpBasicAuthenticator(Proteomics_Data_Processor.Properties.Settings.Default.system_user, Proteomics_Data_Processor.Properties.Settings.Default.system_pwd);
+
+        if (this.MaxquantQueue.Count == 0)
+        { return (0,0); }
+
+        else
+        {
+
+
+            Proteomics_Data_Processor.Proteomics_Data_Processor.CleanFolder(folderlocation);
+
+            WebClient webClient = new WebClient();
+
+
+            /*down all the raw files file*/
+
+            List<int> rawlist = this.MaxquantQueue.Last().rawfile;
+            int last_rawnumber=0;
+            foreach (int number in rawlist)
+            {
+                var request = new RestRequest(number + "/", Method.GET);
+
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                //request.AddHeader("Content-Type", "multipart/form-data");
+                request.Parameters.Clear();
+
+                var response = client.Execute(request);
+
+
+                RawfileRecord rawurl = JsonConvert.DeserializeObject<RawfileRecord>(response.Content);
+
+
+                webClient.DownloadFile(rawurl.get_url(), folderlocation + "\\" + number + ".raw");
+                last_rawnumber = number;
+
+            }
+
+
+            return (this.MaxquantQueue.Last().pk, last_rawnumber);
+
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

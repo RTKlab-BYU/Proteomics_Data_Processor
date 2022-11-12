@@ -154,5 +154,65 @@ namespace Proteomics_Data_Processor.Properties {
                 this["mq_exe_location"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mf_workernumber {
+            get {
+                return ((string)(this["mf_workernumber"]));
+            }
+            set {
+                this["mf_workernumber"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mf_temp_folder {
+            get {
+                return ((string)(this["mf_temp_folder"]));
+            }
+            set {
+                this["mf_temp_folder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string philosopher_location {
+            get {
+                return ((string)(this["philosopher_location"]));
+            }
+            set {
+                this["philosopher_location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string msfragger_file_location {
+            get {
+                return ((string)(this["msfragger_file_location"]));
+            }
+            set {
+                this["msfragger_file_location"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string mf_param_location {
+            get {
+                return ((string)(this["mf_param_location"]));
+            }
+            set {
+                this["mf_param_location"] = value;
+            }
+        }
     }
 }
