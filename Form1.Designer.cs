@@ -45,10 +45,11 @@ namespace Proteomics_Data_Processor
             this.label26 = new System.Windows.Forms.Label();
             this.version_number = new System.Windows.Forms.Label();
             this.custom = new System.Windows.Forms.TabPage();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.button3 = new System.Windows.Forms.Button();
             this.pd = new System.Windows.Forms.TabPage();
             this.process_temp_folder = new System.Windows.Forms.TextBox();
-            this.pd_temp_button = new System.Windows.Forms.Button();
+            this.temp_button = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.mainsettings = new System.Windows.Forms.TabPage();
             this.process_thread_autostart = new System.Windows.Forms.CheckBox();
@@ -65,12 +66,10 @@ namespace Proteomics_Data_Processor
             this.label28 = new System.Windows.Forms.Label();
             this.workder_number = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
-            this.process_name = new System.Windows.Forms.TextBox();
             this.workerip = new System.Windows.Forms.TextBox();
             this.workername = new System.Windows.Forms.TextBox();
             this.hostip = new System.Windows.Forms.TextBox();
             this.system_username = new System.Windows.Forms.TextBox();
-            this.label27 = new System.Windows.Forms.Label();
             this.start_with_windows = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -79,6 +78,7 @@ namespace Proteomics_Data_Processor
             this.label11 = new System.Windows.Forms.Label();
             this.system_pwd = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.custom.SuspendLayout();
             this.pd.SuspendLayout();
@@ -151,6 +151,8 @@ namespace Proteomics_Data_Processor
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem1});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -174,6 +176,7 @@ namespace Proteomics_Data_Processor
             // 
             // custom
             // 
+            this.custom.Controls.Add(this.richTextBox1);
             this.custom.Controls.Add(this.button3);
             this.custom.Location = new System.Drawing.Point(4, 24);
             this.custom.Name = "custom";
@@ -183,9 +186,17 @@ namespace Proteomics_Data_Processor
             this.custom.Text = "Processing Script";
             this.custom.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(3, 223);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(376, 357);
+            this.richTextBox1.TabIndex = 1;
+            this.richTextBox1.Text = "";
+            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(172, 437);
+            this.button3.Location = new System.Drawing.Point(47, 636);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 0;
@@ -195,7 +206,7 @@ namespace Proteomics_Data_Processor
             // pd
             // 
             this.pd.Controls.Add(this.process_temp_folder);
-            this.pd.Controls.Add(this.pd_temp_button);
+            this.pd.Controls.Add(this.temp_button);
             this.pd.Controls.Add(this.label14);
             this.pd.Location = new System.Drawing.Point(4, 24);
             this.pd.Name = "pd";
@@ -207,25 +218,25 @@ namespace Proteomics_Data_Processor
             // 
             // process_temp_folder
             // 
-            this.process_temp_folder.Location = new System.Drawing.Point(8, 180);
+            this.process_temp_folder.Location = new System.Drawing.Point(8, 81);
             this.process_temp_folder.Name = "process_temp_folder";
             this.process_temp_folder.Size = new System.Drawing.Size(353, 23);
             this.process_temp_folder.TabIndex = 14;
             // 
-            // pd_temp_button
+            // temp_button
             // 
-            this.pd_temp_button.Location = new System.Drawing.Point(113, 141);
-            this.pd_temp_button.Name = "pd_temp_button";
-            this.pd_temp_button.Size = new System.Drawing.Size(75, 33);
-            this.pd_temp_button.TabIndex = 20;
-            this.pd_temp_button.Text = "Broswer";
-            this.pd_temp_button.UseVisualStyleBackColor = true;
-            this.pd_temp_button.Click += new System.EventHandler(this.pd_temp_button_Click);
+            this.temp_button.Location = new System.Drawing.Point(135, 27);
+            this.temp_button.Name = "temp_button";
+            this.temp_button.Size = new System.Drawing.Size(75, 33);
+            this.temp_button.TabIndex = 20;
+            this.temp_button.Text = "Broswer";
+            this.temp_button.UseVisualStyleBackColor = true;
+            this.temp_button.Click += new System.EventHandler(this.temp_button_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(8, 154);
+            this.label14.Location = new System.Drawing.Point(8, 36);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(96, 15);
             this.label14.TabIndex = 3;
@@ -247,12 +258,10 @@ namespace Proteomics_Data_Processor
             this.mainsettings.Controls.Add(this.label28);
             this.mainsettings.Controls.Add(this.workder_number);
             this.mainsettings.Controls.Add(this.label17);
-            this.mainsettings.Controls.Add(this.process_name);
             this.mainsettings.Controls.Add(this.workerip);
             this.mainsettings.Controls.Add(this.workername);
             this.mainsettings.Controls.Add(this.hostip);
             this.mainsettings.Controls.Add(this.system_username);
-            this.mainsettings.Controls.Add(this.label27);
             this.mainsettings.Controls.Add(this.start_with_windows);
             this.mainsettings.Controls.Add(this.label2);
             this.mainsettings.Controls.Add(this.label3);
@@ -271,7 +280,7 @@ namespace Proteomics_Data_Processor
             // process_thread_autostart
             // 
             this.process_thread_autostart.AutoSize = true;
-            this.process_thread_autostart.Location = new System.Drawing.Point(13, 574);
+            this.process_thread_autostart.Location = new System.Drawing.Point(3, 574);
             this.process_thread_autostart.Name = "process_thread_autostart";
             this.process_thread_autostart.Size = new System.Drawing.Size(290, 19);
             this.process_thread_autostart.TabIndex = 42;
@@ -289,30 +298,33 @@ namespace Proteomics_Data_Processor
             // 
             // lblElapsed
             // 
-            this.lblElapsed.Location = new System.Drawing.Point(80, 413);
+            this.lblElapsed.Location = new System.Drawing.Point(92, 447);
             this.lblElapsed.Name = "lblElapsed";
             this.lblElapsed.ReadOnly = true;
-            this.lblElapsed.Size = new System.Drawing.Size(287, 23);
+            this.lblElapsed.Size = new System.Drawing.Size(276, 23);
             this.lblElapsed.TabIndex = 40;
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(90, 333);
+            this.textBox3.Location = new System.Drawing.Point(91, 411);
             this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(277, 23);
             this.textBox3.TabIndex = 39;
             // 
             // last_check
             // 
-            this.last_check.Location = new System.Drawing.Point(127, 492);
+            this.last_check.Enabled = false;
+            this.last_check.Location = new System.Drawing.Point(92, 499);
             this.last_check.Name = "last_check";
-            this.last_check.Size = new System.Drawing.Size(262, 23);
+            this.last_check.ReadOnly = true;
+            this.last_check.Size = new System.Drawing.Size(275, 23);
             this.last_check.TabIndex = 41;
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(8, 336);
+            this.label15.Location = new System.Drawing.Point(3, 414);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(82, 15);
             this.label15.TabIndex = 36;
@@ -321,11 +333,11 @@ namespace Proteomics_Data_Processor
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 495);
+            this.label5.Location = new System.Drawing.Point(3, 499);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(105, 15);
+            this.label5.Size = new System.Drawing.Size(67, 15);
             this.label5.TabIndex = 34;
-            this.label5.Text = "Last Queue Check:";
+            this.label5.Text = "Last Check:";
             // 
             // Manual_stop
             // 
@@ -339,7 +351,7 @@ namespace Proteomics_Data_Processor
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 416);
+            this.label13.Location = new System.Drawing.Point(3, 455);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(40, 15);
             this.label13.TabIndex = 35;
@@ -348,25 +360,25 @@ namespace Proteomics_Data_Processor
             // process_app_selector
             // 
             this.process_app_selector.FormattingEnabled = true;
-            this.process_app_selector.Location = new System.Drawing.Point(90, 220);
+            this.process_app_selector.Location = new System.Drawing.Point(90, 271);
             this.process_app_selector.Name = "process_app_selector";
             this.process_app_selector.Size = new System.Drawing.Size(277, 23);
             this.process_app_selector.TabIndex = 33;
             // 
             // Check_server
             // 
-            this.Check_server.Location = new System.Drawing.Point(135, 181);
+            this.Check_server.Location = new System.Drawing.Point(146, 232);
             this.Check_server.Name = "Check_server";
-            this.Check_server.Size = new System.Drawing.Size(100, 33);
+            this.Check_server.Size = new System.Drawing.Size(195, 33);
             this.Check_server.TabIndex = 32;
-            this.Check_server.Text = "Check Server";
+            this.Check_server.Text = "Pull list from Server";
             this.Check_server.UseVisualStyleBackColor = true;
             this.Check_server.Click += new System.EventHandler(this.Check_server_Click_1);
             // 
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(14, 190);
+            this.label28.Location = new System.Drawing.Point(3, 241);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(115, 15);
             this.label28.TabIndex = 31;
@@ -374,68 +386,52 @@ namespace Proteomics_Data_Processor
             // 
             // workder_number
             // 
-            this.workder_number.Location = new System.Drawing.Point(135, 150);
+            this.workder_number.Location = new System.Drawing.Point(155, 195);
             this.workder_number.Name = "workder_number";
-            this.workder_number.Size = new System.Drawing.Size(120, 23);
+            this.workder_number.Size = new System.Drawing.Size(100, 23);
             this.workder_number.TabIndex = 30;
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(16, 152);
+            this.label17.Location = new System.Drawing.Point(3, 203);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(58, 15);
             this.label17.TabIndex = 29;
             this.label17.Text = "Worker #:";
             // 
-            // process_name
-            // 
-            this.process_name.Location = new System.Drawing.Point(90, 263);
-            this.process_name.Name = "process_name";
-            this.process_name.Size = new System.Drawing.Size(277, 23);
-            this.process_name.TabIndex = 28;
-            // 
             // workerip
             // 
-            this.workerip.Location = new System.Drawing.Point(90, 368);
+            this.workerip.Location = new System.Drawing.Point(90, 360);
             this.workerip.Name = "workerip";
             this.workerip.Size = new System.Drawing.Size(277, 23);
             this.workerip.TabIndex = 17;
             // 
             // workername
             // 
-            this.workername.Location = new System.Drawing.Point(90, 304);
+            this.workername.Location = new System.Drawing.Point(91, 325);
             this.workername.Name = "workername";
             this.workername.Size = new System.Drawing.Size(277, 23);
             this.workername.TabIndex = 16;
             // 
             // hostip
             // 
-            this.hostip.Location = new System.Drawing.Point(135, 23);
+            this.hostip.Location = new System.Drawing.Point(124, 65);
             this.hostip.Name = "hostip";
-            this.hostip.Size = new System.Drawing.Size(232, 23);
+            this.hostip.Size = new System.Drawing.Size(243, 23);
             this.hostip.TabIndex = 13;
             // 
             // system_username
             // 
-            this.system_username.Location = new System.Drawing.Point(135, 68);
+            this.system_username.Location = new System.Drawing.Point(92, 111);
             this.system_username.Name = "system_username";
-            this.system_username.Size = new System.Drawing.Size(232, 23);
+            this.system_username.Size = new System.Drawing.Size(275, 23);
             this.system_username.TabIndex = 0;
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(3, 228);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(82, 15);
-            this.label27.TabIndex = 27;
-            this.label27.Text = "Process Name";
             // 
             // start_with_windows
             // 
             this.start_with_windows.AutoSize = true;
-            this.start_with_windows.Location = new System.Drawing.Point(10, 549);
+            this.start_with_windows.Location = new System.Drawing.Point(3, 549);
             this.start_with_windows.Name = "start_with_windows";
             this.start_with_windows.Size = new System.Drawing.Size(177, 19);
             this.start_with_windows.TabIndex = 26;
@@ -446,7 +442,7 @@ namespace Proteomics_Data_Processor
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 307);
+            this.label2.Location = new System.Drawing.Point(3, 328);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 15);
             this.label2.TabIndex = 14;
@@ -455,7 +451,7 @@ namespace Proteomics_Data_Processor
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 371);
+            this.label3.Location = new System.Drawing.Point(3, 368);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 15);
             this.label3.TabIndex = 15;
@@ -464,7 +460,7 @@ namespace Proteomics_Data_Processor
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 23);
+            this.label1.Location = new System.Drawing.Point(3, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 15);
             this.label1.TabIndex = 12;
@@ -473,7 +469,7 @@ namespace Proteomics_Data_Processor
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(17, 112);
+            this.label12.Location = new System.Drawing.Point(3, 161);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(57, 15);
             this.label12.TabIndex = 1;
@@ -482,17 +478,17 @@ namespace Proteomics_Data_Processor
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 68);
+            this.label11.Location = new System.Drawing.Point(3, 114);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 15);
+            this.label11.Size = new System.Drawing.Size(59, 15);
             this.label11.TabIndex = 1;
-            this.label11.Text = "System username";
+            this.label11.Text = "username";
             // 
             // system_pwd
             // 
-            this.system_pwd.Location = new System.Drawing.Point(135, 109);
+            this.system_pwd.Location = new System.Drawing.Point(92, 158);
             this.system_pwd.Name = "system_pwd";
-            this.system_pwd.Size = new System.Drawing.Size(232, 23);
+            this.system_pwd.Size = new System.Drawing.Size(275, 23);
             this.system_pwd.TabIndex = 0;
             this.system_pwd.UseSystemPasswordChar = true;
             // 
@@ -507,6 +503,12 @@ namespace Proteomics_Data_Processor
             this.tabControl.Size = new System.Drawing.Size(393, 710);
             this.tabControl.TabIndex = 25;
             // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.helpToolStripMenuItem1.Text = "Help";
+            // 
             // Proteomics_Data_Processor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -519,7 +521,7 @@ namespace Proteomics_Data_Processor
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Proteomics_Data_Processor";
-            this.Text = "Proteomics_Data_Processor V 0.1";
+            this.Text = "Proteomics_Data_Processor V1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.custom.ResumeLayout(false);
@@ -553,15 +555,13 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TabPage pd;
         private System.Windows.Forms.TextBox process_temp_folder;
-        private System.Windows.Forms.Button pd_temp_button;
+        private System.Windows.Forms.Button temp_button;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage mainsettings;
-        private System.Windows.Forms.TextBox process_name;
         private System.Windows.Forms.TextBox workerip;
         private System.Windows.Forms.TextBox workername;
         private System.Windows.Forms.TextBox hostip;
         private System.Windows.Forms.TextBox system_username;
-        private System.Windows.Forms.Label label27;
         private System.Windows.Forms.CheckBox start_with_windows;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -584,6 +584,8 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.NumericUpDown workder_number;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
     }
 }
 

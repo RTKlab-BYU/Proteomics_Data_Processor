@@ -38,12 +38,12 @@ namespace Proteomics_Data_Processor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public string pd_workernumber {
+        public string workernumber {
             get {
-                return ((string)(this["pd_workernumber"]));
+                return ((string)(this["workernumber"]));
             }
             set {
-                this["pd_workernumber"] = value;
+                this["workernumber"] = value;
             }
         }
         
@@ -74,24 +74,24 @@ namespace Proteomics_Data_Processor.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string pd_temp_folder {
+        public string temp_folder {
             get {
-                return ((string)(this["pd_temp_folder"]));
+                return ((string)(this["temp_folder"]));
             }
             set {
-                this["pd_temp_folder"] = value;
+                this["temp_folder"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string pd_batch_file {
+        public string batch_file {
             get {
-                return ((string)(this["pd_batch_file"]));
+                return ((string)(this["batch_file"]));
             }
             set {
-                this["pd_batch_file"] = value;
+                this["batch_file"] = value;
             }
         }
         
@@ -116,102 +116,6 @@ namespace Proteomics_Data_Processor.Properties {
             }
             set {
                 this["system_pwd"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
-        public string mq_workernumber {
-            get {
-                return ((string)(this["mq_workernumber"]));
-            }
-            set {
-                this["mq_workernumber"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string mq_temp_folder {
-            get {
-                return ((string)(this["mq_temp_folder"]));
-            }
-            set {
-                this["mq_temp_folder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string mq_exe_location {
-            get {
-                return ((string)(this["mq_exe_location"]));
-            }
-            set {
-                this["mq_exe_location"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string mf_workernumber {
-            get {
-                return ((string)(this["mf_workernumber"]));
-            }
-            set {
-                this["mf_workernumber"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string mf_temp_folder {
-            get {
-                return ((string)(this["mf_temp_folder"]));
-            }
-            set {
-                this["mf_temp_folder"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string philosopher_location {
-            get {
-                return ((string)(this["philosopher_location"]));
-            }
-            set {
-                this["philosopher_location"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string msfragger_file_location {
-            get {
-                return ((string)(this["msfragger_file_location"]));
-            }
-            set {
-                this["msfragger_file_location"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string mf_param_location {
-            get {
-                return ((string)(this["mf_param_location"]));
-            }
-            set {
-                this["mf_param_location"] = value;
             }
         }
         
