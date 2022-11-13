@@ -30,85 +30,9 @@ namespace Proteomics_Data_Processor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Proteomics_Data_Processor));
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.mq_workerstatus = new System.Windows.Forms.TextBox();
-            this.mq_lastupdate = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.mq_workernumber = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.mq_exe_location = new System.Windows.Forms.TextBox();
-            this.mq_temp_select = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tmrClock = new System.Windows.Forms.Timer(this.components);
-            this.mq_lblElapsed = new System.Windows.Forms.TextBox();
             this.output = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.mq_temp_folder = new System.Windows.Forms.TextBox();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.mainsettings = new System.Windows.Forms.TabPage();
-            this.start_with_windows = new System.Windows.Forms.CheckBox();
-            this.workerip = new System.Windows.Forms.TextBox();
-            this.workername = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.hostip = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.system_pwd = new System.Windows.Forms.TextBox();
-            this.system_username = new System.Windows.Forms.TextBox();
-            this.pd = new System.Windows.Forms.TabPage();
-            this.pd_thread_autostart = new System.Windows.Forms.CheckBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
-            this.pd_temp_folder = new System.Windows.Forms.TextBox();
-            this.pd_lblElapsed = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.pd_temp_button = new System.Windows.Forms.Button();
-            this.pd_workder_number = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.pd_last_check = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.maxquant = new System.Windows.Forms.TabPage();
-            this.mq_start = new System.Windows.Forms.Button();
-            this.mq_stop = new System.Windows.Forms.Button();
-            this.mq_autostart = new System.Windows.Forms.CheckBox();
-            this.mq_exe_select = new System.Windows.Forms.Button();
-            this.msfragger = new System.Windows.Forms.TabPage();
-            this.label25 = new System.Windows.Forms.Label();
-            this.mf_param_location = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.mf_start = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.mf_stop = new System.Windows.Forms.Button();
-            this.mf_temp_folder = new System.Windows.Forms.TextBox();
-            this.msfragger_file_location = new System.Windows.Forms.TextBox();
-            this.philosopher_location = new System.Windows.Forms.TextBox();
-            this.mf_autostart = new System.Windows.Forms.CheckBox();
-            this.mf_workerstatus = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.mf_lblElapsed = new System.Windows.Forms.TextBox();
-            this.mf_workernumber = new System.Windows.Forms.ComboBox();
-            this.mf_temp_button = new System.Windows.Forms.Button();
-            this.msfragger_file_button = new System.Windows.Forms.Button();
-            this.label20 = new System.Windows.Forms.Label();
-            this.philosopher_button = new System.Windows.Forms.Button();
-            this.mf_lastupdate = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.custom = new System.Windows.Forms.TabPage();
-            this.pd_batch_file = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.pd_batch_button = new System.Windows.Forms.Button();
-            this.remote = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadingSettingsFromToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,118 +41,55 @@ namespace Proteomics_Data_Processor
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.mq_tmrClock = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.mf_tmrClock = new System.Windows.Forms.Timer(this.components);
             this.label26 = new System.Windows.Forms.Label();
             this.version_number = new System.Windows.Forms.Label();
-            this.tabControl.SuspendLayout();
-            this.mainsettings.SuspendLayout();
-            this.pd.SuspendLayout();
-            this.maxquant.SuspendLayout();
-            this.msfragger.SuspendLayout();
-            this.custom.SuspendLayout();
+            this.custom = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.pd = new System.Windows.Forms.TabPage();
+            this.process_temp_folder = new System.Windows.Forms.TextBox();
+            this.pd_temp_button = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.mainsettings = new System.Windows.Forms.TabPage();
+            this.process_thread_autostart = new System.Windows.Forms.CheckBox();
+            this.Manual_start = new System.Windows.Forms.Button();
+            this.lblElapsed = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.last_check = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.Manual_stop = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.process_app_selector = new System.Windows.Forms.ComboBox();
+            this.Check_server = new System.Windows.Forms.Button();
+            this.label28 = new System.Windows.Forms.Label();
+            this.workder_number = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.process_name = new System.Windows.Forms.TextBox();
+            this.workerip = new System.Windows.Forms.TextBox();
+            this.workername = new System.Windows.Forms.TextBox();
+            this.hostip = new System.Windows.Forms.TextBox();
+            this.system_username = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.start_with_windows = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.system_pwd = new System.Windows.Forms.TextBox();
+            this.tabControl = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
+            this.custom.SuspendLayout();
+            this.pd.SuspendLayout();
+            this.mainsettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.workder_number)).BeginInit();
+            this.tabControl.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 393);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 15);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Last Queue Check:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 317);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 15);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Timer:";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(4, 258);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(82, 15);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Worker status:";
-            // 
-            // mq_workerstatus
-            // 
-            this.mq_workerstatus.Location = new System.Drawing.Point(94, 255);
-            this.mq_workerstatus.Name = "mq_workerstatus";
-            this.mq_workerstatus.Size = new System.Drawing.Size(275, 23);
-            this.mq_workerstatus.TabIndex = 15;
-            // 
-            // mq_lastupdate
-            // 
-            this.mq_lastupdate.Location = new System.Drawing.Point(120, 390);
-            this.mq_lastupdate.Name = "mq_lastupdate";
-            this.mq_lastupdate.Size = new System.Drawing.Size(262, 23);
-            this.mq_lastupdate.TabIndex = 16;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 27);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 15);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Worker #:";
-            // 
-            // mq_workernumber
-            // 
-            this.mq_workernumber.FormattingEnabled = true;
-            this.mq_workernumber.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.mq_workernumber.Location = new System.Drawing.Point(73, 24);
-            this.mq_workernumber.Name = "mq_workernumber";
-            this.mq_workernumber.Size = new System.Drawing.Size(121, 23);
-            this.mq_workernumber.TabIndex = 19;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(15, 89);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(96, 15);
-            this.label10.TabIndex = 3;
-            this.label10.Text = "Temp save folder";
-            // 
-            // mq_exe_location
-            // 
-            this.mq_exe_location.Location = new System.Drawing.Point(16, 192);
-            this.mq_exe_location.Name = "mq_exe_location";
-            this.mq_exe_location.Size = new System.Drawing.Size(353, 23);
-            this.mq_exe_location.TabIndex = 14;
-            // 
-            // mq_temp_select
-            // 
-            this.mq_temp_select.Location = new System.Drawing.Point(120, 76);
-            this.mq_temp_select.Name = "mq_temp_select";
-            this.mq_temp_select.Size = new System.Drawing.Size(75, 33);
-            this.mq_temp_select.TabIndex = 20;
-            this.mq_temp_select.Text = "Broswer";
-            this.mq_temp_select.UseVisualStyleBackColor = true;
-            this.mq_temp_select.Click += new System.EventHandler(this.button1_Click);
             // 
             // tmrClock
             // 
             this.tmrClock.Tick += new System.EventHandler(this.tmrClock_Tick);
-            // 
-            // mq_lblElapsed
-            // 
-            this.mq_lblElapsed.Location = new System.Drawing.Point(73, 314);
-            this.mq_lblElapsed.Name = "mq_lblElapsed";
-            this.mq_lblElapsed.ReadOnly = true;
-            this.mq_lblElapsed.Size = new System.Drawing.Size(287, 23);
-            this.mq_lblElapsed.TabIndex = 16;
             // 
             // output
             // 
@@ -239,655 +100,6 @@ namespace Proteomics_Data_Processor
             this.output.Size = new System.Drawing.Size(390, 696);
             this.output.TabIndex = 10;
             this.output.Text = "";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 164);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(128, 15);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Maxquant.exe location";
-            // 
-            // mq_temp_folder
-            // 
-            this.mq_temp_folder.Location = new System.Drawing.Point(16, 115);
-            this.mq_temp_folder.Name = "mq_temp_folder";
-            this.mq_temp_folder.Size = new System.Drawing.Size(353, 23);
-            this.mq_temp_folder.TabIndex = 11;
-            // 
-            // tabControl
-            // 
-            this.tabControl.Controls.Add(this.mainsettings);
-            this.tabControl.Controls.Add(this.pd);
-            this.tabControl.Controls.Add(this.maxquant);
-            this.tabControl.Controls.Add(this.msfragger);
-            this.tabControl.Controls.Add(this.custom);
-            this.tabControl.Controls.Add(this.remote);
-            this.tabControl.Location = new System.Drawing.Point(0, 41);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(393, 710);
-            this.tabControl.TabIndex = 25;
-            // 
-            // mainsettings
-            // 
-            this.mainsettings.Controls.Add(this.start_with_windows);
-            this.mainsettings.Controls.Add(this.workerip);
-            this.mainsettings.Controls.Add(this.workername);
-            this.mainsettings.Controls.Add(this.label2);
-            this.mainsettings.Controls.Add(this.label3);
-            this.mainsettings.Controls.Add(this.label1);
-            this.mainsettings.Controls.Add(this.hostip);
-            this.mainsettings.Controls.Add(this.label12);
-            this.mainsettings.Controls.Add(this.label11);
-            this.mainsettings.Controls.Add(this.system_pwd);
-            this.mainsettings.Controls.Add(this.system_username);
-            this.mainsettings.Location = new System.Drawing.Point(4, 24);
-            this.mainsettings.Name = "mainsettings";
-            this.mainsettings.Padding = new System.Windows.Forms.Padding(3);
-            this.mainsettings.Size = new System.Drawing.Size(385, 682);
-            this.mainsettings.TabIndex = 0;
-            this.mainsettings.Text = "Main Settings";
-            this.mainsettings.UseVisualStyleBackColor = true;
-            // 
-            // start_with_windows
-            // 
-            this.start_with_windows.AutoSize = true;
-            this.start_with_windows.Location = new System.Drawing.Point(19, 442);
-            this.start_with_windows.Name = "start_with_windows";
-            this.start_with_windows.Size = new System.Drawing.Size(177, 19);
-            this.start_with_windows.TabIndex = 26;
-            this.start_with_windows.Text = "Start app with Windows start";
-            this.start_with_windows.UseVisualStyleBackColor = true;
-            this.start_with_windows.CheckedChanged += new System.EventHandler(this.start_with_windows_CheckedChanged);
-            // 
-            // workerip
-            // 
-            this.workerip.Location = new System.Drawing.Point(87, 325);
-            this.workerip.Name = "workerip";
-            this.workerip.Size = new System.Drawing.Size(269, 23);
-            this.workerip.TabIndex = 17;
-            // 
-            // workername
-            // 
-            this.workername.Location = new System.Drawing.Point(90, 284);
-            this.workername.Name = "workername";
-            this.workername.Size = new System.Drawing.Size(266, 23);
-            this.workername.TabIndex = 16;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 287);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 15);
-            this.label2.TabIndex = 14;
-            this.label2.Text = "Woker Name:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(11, 328);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 15);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Worker IP:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 112);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(115, 15);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Server IP/Hostname:";
-            // 
-            // hostip
-            // 
-            this.hostip.Location = new System.Drawing.Point(124, 109);
-            this.hostip.Name = "hostip";
-            this.hostip.Size = new System.Drawing.Size(232, 23);
-            this.hostip.TabIndex = 13;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(8, 212);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(57, 15);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "Password";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(8, 168);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 15);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "System username";
-            // 
-            // system_pwd
-            // 
-            this.system_pwd.Location = new System.Drawing.Point(114, 209);
-            this.system_pwd.Name = "system_pwd";
-            this.system_pwd.Size = new System.Drawing.Size(100, 23);
-            this.system_pwd.TabIndex = 0;
-            this.system_pwd.UseSystemPasswordChar = true;
-            // 
-            // system_username
-            // 
-            this.system_username.Location = new System.Drawing.Point(114, 165);
-            this.system_username.Name = "system_username";
-            this.system_username.Size = new System.Drawing.Size(100, 23);
-            this.system_username.TabIndex = 0;
-            // 
-            // pd
-            // 
-            this.pd.Controls.Add(this.pd_thread_autostart);
-            this.pd.Controls.Add(this.label17);
-            this.pd.Controls.Add(this.button5);
-            this.pd.Controls.Add(this.pd_temp_folder);
-            this.pd.Controls.Add(this.pd_lblElapsed);
-            this.pd.Controls.Add(this.textBox3);
-            this.pd.Controls.Add(this.label15);
-            this.pd.Controls.Add(this.pd_temp_button);
-            this.pd.Controls.Add(this.pd_workder_number);
-            this.pd.Controls.Add(this.label5);
-            this.pd.Controls.Add(this.label14);
-            this.pd.Controls.Add(this.button2);
-            this.pd.Controls.Add(this.pd_last_check);
-            this.pd.Controls.Add(this.label13);
-            this.pd.Location = new System.Drawing.Point(4, 24);
-            this.pd.Name = "pd";
-            this.pd.Padding = new System.Windows.Forms.Padding(3);
-            this.pd.Size = new System.Drawing.Size(385, 682);
-            this.pd.TabIndex = 3;
-            this.pd.Text = "PD";
-            this.pd.UseVisualStyleBackColor = true;
-            // 
-            // pd_thread_autostart
-            // 
-            this.pd_thread_autostart.AutoSize = true;
-            this.pd_thread_autostart.Location = new System.Drawing.Point(19, 420);
-            this.pd_thread_autostart.Name = "pd_thread_autostart";
-            this.pd_thread_autostart.Size = new System.Drawing.Size(290, 19);
-            this.pd_thread_autostart.TabIndex = 25;
-            this.pd_thread_autostart.Text = "Start process when app starts (save this to Default)";
-            this.pd_thread_autostart.UseVisualStyleBackColor = true;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(58, 15);
-            this.label17.TabIndex = 2;
-            this.label17.Text = "Worker #:";
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(36, 540);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(92, 30);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Start";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.Start_Click);
-            // 
-            // pd_temp_folder
-            // 
-            this.pd_temp_folder.Location = new System.Drawing.Point(19, 101);
-            this.pd_temp_folder.Name = "pd_temp_folder";
-            this.pd_temp_folder.Size = new System.Drawing.Size(353, 23);
-            this.pd_temp_folder.TabIndex = 14;
-            // 
-            // pd_lblElapsed
-            // 
-            this.pd_lblElapsed.Location = new System.Drawing.Point(67, 229);
-            this.pd_lblElapsed.Name = "pd_lblElapsed";
-            this.pd_lblElapsed.ReadOnly = true;
-            this.pd_lblElapsed.Size = new System.Drawing.Size(287, 23);
-            this.pd_lblElapsed.TabIndex = 16;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(97, 163);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(275, 23);
-            this.textBox3.TabIndex = 15;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 166);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(82, 15);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "Worker status:";
-            // 
-            // pd_temp_button
-            // 
-            this.pd_temp_button.Location = new System.Drawing.Point(124, 62);
-            this.pd_temp_button.Name = "pd_temp_button";
-            this.pd_temp_button.Size = new System.Drawing.Size(75, 33);
-            this.pd_temp_button.TabIndex = 20;
-            this.pd_temp_button.Text = "Broswer";
-            this.pd_temp_button.UseVisualStyleBackColor = true;
-            this.pd_temp_button.Click += new System.EventHandler(this.pd_temp_button_Click);
-            // 
-            // pd_workder_number
-            // 
-            this.pd_workder_number.FormattingEnabled = true;
-            this.pd_workder_number.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.pd_workder_number.Location = new System.Drawing.Point(83, 19);
-            this.pd_workder_number.Name = "pd_workder_number";
-            this.pd_workder_number.Size = new System.Drawing.Size(121, 23);
-            this.pd_workder_number.TabIndex = 19;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 300);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(105, 15);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Last Queue Check:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(19, 75);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(96, 15);
-            this.label14.TabIndex = 3;
-            this.label14.Text = "Temp save folder";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(226, 535);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(115, 35);
-            this.button2.TabIndex = 8;
-            this.button2.Text = "Stop";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.stop_Click);
-            // 
-            // pd_last_check
-            // 
-            this.pd_last_check.Location = new System.Drawing.Point(117, 297);
-            this.pd_last_check.Name = "pd_last_check";
-            this.pd_last_check.Size = new System.Drawing.Size(262, 23);
-            this.pd_last_check.TabIndex = 16;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 232);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(40, 15);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "Timer:";
-            // 
-            // maxquant
-            // 
-            this.maxquant.Controls.Add(this.mq_start);
-            this.maxquant.Controls.Add(this.mq_stop);
-            this.maxquant.Controls.Add(this.mq_autostart);
-            this.maxquant.Controls.Add(this.mq_lblElapsed);
-            this.maxquant.Controls.Add(this.mq_exe_select);
-            this.maxquant.Controls.Add(this.mq_temp_select);
-            this.maxquant.Controls.Add(this.mq_lastupdate);
-            this.maxquant.Controls.Add(this.mq_workernumber);
-            this.maxquant.Controls.Add(this.mq_workerstatus);
-            this.maxquant.Controls.Add(this.mq_exe_location);
-            this.maxquant.Controls.Add(this.label9);
-            this.maxquant.Controls.Add(this.mq_temp_folder);
-            this.maxquant.Controls.Add(this.label4);
-            this.maxquant.Controls.Add(this.label8);
-            this.maxquant.Controls.Add(this.label10);
-            this.maxquant.Controls.Add(this.label7);
-            this.maxquant.Controls.Add(this.label6);
-            this.maxquant.Location = new System.Drawing.Point(4, 24);
-            this.maxquant.Name = "maxquant";
-            this.maxquant.Padding = new System.Windows.Forms.Padding(3);
-            this.maxquant.Size = new System.Drawing.Size(385, 682);
-            this.maxquant.TabIndex = 1;
-            this.maxquant.Text = "Maxquant";
-            this.maxquant.UseVisualStyleBackColor = true;
-            // 
-            // mq_start
-            // 
-            this.mq_start.Location = new System.Drawing.Point(34, 531);
-            this.mq_start.Name = "mq_start";
-            this.mq_start.Size = new System.Drawing.Size(92, 30);
-            this.mq_start.TabIndex = 26;
-            this.mq_start.Text = "Start";
-            this.mq_start.UseVisualStyleBackColor = true;
-            this.mq_start.Click += new System.EventHandler(this.mq_start_Click_1);
-            // 
-            // mq_stop
-            // 
-            this.mq_stop.Location = new System.Drawing.Point(224, 526);
-            this.mq_stop.Name = "mq_stop";
-            this.mq_stop.Size = new System.Drawing.Size(115, 35);
-            this.mq_stop.TabIndex = 27;
-            this.mq_stop.Text = "Stop";
-            this.mq_stop.UseVisualStyleBackColor = true;
-            this.mq_stop.Click += new System.EventHandler(this.mq_stop_Click_1);
-            // 
-            // mq_autostart
-            // 
-            this.mq_autostart.AutoSize = true;
-            this.mq_autostart.Location = new System.Drawing.Point(17, 459);
-            this.mq_autostart.Name = "mq_autostart";
-            this.mq_autostart.Size = new System.Drawing.Size(164, 19);
-            this.mq_autostart.TabIndex = 25;
-            this.mq_autostart.Text = "Auto start when app starts";
-            this.mq_autostart.UseVisualStyleBackColor = true;
-            // 
-            // mq_exe_select
-            // 
-            this.mq_exe_select.Location = new System.Drawing.Point(151, 155);
-            this.mq_exe_select.Margin = new System.Windows.Forms.Padding(2);
-            this.mq_exe_select.Name = "mq_exe_select";
-            this.mq_exe_select.Size = new System.Drawing.Size(50, 32);
-            this.mq_exe_select.TabIndex = 21;
-            this.mq_exe_select.Text = "File";
-            this.mq_exe_select.UseVisualStyleBackColor = true;
-            this.mq_exe_select.Click += new System.EventHandler(this.find_file_Click);
-            // 
-            // msfragger
-            // 
-            this.msfragger.Controls.Add(this.label25);
-            this.msfragger.Controls.Add(this.mf_param_location);
-            this.msfragger.Controls.Add(this.button1);
-            this.msfragger.Controls.Add(this.mf_start);
-            this.msfragger.Controls.Add(this.label24);
-            this.msfragger.Controls.Add(this.label22);
-            this.msfragger.Controls.Add(this.label23);
-            this.msfragger.Controls.Add(this.mf_stop);
-            this.msfragger.Controls.Add(this.mf_temp_folder);
-            this.msfragger.Controls.Add(this.msfragger_file_location);
-            this.msfragger.Controls.Add(this.philosopher_location);
-            this.msfragger.Controls.Add(this.mf_autostart);
-            this.msfragger.Controls.Add(this.mf_workerstatus);
-            this.msfragger.Controls.Add(this.label21);
-            this.msfragger.Controls.Add(this.mf_lblElapsed);
-            this.msfragger.Controls.Add(this.mf_workernumber);
-            this.msfragger.Controls.Add(this.mf_temp_button);
-            this.msfragger.Controls.Add(this.msfragger_file_button);
-            this.msfragger.Controls.Add(this.label20);
-            this.msfragger.Controls.Add(this.philosopher_button);
-            this.msfragger.Controls.Add(this.mf_lastupdate);
-            this.msfragger.Controls.Add(this.label18);
-            this.msfragger.Controls.Add(this.label19);
-            this.msfragger.Location = new System.Drawing.Point(4, 24);
-            this.msfragger.Name = "msfragger";
-            this.msfragger.Padding = new System.Windows.Forms.Padding(3);
-            this.msfragger.Size = new System.Drawing.Size(385, 682);
-            this.msfragger.TabIndex = 2;
-            this.msfragger.Text = "Msfragger";
-            this.msfragger.UseVisualStyleBackColor = true;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(19, 332);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(175, 15);
-            this.label25.TabIndex = 28;
-            this.label25.Text = "MSFragger parameters  location";
-            // 
-            // mf_param_location
-            // 
-            this.mf_param_location.Location = new System.Drawing.Point(20, 360);
-            this.mf_param_location.Name = "mf_param_location";
-            this.mf_param_location.Size = new System.Drawing.Size(353, 23);
-            this.mf_param_location.TabIndex = 29;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(199, 323);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 32);
-            this.button1.TabIndex = 30;
-            this.button1.Text = "File";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
-            // 
-            // mf_start
-            // 
-            this.mf_start.Location = new System.Drawing.Point(38, 620);
-            this.mf_start.Name = "mf_start";
-            this.mf_start.Size = new System.Drawing.Size(92, 30);
-            this.mf_start.TabIndex = 26;
-            this.mf_start.Text = "Start";
-            this.mf_start.UseVisualStyleBackColor = true;
-            this.mf_start.Click += new System.EventHandler(this.mf_start_Click_1);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(18, 253);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(126, 15);
-            this.label24.TabIndex = 0;
-            this.label24.Text = "MSFragger jar location";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(19, 176);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(116, 15);
-            this.label22.TabIndex = 0;
-            this.label22.Text = "Philosopher location";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(13, 39);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(58, 15);
-            this.label23.TabIndex = 2;
-            this.label23.Text = "Worker #:";
-            // 
-            // mf_stop
-            // 
-            this.mf_stop.Location = new System.Drawing.Point(228, 615);
-            this.mf_stop.Name = "mf_stop";
-            this.mf_stop.Size = new System.Drawing.Size(115, 35);
-            this.mf_stop.TabIndex = 27;
-            this.mf_stop.Text = "Stop";
-            this.mf_stop.UseVisualStyleBackColor = true;
-            this.mf_stop.Click += new System.EventHandler(this.mf_stop_Click_1);
-            // 
-            // mf_temp_folder
-            // 
-            this.mf_temp_folder.Location = new System.Drawing.Point(20, 127);
-            this.mf_temp_folder.Name = "mf_temp_folder";
-            this.mf_temp_folder.Size = new System.Drawing.Size(353, 23);
-            this.mf_temp_folder.TabIndex = 11;
-            // 
-            // msfragger_file_location
-            // 
-            this.msfragger_file_location.Location = new System.Drawing.Point(19, 281);
-            this.msfragger_file_location.Name = "msfragger_file_location";
-            this.msfragger_file_location.Size = new System.Drawing.Size(353, 23);
-            this.msfragger_file_location.TabIndex = 14;
-            // 
-            // philosopher_location
-            // 
-            this.philosopher_location.Location = new System.Drawing.Point(20, 204);
-            this.philosopher_location.Name = "philosopher_location";
-            this.philosopher_location.Size = new System.Drawing.Size(353, 23);
-            this.philosopher_location.TabIndex = 14;
-            // 
-            // mf_autostart
-            // 
-            this.mf_autostart.AutoSize = true;
-            this.mf_autostart.Location = new System.Drawing.Point(21, 548);
-            this.mf_autostart.Name = "mf_autostart";
-            this.mf_autostart.Size = new System.Drawing.Size(164, 19);
-            this.mf_autostart.TabIndex = 25;
-            this.mf_autostart.Text = "Auto start when app starts";
-            this.mf_autostart.UseVisualStyleBackColor = true;
-            // 
-            // mf_workerstatus
-            // 
-            this.mf_workerstatus.Location = new System.Drawing.Point(104, 408);
-            this.mf_workerstatus.Name = "mf_workerstatus";
-            this.mf_workerstatus.Size = new System.Drawing.Size(275, 23);
-            this.mf_workerstatus.TabIndex = 15;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(14, 411);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(82, 15);
-            this.label21.TabIndex = 7;
-            this.label21.Text = "Worker status:";
-            // 
-            // mf_lblElapsed
-            // 
-            this.mf_lblElapsed.Location = new System.Drawing.Point(77, 456);
-            this.mf_lblElapsed.Name = "mf_lblElapsed";
-            this.mf_lblElapsed.ReadOnly = true;
-            this.mf_lblElapsed.Size = new System.Drawing.Size(287, 23);
-            this.mf_lblElapsed.TabIndex = 16;
-            this.mf_lblElapsed.TextChanged += new System.EventHandler(this.mf_timer_TextChanged);
-            // 
-            // mf_workernumber
-            // 
-            this.mf_workernumber.FormattingEnabled = true;
-            this.mf_workernumber.Items.AddRange(new object[] {
-            "1",
-            "2"});
-            this.mf_workernumber.Location = new System.Drawing.Point(77, 36);
-            this.mf_workernumber.Name = "mf_workernumber";
-            this.mf_workernumber.Size = new System.Drawing.Size(121, 23);
-            this.mf_workernumber.TabIndex = 19;
-            // 
-            // mf_temp_button
-            // 
-            this.mf_temp_button.Location = new System.Drawing.Point(124, 88);
-            this.mf_temp_button.Name = "mf_temp_button";
-            this.mf_temp_button.Size = new System.Drawing.Size(75, 33);
-            this.mf_temp_button.TabIndex = 20;
-            this.mf_temp_button.Text = "Broswer";
-            this.mf_temp_button.UseVisualStyleBackColor = true;
-            this.mf_temp_button.Click += new System.EventHandler(this.mf_temp_button_Click);
-            // 
-            // msfragger_file_button
-            // 
-            this.msfragger_file_button.Location = new System.Drawing.Point(154, 244);
-            this.msfragger_file_button.Margin = new System.Windows.Forms.Padding(2);
-            this.msfragger_file_button.Name = "msfragger_file_button";
-            this.msfragger_file_button.Size = new System.Drawing.Size(50, 32);
-            this.msfragger_file_button.TabIndex = 21;
-            this.msfragger_file_button.Text = "File";
-            this.msfragger_file_button.UseVisualStyleBackColor = true;
-            this.msfragger_file_button.Click += new System.EventHandler(this.msfragger_file_button_Click);
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(19, 101);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(96, 15);
-            this.label20.TabIndex = 3;
-            this.label20.Text = "Temp save folder";
-            // 
-            // philosopher_button
-            // 
-            this.philosopher_button.Location = new System.Drawing.Point(155, 167);
-            this.philosopher_button.Margin = new System.Windows.Forms.Padding(2);
-            this.philosopher_button.Name = "philosopher_button";
-            this.philosopher_button.Size = new System.Drawing.Size(50, 32);
-            this.philosopher_button.TabIndex = 21;
-            this.philosopher_button.Text = "File";
-            this.philosopher_button.UseVisualStyleBackColor = true;
-            this.philosopher_button.Click += new System.EventHandler(this.philosopher_button_Click);
-            // 
-            // mf_lastupdate
-            // 
-            this.mf_lastupdate.Location = new System.Drawing.Point(117, 499);
-            this.mf_lastupdate.Name = "mf_lastupdate";
-            this.mf_lastupdate.Size = new System.Drawing.Size(262, 23);
-            this.mf_lastupdate.TabIndex = 16;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(9, 502);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(105, 15);
-            this.label18.TabIndex = 5;
-            this.label18.Text = "Last Queue Check:";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(21, 459);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(40, 15);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "Timer:";
-            // 
-            // custom
-            // 
-            this.custom.Controls.Add(this.pd_batch_file);
-            this.custom.Controls.Add(this.label16);
-            this.custom.Controls.Add(this.pd_batch_button);
-            this.custom.Location = new System.Drawing.Point(4, 24);
-            this.custom.Name = "custom";
-            this.custom.Padding = new System.Windows.Forms.Padding(3);
-            this.custom.Size = new System.Drawing.Size(385, 682);
-            this.custom.TabIndex = 4;
-            this.custom.Text = "Custom";
-            this.custom.UseVisualStyleBackColor = true;
-            // 
-            // pd_batch_file
-            // 
-            this.pd_batch_file.Location = new System.Drawing.Point(17, 348);
-            this.pd_batch_file.Name = "pd_batch_file";
-            this.pd_batch_file.Size = new System.Drawing.Size(353, 23);
-            this.pd_batch_file.TabIndex = 23;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(15, 320);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(58, 15);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Batch File";
-            // 
-            // pd_batch_button
-            // 
-            this.pd_batch_button.Location = new System.Drawing.Point(94, 311);
-            this.pd_batch_button.Margin = new System.Windows.Forms.Padding(2);
-            this.pd_batch_button.Name = "pd_batch_button";
-            this.pd_batch_button.Size = new System.Drawing.Size(50, 32);
-            this.pd_batch_button.TabIndex = 24;
-            this.pd_batch_button.Text = "File";
-            this.pd_batch_button.UseVisualStyleBackColor = true;
-            // 
-            // remote
-            // 
-            this.remote.Location = new System.Drawing.Point(4, 24);
-            this.remote.Name = "remote";
-            this.remote.Padding = new System.Windows.Forms.Padding(3);
-            this.remote.Size = new System.Drawing.Size(385, 682);
-            this.remote.TabIndex = 5;
-            this.remote.Text = "Remote";
-            this.remote.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -943,14 +155,6 @@ namespace Proteomics_Data_Processor
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // mq_tmrClock
-            // 
-            this.mq_tmrClock.Tick += new System.EventHandler(this.mq_tmrClock_Tick);
-            // 
-            // mf_tmrClock
-            // 
-            this.mf_tmrClock.Tick += new System.EventHandler(this.mf_tmrClock_Tick);
-            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -968,6 +172,341 @@ namespace Proteomics_Data_Processor
             this.version_number.Size = new System.Drawing.Size(0, 15);
             this.version_number.TabIndex = 27;
             // 
+            // custom
+            // 
+            this.custom.Controls.Add(this.button3);
+            this.custom.Location = new System.Drawing.Point(4, 24);
+            this.custom.Name = "custom";
+            this.custom.Padding = new System.Windows.Forms.Padding(3);
+            this.custom.Size = new System.Drawing.Size(385, 682);
+            this.custom.TabIndex = 4;
+            this.custom.Text = "Processing Script";
+            this.custom.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(172, 437);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 0;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // pd
+            // 
+            this.pd.Controls.Add(this.process_temp_folder);
+            this.pd.Controls.Add(this.pd_temp_button);
+            this.pd.Controls.Add(this.label14);
+            this.pd.Location = new System.Drawing.Point(4, 24);
+            this.pd.Name = "pd";
+            this.pd.Padding = new System.Windows.Forms.Padding(3);
+            this.pd.Size = new System.Drawing.Size(385, 682);
+            this.pd.TabIndex = 3;
+            this.pd.Text = "Input_output";
+            this.pd.UseVisualStyleBackColor = true;
+            // 
+            // process_temp_folder
+            // 
+            this.process_temp_folder.Location = new System.Drawing.Point(8, 180);
+            this.process_temp_folder.Name = "process_temp_folder";
+            this.process_temp_folder.Size = new System.Drawing.Size(353, 23);
+            this.process_temp_folder.TabIndex = 14;
+            // 
+            // pd_temp_button
+            // 
+            this.pd_temp_button.Location = new System.Drawing.Point(113, 141);
+            this.pd_temp_button.Name = "pd_temp_button";
+            this.pd_temp_button.Size = new System.Drawing.Size(75, 33);
+            this.pd_temp_button.TabIndex = 20;
+            this.pd_temp_button.Text = "Broswer";
+            this.pd_temp_button.UseVisualStyleBackColor = true;
+            this.pd_temp_button.Click += new System.EventHandler(this.pd_temp_button_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(8, 154);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(96, 15);
+            this.label14.TabIndex = 3;
+            this.label14.Text = "Temp save folder";
+            // 
+            // mainsettings
+            // 
+            this.mainsettings.Controls.Add(this.process_thread_autostart);
+            this.mainsettings.Controls.Add(this.Manual_start);
+            this.mainsettings.Controls.Add(this.lblElapsed);
+            this.mainsettings.Controls.Add(this.textBox3);
+            this.mainsettings.Controls.Add(this.last_check);
+            this.mainsettings.Controls.Add(this.label15);
+            this.mainsettings.Controls.Add(this.label5);
+            this.mainsettings.Controls.Add(this.Manual_stop);
+            this.mainsettings.Controls.Add(this.label13);
+            this.mainsettings.Controls.Add(this.process_app_selector);
+            this.mainsettings.Controls.Add(this.Check_server);
+            this.mainsettings.Controls.Add(this.label28);
+            this.mainsettings.Controls.Add(this.workder_number);
+            this.mainsettings.Controls.Add(this.label17);
+            this.mainsettings.Controls.Add(this.process_name);
+            this.mainsettings.Controls.Add(this.workerip);
+            this.mainsettings.Controls.Add(this.workername);
+            this.mainsettings.Controls.Add(this.hostip);
+            this.mainsettings.Controls.Add(this.system_username);
+            this.mainsettings.Controls.Add(this.label27);
+            this.mainsettings.Controls.Add(this.start_with_windows);
+            this.mainsettings.Controls.Add(this.label2);
+            this.mainsettings.Controls.Add(this.label3);
+            this.mainsettings.Controls.Add(this.label1);
+            this.mainsettings.Controls.Add(this.label12);
+            this.mainsettings.Controls.Add(this.label11);
+            this.mainsettings.Controls.Add(this.system_pwd);
+            this.mainsettings.Location = new System.Drawing.Point(4, 24);
+            this.mainsettings.Name = "mainsettings";
+            this.mainsettings.Padding = new System.Windows.Forms.Padding(3);
+            this.mainsettings.Size = new System.Drawing.Size(385, 682);
+            this.mainsettings.TabIndex = 0;
+            this.mainsettings.Text = "Main Settings";
+            this.mainsettings.UseVisualStyleBackColor = true;
+            // 
+            // process_thread_autostart
+            // 
+            this.process_thread_autostart.AutoSize = true;
+            this.process_thread_autostart.Location = new System.Drawing.Point(13, 574);
+            this.process_thread_autostart.Name = "process_thread_autostart";
+            this.process_thread_autostart.Size = new System.Drawing.Size(290, 19);
+            this.process_thread_autostart.TabIndex = 42;
+            this.process_thread_autostart.Text = "Start process when app starts (save this to Default)";
+            this.process_thread_autostart.UseVisualStyleBackColor = true;
+            // 
+            // Manual_start
+            // 
+            this.Manual_start.Location = new System.Drawing.Point(17, 626);
+            this.Manual_start.Name = "Manual_start";
+            this.Manual_start.Size = new System.Drawing.Size(92, 30);
+            this.Manual_start.TabIndex = 37;
+            this.Manual_start.Text = "Start";
+            this.Manual_start.UseVisualStyleBackColor = true;
+            // 
+            // lblElapsed
+            // 
+            this.lblElapsed.Location = new System.Drawing.Point(80, 413);
+            this.lblElapsed.Name = "lblElapsed";
+            this.lblElapsed.ReadOnly = true;
+            this.lblElapsed.Size = new System.Drawing.Size(287, 23);
+            this.lblElapsed.TabIndex = 40;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(90, 333);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(277, 23);
+            this.textBox3.TabIndex = 39;
+            // 
+            // last_check
+            // 
+            this.last_check.Location = new System.Drawing.Point(127, 492);
+            this.last_check.Name = "last_check";
+            this.last_check.Size = new System.Drawing.Size(262, 23);
+            this.last_check.TabIndex = 41;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 336);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(82, 15);
+            this.label15.TabIndex = 36;
+            this.label15.Text = "Worker status:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(16, 495);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(105, 15);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "Last Queue Check:";
+            // 
+            // Manual_stop
+            // 
+            this.Manual_stop.Location = new System.Drawing.Point(188, 624);
+            this.Manual_stop.Name = "Manual_stop";
+            this.Manual_stop.Size = new System.Drawing.Size(115, 35);
+            this.Manual_stop.TabIndex = 38;
+            this.Manual_stop.Text = "Stop";
+            this.Manual_stop.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(15, 416);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(40, 15);
+            this.label13.TabIndex = 35;
+            this.label13.Text = "Timer:";
+            // 
+            // process_app_selector
+            // 
+            this.process_app_selector.FormattingEnabled = true;
+            this.process_app_selector.Location = new System.Drawing.Point(90, 220);
+            this.process_app_selector.Name = "process_app_selector";
+            this.process_app_selector.Size = new System.Drawing.Size(277, 23);
+            this.process_app_selector.TabIndex = 33;
+            // 
+            // Check_server
+            // 
+            this.Check_server.Location = new System.Drawing.Point(135, 181);
+            this.Check_server.Name = "Check_server";
+            this.Check_server.Size = new System.Drawing.Size(100, 33);
+            this.Check_server.TabIndex = 32;
+            this.Check_server.Text = "Check Server";
+            this.Check_server.UseVisualStyleBackColor = true;
+            this.Check_server.Click += new System.EventHandler(this.Check_server_Click_1);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(14, 190);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(115, 15);
+            this.label28.TabIndex = 31;
+            this.label28.Text = "Choose Process App";
+            // 
+            // workder_number
+            // 
+            this.workder_number.Location = new System.Drawing.Point(135, 150);
+            this.workder_number.Name = "workder_number";
+            this.workder_number.Size = new System.Drawing.Size(120, 23);
+            this.workder_number.TabIndex = 30;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(16, 152);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(58, 15);
+            this.label17.TabIndex = 29;
+            this.label17.Text = "Worker #:";
+            // 
+            // process_name
+            // 
+            this.process_name.Location = new System.Drawing.Point(90, 263);
+            this.process_name.Name = "process_name";
+            this.process_name.Size = new System.Drawing.Size(277, 23);
+            this.process_name.TabIndex = 28;
+            // 
+            // workerip
+            // 
+            this.workerip.Location = new System.Drawing.Point(90, 368);
+            this.workerip.Name = "workerip";
+            this.workerip.Size = new System.Drawing.Size(277, 23);
+            this.workerip.TabIndex = 17;
+            // 
+            // workername
+            // 
+            this.workername.Location = new System.Drawing.Point(90, 304);
+            this.workername.Name = "workername";
+            this.workername.Size = new System.Drawing.Size(277, 23);
+            this.workername.TabIndex = 16;
+            // 
+            // hostip
+            // 
+            this.hostip.Location = new System.Drawing.Point(135, 23);
+            this.hostip.Name = "hostip";
+            this.hostip.Size = new System.Drawing.Size(232, 23);
+            this.hostip.TabIndex = 13;
+            // 
+            // system_username
+            // 
+            this.system_username.Location = new System.Drawing.Point(135, 68);
+            this.system_username.Name = "system_username";
+            this.system_username.Size = new System.Drawing.Size(232, 23);
+            this.system_username.TabIndex = 0;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(3, 228);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(82, 15);
+            this.label27.TabIndex = 27;
+            this.label27.Text = "Process Name";
+            // 
+            // start_with_windows
+            // 
+            this.start_with_windows.AutoSize = true;
+            this.start_with_windows.Location = new System.Drawing.Point(10, 549);
+            this.start_with_windows.Name = "start_with_windows";
+            this.start_with_windows.Size = new System.Drawing.Size(177, 19);
+            this.start_with_windows.TabIndex = 26;
+            this.start_with_windows.Text = "Start app with Windows start";
+            this.start_with_windows.UseVisualStyleBackColor = true;
+            this.start_with_windows.CheckedChanged += new System.EventHandler(this.start_with_windows_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(5, 307);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(79, 15);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Woker Name:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(13, 371);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(61, 15);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Worker IP:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(115, 15);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Server IP/Hostname:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(17, 112);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(57, 15);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "Password";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(8, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(100, 15);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "System username";
+            // 
+            // system_pwd
+            // 
+            this.system_pwd.Location = new System.Drawing.Point(135, 109);
+            this.system_pwd.Name = "system_pwd";
+            this.system_pwd.Size = new System.Drawing.Size(232, 23);
+            this.system_pwd.TabIndex = 0;
+            this.system_pwd.UseSystemPasswordChar = true;
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.mainsettings);
+            this.tabControl.Controls.Add(this.pd);
+            this.tabControl.Controls.Add(this.custom);
+            this.tabControl.Location = new System.Drawing.Point(0, 41);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(393, 710);
+            this.tabControl.TabIndex = 25;
+            // 
             // Proteomics_Data_Processor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -978,120 +517,73 @@ namespace Proteomics_Data_Processor
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.output);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Proteomics_Data_Processor";
             this.Text = "Proteomics_Data_Processor V 0.1";
-            this.tabControl.ResumeLayout(false);
-            this.mainsettings.ResumeLayout(false);
-            this.mainsettings.PerformLayout();
-            this.pd.ResumeLayout(false);
-            this.pd.PerformLayout();
-            this.maxquant.ResumeLayout(false);
-            this.maxquant.PerformLayout();
-            this.msfragger.ResumeLayout(false);
-            this.msfragger.PerformLayout();
-            this.custom.ResumeLayout(false);
-            this.custom.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.custom.ResumeLayout(false);
+            this.pd.ResumeLayout(false);
+            this.pd.PerformLayout();
+            this.mainsettings.ResumeLayout(false);
+            this.mainsettings.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.workder_number)).EndInit();
+            this.tabControl.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox mq_workerstatus;
-        private System.Windows.Forms.TextBox mq_lastupdate;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.ComboBox mq_workernumber;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox mq_exe_location;
-        private System.Windows.Forms.Button mq_temp_select;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.Timer tmrClock;
-        private System.Windows.Forms.TextBox mq_lblElapsed;
         private System.Windows.Forms.RichTextBox output;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox mq_temp_folder;
-        private System.Windows.Forms.TabControl tabControl;
-        private System.Windows.Forms.TabPage mainsettings;
-        private System.Windows.Forms.TabPage maxquant;
-        private System.Windows.Forms.TabPage msfragger;
-        private System.Windows.Forms.TabPage pd;
-        private System.Windows.Forms.TabPage custom;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadingSettingsFromToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveSettingsToToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.TabPage remote;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox system_pwd;
-        private System.Windows.Forms.TextBox system_username;
-        private System.Windows.Forms.CheckBox mq_autostart;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label version_number;
+        private System.Windows.Forms.TabPage custom;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.TabPage pd;
+        private System.Windows.Forms.TextBox process_temp_folder;
+        private System.Windows.Forms.Button pd_temp_button;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TabPage mainsettings;
+        private System.Windows.Forms.TextBox process_name;
         private System.Windows.Forms.TextBox workerip;
         private System.Windows.Forms.TextBox workername;
+        private System.Windows.Forms.TextBox hostip;
+        private System.Windows.Forms.TextBox system_username;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.CheckBox start_with_windows;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox hostip;
-        private System.Windows.Forms.Button mq_exe_select;
-        private System.Windows.Forms.CheckBox pd_thread_autostart;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.TextBox pd_temp_folder;
-        private System.Windows.Forms.TextBox pd_lblElapsed;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox system_pwd;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.CheckBox process_thread_autostart;
+        private System.Windows.Forms.Button Manual_start;
+        private System.Windows.Forms.TextBox lblElapsed;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox last_check;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Button pd_temp_button;
-        private System.Windows.Forms.ComboBox pd_workder_number;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox pd_last_check;
+        private System.Windows.Forms.Button Manual_stop;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox pd_batch_file;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button pd_batch_button;
-        private System.Windows.Forms.CheckBox start_with_windows;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Button mq_start;
-        private System.Windows.Forms.Button mq_stop;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Timer mq_tmrClock;
-        private System.Windows.Forms.Button mf_start;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Button mf_stop;
-        private System.Windows.Forms.TextBox mf_temp_folder;
-        private System.Windows.Forms.TextBox philosopher_location;
-        private System.Windows.Forms.CheckBox mf_autostart;
-        private System.Windows.Forms.TextBox mf_workerstatus;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox mf_lblElapsed;
-        private System.Windows.Forms.ComboBox mf_workernumber;
-        private System.Windows.Forms.Button mf_temp_button;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Button philosopher_button;
-        private System.Windows.Forms.TextBox mf_lastupdate;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Timer mf_tmrClock;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.TextBox mf_param_location;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.TextBox msfragger_file_location;
-        private System.Windows.Forms.Button msfragger_file_button;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label version_number;
+        private System.Windows.Forms.ComboBox process_app_selector;
+        private System.Windows.Forms.Button Check_server;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.NumericUpDown workder_number;
+        private System.Windows.Forms.Label label17;
     }
 }
 

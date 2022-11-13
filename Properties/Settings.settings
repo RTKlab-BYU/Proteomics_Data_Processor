@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="hostip" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://10.37.240.41/files/api/</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="pd_workernumber" Type="System.String" Scope="User">
       <Value Profile="(Default)">0</Value>
@@ -48,6 +48,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="mf_param_location" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="process_setting" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
