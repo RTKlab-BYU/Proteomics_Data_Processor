@@ -94,7 +94,7 @@ namespace Proteomics_Data_Processor
             Properties.Settings.Default.system_user = system_username.Text;
             Properties.Settings.Default.system_pwd = system_pwd.Text;
             Properties.Settings.Default.workername = workername.Text;
-
+            Properties.Settings.Default.process_setting = process_app_selector.Text;
 
             Properties.Settings.Default.workernumber = workder_number.Text;
             Properties.Settings.Default.temp_folder = process_temp_folder.Text;
@@ -319,19 +319,19 @@ namespace Proteomics_Data_Processor
                 ProcessWorkerPing(); //Notify worker is online
                                 //check if there is pending work and download
 
-                List<int> rawfilelist;
+                List<string> rawfilelist;
                 int queuepk;
-                string analysis_name;
+                string intput_1, intput_2, intput_3, outpu_file;
                 bool keep_result;
-                (queuepk, analysis_name, keep_result, rawfilelist) = GetJobsPD();
+                (queuepk, rawfilelist, intput_1, intput_2, intput_3, outpu_file, keep_result) = GetJobs();
 
 
                 if (queuepk != 0)
                 {
                     process_backgroundWorker.ReportProgress(10, $" running Process queue {queuepk}");
                     ReportStart(queuepk);
-                    processStart(analysis_name, rawfilelist);
-                    ReadResult(queuepk, analysis_name, keep_result);
+                    processStart(rawfilelist, intput_1, intput_2, intput_3, outpu_file);
+                    ReadResult(queuepk, outpu_file, keep_result);
                     process_backgroundWorker.ReportProgress(99, $" finished running Process queue {queuepk}");
 
                 }
@@ -393,20 +393,7 @@ namespace Proteomics_Data_Processor
                 output.AppendText(Environment.NewLine + DateTime.Now + " Process was completed");
             }
         }
-        private void Start_Click(object sender, EventArgs e)
-        {
-            SaveSettings();
 
-            if (!Directory.Exists(process_temp_folder.Text))
-                Directory.CreateDirectory(process_temp_folder.Text);
-
-            if (!process_backgroundWorker.IsBusy)
-            {
-                process_backgroundWorker.RunWorkerAsync();
-                output.AppendText(Environment.NewLine + DateTime.Now + " Started Process Worker ");
-            }
-
-        }
 
 
 
@@ -438,16 +425,7 @@ namespace Proteomics_Data_Processor
 
 
 
-        private void stop_Click(object sender, EventArgs e)
-        {
-            //stop the thread.
-            //Check if background worker is doing anything and send a cancellation if it is
-            if (process_backgroundWorker.IsBusy)
-            {
-                process_backgroundWorker.CancelAsync();
-            }
-            output.AppendText(Environment.NewLine + DateTime.Now + " Worker stopped");
-        }
+
 
 
 
@@ -529,14 +507,13 @@ namespace Proteomics_Data_Processor
 
 
 
-
             //update queue info
             DateTime now = DateTime.Now;
             var client = new RestClient(Properties.Settings.Default.hostip);
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
 
-            var request = new RestRequest("/pdqueue/" + queuepk + "/", Method.Patch);
+            var request = new RestRequest("/DataAnalysisQueue/" + queuepk + "/", Method.Patch);
            // client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
 
             request.AddHeader("cache-control", "no-cache");
@@ -596,7 +573,7 @@ namespace Proteomics_Data_Processor
         }
 
 
-        private (int, string, bool, List<int>) GetJobsPD() //download all the pending queue query
+        private (int, List<string>,string,string,string,string, bool) GetJobs() //download all pending queue query
 
 
 
@@ -623,7 +600,7 @@ namespace Proteomics_Data_Processor
             }
             else
             {
-                return (0, null, false, null);
+                return (0,null,null,null,null,null,false);
             }
         }
 
@@ -631,79 +608,53 @@ namespace Proteomics_Data_Processor
 
 
 
-        private bool processStart(string analysis_name, List<int> rawfile)
+        private bool processStart(List<string> rawfile, string input_1, string input_2,string input_3, string output_File)
         {
 
 
-            string default_string = @"DiscovererDaemon.exe  -c custom 
-                                    - a custom E:\PD_temp\1689.raw - a custom E:\PD_temp\1699.raw 
-                                    - r E:\PD_temp\result.msf - b 
-                                    - e custom ANY E:\PD_temp\1.pdProcessingWF; E:\PD_temp\1.pdConsensusWF";
+            /*            string default_string = @"DiscovererDaemon.exe  -c custom 
+                                                - a custom E:\PD_temp\1689.raw - a custom E:\PD_temp\1699.raw 
+                                                - r E:\PD_temp\result.msf - b 
+                                                - e custom ANY E:\PD_temp\1.pdProcessingWF; E:\PD_temp\1.pdConsensusWF";
 
-            string template_string = @"DiscovererDaemon.exe  -c custom 
-                                    &&loop&& - a custom &&raw_file_name&& &&loop&&
-                                    - r &&output&& - b 
-                                    - e custom ANY &&input_1&&; &&input_2&&";
-            string input_1 = "intput1.process";
-            string input_2 = "intput2.process";
-            string output_File = "1.result";
-            string output = template_string.Replace("&&input_1&&", input_1);
-            output = output.Replace("&&input_2&&", input_2);
-            // output = output.Replace("&&input_3&&", "intput3.process");
-            output = output.Replace("&&output&&", output_File);
+                        string template_string = @"DiscovererDaemon.exe  -c custom 
+                                                &&loop&& - a custom &&raw_file_name&& &&loop&&
+                                                - r &&output&&.msf - b 
+                                                - e custom ANY &&input_1&&; &&input_2&&";*/
+
+
+            string template_string = script.Text;
+            string output = "";
+            if (input_1 != null)
+                output = template_string.Replace("&&input_1&&", input_1);
+            if (input_2 != null)
+                output = output.Replace("&&input_2&&", input_2);
+            if (input_3 != null)
+                output = output.Replace("&&input_3&&", input_3);
+            if (input_3 != null)
+                output = output.Replace("&&input_3&&", input_3);
+            if (output_File != null)
+                output = output.Replace("&&output&&", output_File);
             List<string> stringList = output.Split("&&loop&&").ToList();
             string loop_string = stringList[1];
             string new_lopp = "";
-            List<string> stringList2 = new List<string>() { "1.raw", "2.raw", "3.raw" };
-            foreach (string filename in stringList2)
+            foreach (string filename in rawfile)
             {
                 new_lopp += loop_string.Replace("&&raw_file_name&&", filename);
 
             }
 
 
+            string strCmdText = stringList[0] + new_lopp + stringList[2];
 
 
-
-            MessageBox.Show(stringList[0] + new_lopp + stringList[2]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            string strCmdText;
-            //PD command example:  DiscovererDaemon.exe  -c custom - a custom "E:\PD_temp\1689.raw" - a custom "E:\PD_temp\1699.raw" - r "E:\PD_temp\result.msf" - b - e custom ANY "E:\PD_temp\1.pdProcessingWF"; "E:\PD_temp\1.pdConsensusWF"
-            strCmdText = "-c custom";
-            foreach (int number in rawfile) //adding raw files
-            {
-                strCmdText += " -a custom " + Properties.Settings.Default.temp_folder + "\\" + number + ".raw";
-            }
-            //adding result file name
-            strCmdText += " -r " + Properties.Settings.Default.temp_folder + "\\" + analysis_name + ".msf -b";
-
-            // adding process and pdConsensusWF 
-
-            strCmdText += " -e custom ANY " + Properties.Settings.Default.temp_folder + "\\1.pdProcessingWF;" + Properties.Settings.Default.temp_folder + "\\1.pdConsensusWF";
+            //e.g., PD command example:  DiscovererDaemon.exe  -c custom - a custom "E:\PD_temp\1689.raw" - a custom "E:\PD_temp\1699.raw" - r "E:\PD_temp\result.msf" - b - e custom ANY "E:\PD_temp\1.pdProcessingWF"; "E:\PD_temp\1.pdConsensusWF"
 
             var path = Properties.Settings.Default.temp_folder + "\\strCmdText.txt";
 
             File.WriteAllText(path, strCmdText);
 
-            System.Diagnostics.Process.Start("DiscovererDaemon.exe", strCmdText).WaitForExit();
+            System.Diagnostics.Process.Start(process_app_path.Text, strCmdText).WaitForExit();
             return true;
 
         }
@@ -740,6 +691,53 @@ namespace Proteomics_Data_Processor
             }
             if (process_app_selector.Items.Count != 0)
                 process_app_selector.SelectedIndex = 0;
+        }
+
+        private void Manual_start_Click(object sender, EventArgs e)
+        {
+            SaveSettings();
+
+            if (!Directory.Exists(process_temp_folder.Text))
+                Directory.CreateDirectory(process_temp_folder.Text);
+
+            if (!process_backgroundWorker.IsBusy)
+            {
+                process_backgroundWorker.RunWorkerAsync();
+                output.AppendText(Environment.NewLine + DateTime.Now + " Started Process Worker ");
+            }
+        }
+
+        private void Manual_stop_Click(object sender, EventArgs e)
+        {
+            //stop the thread.
+            //Check if background worker is doing anything and send a cancellation if it is
+            if (process_backgroundWorker.IsBusy)
+            {
+                process_backgroundWorker.CancelAsync();
+            }
+            output.AppendText(Environment.NewLine + DateTime.Now + " Worker stopped");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Browse process app File",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "exe",
+                Filter = "Processor app exe file (*.exe)|*.exe|All files (*.*)|*.*",
+                RestoreDirectory = true,
+
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                process_app_path.Text = openFileDialog1.FileName;
+
+
+            }
         }
     }
 
@@ -790,12 +788,9 @@ namespace Proteomics_Data_Processor
                [JsonProperty("results")]
                public List<ProcessQueue> ProcessQueue { get; set; }
 
-               public (int, string, bool, List<int>) GetCurrentJob(string hostip, string folderlocation) // check if there is a pending run
-                                                                                                         // download configuration and raw files
+               public (int, List<string>, string, string, string, string, bool) GetCurrentJob(string hostip, string folderlocation) // check if there is a pending run
+                                                                                                         // download inputs files and raw ms files
                {
-
-
-
 
 
                    var client = new RestClient(hostip);
@@ -806,7 +801,7 @@ namespace Proteomics_Data_Processor
 
 
                    if (this.ProcessQueue.Count == 0)
-                   { return (0, null, false, null); }
+                        return (0, null, null, null, null, null, false); 
 
                    else
                    {
@@ -816,20 +811,34 @@ namespace Proteomics_Data_Processor
 
                        WebClient webClient = new WebClient();
 
-            // download processing_method and consensus_method
+            // download input files
             String input_1 = Path.GetFileName(this.ProcessQueue.Last().input_file_1);
             String input_2 = Path.GetFileName(this.ProcessQueue.Last().input_file_2);
             String input_3 = Path.GetFileName(this.ProcessQueue.Last().input_file_3);
 
             if (input_1 != null)
-            webClient.DownloadFile(this.ProcessQueue.Last().input_file_1, folderlocation +"\\"+ input_1);
-            if (input_2 != null)
+            {
+                input_1 = folderlocation + "\\" + input_1;
+                webClient.DownloadFile(this.ProcessQueue.Last().input_file_1, input_1);
 
-            webClient.DownloadFile(this.ProcessQueue.Last().input_file_2, folderlocation + "\\" + input_2);
+
+            }
+            if (input_2 != null)
+            {
+                input_2 = folderlocation + "\\" + input_2;
+                webClient.DownloadFile(this.ProcessQueue.Last().input_file_2, input_2);
+            }
+
             if (input_3 != null)
-            webClient.DownloadFile(this.ProcessQueue.Last().input_file_3, folderlocation + "\\" + input_3);
+            {
+                input_3 = folderlocation + "\\" + input_3;
+
+                webClient.DownloadFile(this.ProcessQueue.Last().input_file_3, input_3);
+
+            }
 
             // down all the raw files file 
+            List<string> raw_fullpath = new List<string> { };
 
             List<int> rawlist = this.ProcessQueue.Last().rawfile;
                        foreach (int number in rawlist)
@@ -855,6 +864,7 @@ namespace Proteomics_Data_Processor
 
                            FileStorage file_storatge = JsonConvert.DeserializeObject<FileStorage>(response.Content);
                            string download_link = file_storatge.file_location;
+                           raw_fullpath.Add(folderlocation + "\\" + number + Path.GetExtension(download_link));
 
                            webClient.DownloadFile(download_link, folderlocation + "\\" + number + Path.GetExtension(download_link));
 
@@ -871,14 +881,10 @@ namespace Proteomics_Data_Processor
                            run_name = "result";
 
                        }
-                       return (this.ProcessQueue.Last().pk, run_name, this.ProcessQueue.Last().keep_full_output, rawlist);
+                       return (this.ProcessQueue.Last().pk, raw_fullpath,input_1, input_2, input_3, folderlocation + "\\"+run_name, this.ProcessQueue.Last().keep_full_output);
 
                    }
                }
-
-
-
-
 
 
 
