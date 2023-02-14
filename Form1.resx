@@ -72,6 +72,9 @@
   <metadata name="timer2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>255, 17</value>
   </metadata>
+  <data name="script_instructions.Text" xml:space="preserve">
+    <value>The script in the next input is used to run the process node after input files and MS files are downloaded. The following script would be run as a batch file or shell command. To facilitate different unique commands for different processing apps, the following symbols are used to represent input/output results:  &amp;&amp;output&amp;&amp; means output file; &amp;&amp;input_1&amp;&amp; means inputfile_1; &amp;&amp;input_2&amp;&amp; means inputfile_2, &amp;&amp;loop&amp;&amp;   &amp;&amp;raw_file_name&amp;&amp;   &amp;&amp;loop&amp;&amp; means loops through each individual raw_file_name/MS file name. the following command: "DiscovererDaemon.exe  -c custom  - a custom E:\PD_temp\1689.raw - a custom E:\PD_temp\1699.raw - r E:\PD_temp\result.msf - b  - e custom ANY E:\PD_temp\1.pdProcessingWF; E:\PD_temp\1.pdConsensusWF";   Would be represented by:  "DiscovererDaemon.exe  -c custom &amp;&amp;loop&amp;&amp; - a custom &amp;&amp;raw_file_name&amp;&amp; &amp;&amp;loop&amp;&amp;  - r &amp;&amp;output&amp;&amp;.msf -b  - e custom ANY &amp;&amp;input_1&amp;&amp; &amp;&amp;input_2&amp;&amp;"</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>96</value>
   </metadata>
