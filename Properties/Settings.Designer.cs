@@ -130,5 +130,17 @@ namespace Proteomics_Data_Processor.Properties {
                 this["process_setting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string script {
+            get {
+                return ((string)(this["script"]));
+            }
+            set {
+                this["script"] = value;
+            }
+        }
     }
 }
