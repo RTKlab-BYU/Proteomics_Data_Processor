@@ -47,9 +47,6 @@ namespace Proteomics_Data_Processor
             this.label26 = new System.Windows.Forms.Label();
             this.version_number = new System.Windows.Forms.Label();
             this.custom = new System.Windows.Forms.TabPage();
-            this.process_app_path = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label19 = new System.Windows.Forms.Label();
             this.script_instructions = new System.Windows.Forms.RichTextBox();
             this.script = new System.Windows.Forms.RichTextBox();
             this.reset_to_default = new System.Windows.Forms.Button();
@@ -62,10 +59,10 @@ namespace Proteomics_Data_Processor
             this.label16 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.result_file = new System.Windows.Forms.TextBox();
             this.output_3 = new System.Windows.Forms.TextBox();
             this.output_2 = new System.Windows.Forms.TextBox();
-            this.Output_1 = new System.Windows.Forms.TextBox();
+            this.output_1 = new System.Windows.Forms.TextBox();
             this.process_temp_folder = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.temp_button = new System.Windows.Forms.Button();
@@ -187,6 +184,7 @@ namespace Proteomics_Data_Processor
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
             this.helpToolStripMenuItem1.Text = "Help";
+            this.helpToolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem1_Click);
             // 
             // label26
             // 
@@ -207,9 +205,6 @@ namespace Proteomics_Data_Processor
             // 
             // custom
             // 
-            this.custom.Controls.Add(this.process_app_path);
-            this.custom.Controls.Add(this.button1);
-            this.custom.Controls.Add(this.label19);
             this.custom.Controls.Add(this.script_instructions);
             this.custom.Controls.Add(this.script);
             this.custom.Controls.Add(this.reset_to_default);
@@ -221,50 +216,26 @@ namespace Proteomics_Data_Processor
             this.custom.Text = "Processing Script";
             this.custom.UseVisualStyleBackColor = true;
             // 
-            // process_app_path
-            // 
-            this.process_app_path.Location = new System.Drawing.Point(6, 315);
-            this.process_app_path.Name = "process_app_path";
-            this.process_app_path.Size = new System.Drawing.Size(353, 23);
-            this.process_app_path.TabIndex = 22;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(281, 283);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 33);
-            this.button1.TabIndex = 23;
-            this.button1.Text = "Broswer";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(8, 292);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(267, 15);
-            this.label19.TabIndex = 21;
-            this.label19.Text = "process app path(e.g., D:\\DiscovererDaemon.exe)";
-            // 
             // script_instructions
             // 
             this.script_instructions.BackColor = System.Drawing.SystemColors.Info;
             this.script_instructions.Location = new System.Drawing.Point(3, 18);
             this.script_instructions.Name = "script_instructions";
             this.script_instructions.ReadOnly = true;
-            this.script_instructions.Size = new System.Drawing.Size(376, 252);
+            this.script_instructions.Size = new System.Drawing.Size(376, 75);
             this.script_instructions.TabIndex = 1;
-            this.script_instructions.Text = resources.GetString("script_instructions.Text");
+            this.script_instructions.Text = "Following command will be executed as a batch file， & can be used to connect mult" +
+    "iple commands, must start with /c and limited to 8192 characters. Check help/git" +
+    "hub wiki for detailed instructions ";
             // 
             // script
             // 
-            this.script.Location = new System.Drawing.Point(8, 362);
+            this.script.Location = new System.Drawing.Point(3, 116);
             this.script.Name = "script";
-            this.script.Size = new System.Drawing.Size(376, 250);
+            this.script.Size = new System.Drawing.Size(376, 496);
             this.script.TabIndex = 1;
-            this.script.Text = " -c custom &&loop&& - a custom &&raw_file_name&& &&loop&&  - r &&output&&.msf -b " +
-    " - e custom ANY &&input_1&& &&input_2&&\"";
+            this.script.Text = "/k DiscovererDaemon.exe -c custom &&loop&& -a custom &&raw_file_name&& &&loop&&  " +
+    "-r &&output&&.msf -b  - e custom ANY &&input_1&&;&&input_2&&";
             // 
             // reset_to_default
             // 
@@ -285,10 +256,10 @@ namespace Proteomics_Data_Processor
             this.pd.Controls.Add(this.label16);
             this.pd.Controls.Add(this.numericUpDown1);
             this.pd.Controls.Add(this.label9);
-            this.pd.Controls.Add(this.textBox1);
+            this.pd.Controls.Add(this.result_file);
             this.pd.Controls.Add(this.output_3);
             this.pd.Controls.Add(this.output_2);
-            this.pd.Controls.Add(this.Output_1);
+            this.pd.Controls.Add(this.output_1);
             this.pd.Controls.Add(this.process_temp_folder);
             this.pd.Controls.Add(this.label8);
             this.pd.Controls.Add(this.temp_button);
@@ -383,12 +354,12 @@ namespace Proteomics_Data_Processor
             this.label9.TabIndex = 31;
             this.label9.Text = "output_QC_number_1 [n]";
             // 
-            // textBox1
+            // result_file
             // 
-            this.textBox1.Location = new System.Drawing.Point(3, 357);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(353, 23);
-            this.textBox1.TabIndex = 14;
+            this.result_file.Location = new System.Drawing.Point(3, 357);
+            this.result_file.Name = "result_file";
+            this.result_file.Size = new System.Drawing.Size(353, 23);
+            this.result_file.TabIndex = 14;
             // 
             // output_3
             // 
@@ -404,12 +375,12 @@ namespace Proteomics_Data_Processor
             this.output_2.Size = new System.Drawing.Size(353, 23);
             this.output_2.TabIndex = 14;
             // 
-            // Output_1
+            // output_1
             // 
-            this.Output_1.Location = new System.Drawing.Point(8, 151);
-            this.Output_1.Name = "Output_1";
-            this.Output_1.Size = new System.Drawing.Size(353, 23);
-            this.Output_1.TabIndex = 14;
+            this.output_1.Location = new System.Drawing.Point(8, 151);
+            this.output_1.Name = "output_1";
+            this.output_1.Size = new System.Drawing.Size(353, 23);
+            this.output_1.TabIndex = 14;
             // 
             // process_temp_folder
             // 
@@ -746,13 +717,13 @@ namespace Proteomics_Data_Processor
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.output);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Proteomics_Data_Processor";
             this.Text = "Proteomics_Data_Processor V1";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.custom.ResumeLayout(false);
-            this.custom.PerformLayout();
             this.pd.ResumeLayout(false);
             this.pd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
@@ -820,12 +791,12 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.TextBox output_3;
         private System.Windows.Forms.TextBox output_2;
-        private System.Windows.Forms.TextBox Output_1;
+        private System.Windows.Forms.TextBox output_1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox script_instructions;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox result_file;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown numericUpDown4;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
@@ -835,9 +806,6 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox process_app_path;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label19;
     }
 }
 

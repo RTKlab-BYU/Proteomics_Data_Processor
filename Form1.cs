@@ -38,11 +38,10 @@ namespace Proteomics_Data_Processor
             InitializeComponent();
             workerip.Text = GetIPAddress();
             hostip.Text = "http://127.0.0.1:8000/files/api/";
-            system_username.Text = "admin";
-            system_pwd.Text = "admin";
+            system_username.Text = "search_worker";
+            system_pwd.Text = "searchadmin";
             workername.Text = "worker_" + Gethostname();
             version_number.Text =  Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string default_script = "";
 
             process_temp_folder.Text = "c:\\temp";
             workder_number.Text = "1";
@@ -98,6 +97,7 @@ namespace Proteomics_Data_Processor
 
             Properties.Settings.Default.workernumber = workder_number.Text;
             Properties.Settings.Default.temp_folder = process_temp_folder.Text;
+            Properties.Settings.Default.script = script.Text;
 
 
 
@@ -314,37 +314,42 @@ namespace Proteomics_Data_Processor
 
         private void process_backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            List<string> rawfilelist;
+            int queuepk;
+            string intput_1, intput_2, intput_3, outpu_file;
+            bool keep_result;
+
             while (true)
             {
-                ProcessWorkerPing(); //Notify worker is online
-                                //check if there is pending work and download
-
-                List<string> rawfilelist;
-                int queuepk;
-                string intput_1, intput_2, intput_3, outpu_file;
-                bool keep_result;
-                (queuepk, rawfilelist, intput_1, intput_2, intput_3, outpu_file, keep_result) = GetJobs();
-
-
-                if (queuepk != 0)
+                if (ProcessWorkerPing())
                 {
-                    process_backgroundWorker.ReportProgress(10, $" running Process queue {queuepk}");
-                    ReportStart(queuepk);
-                    processStart(rawfilelist, intput_1, intput_2, intput_3, outpu_file);
-                    ReadResult(queuepk, outpu_file, keep_result);
-                    process_backgroundWorker.ReportProgress(99, $" finished running Process queue {queuepk}");
-
-                }
+                    (queuepk, rawfilelist, intput_1, intput_2, intput_3, outpu_file, keep_result) = GetJobs();
 
 
+                    if (queuepk != 0)
+                    {
+                        process_backgroundWorker.ReportProgress(10, $" running Process queue {queuepk}");
+                        ReportStart(queuepk);
+                        processStart(rawfilelist, intput_1, intput_2, intput_3, outpu_file);
+                        ReadResult(queuepk, outpu_file, keep_result);
+                        process_backgroundWorker.ReportProgress(99, $" finished running Process queue {queuepk}");
+
+                    }
 
 
-                if (process_backgroundWorker.CancellationPending)
-                {
-                    e.Cancel = true;
-                    process_backgroundWorker.ReportProgress(0);
-                    return;
-                }
+
+                    if (process_backgroundWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        process_backgroundWorker.ReportProgress(0);
+                        return;
+                    }
+
+
+                };
+
+
+
                 Thread.Sleep(30000);
 
             }
@@ -364,7 +369,7 @@ namespace Proteomics_Data_Processor
             {
 
                 tmrClock.Enabled = !tmrClock.Enabled;
-                output.AppendText(Environment.NewLine + DateTime.Now + " A new PD analysis started, " + e.UserState as String);
+                output.AppendText(Environment.NewLine + DateTime.Now + " A new analysis started, " + e.UserState as String);
                 StartTime = DateTime.Now;
 
             }
@@ -435,7 +440,7 @@ namespace Proteomics_Data_Processor
 
 
 
-        private void ProcessWorkerPing()
+        private Boolean ProcessWorkerPing()
         {
             //check if selected proper process
             int app_index;
@@ -447,7 +452,7 @@ namespace Proteomics_Data_Processor
             {
                 MessageBox.Show($"Please select valid processor name. Exception: {e.Message}");
                 
-                return;
+                return false;
 
             }
 
@@ -460,50 +465,66 @@ namespace Proteomics_Data_Processor
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
             var response = client.Execute(request);
-            if (response.Content.Contains("Not found"))
-            {
-                request = new RestRequest("/WorkerStatus/", Method.Post);
-                request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Accept", "application/json");
-                response = client.Execute(request);
-                MessageBox.Show(response.Content);
-            }
-            else
-            {
-                request = new RestRequest("/WorkerStatus/" + Properties.Settings.Default.workernumber + "/", Method.Patch);
-                request.AddHeader("cache-control", "no-cache");
-                request.AddHeader("Accept", "application/json");
-                request.AddParameter("worker_name", Properties.Settings.Default.workername);
-                request.AddParameter("worker_ip", Properties.Settings.Default.workerip);
-                request.AddParameter("last_update", now.ToLocalTime());
-                request.AddParameter("processing_app", app_index);
-                response = client.Execute(request);
 
-            }
-
-
-                if (response.ResponseStatus == ResponseStatus.Completed)
-            {
-                process_backgroundWorker.ReportProgress(0, "Idle");
-
-
-
-            }
-            else
-
+            if (response.Content is null)
             {
                 process_backgroundWorker.ReportProgress(0, "No Response from Server");
-                process_backgroundWorker.ReportProgress(0, "Idle");
+                return false;
+            }
+            else 
+            { 
+                    if (response.Content.Contains("Not found"))
+                {
+                    request = new RestRequest("/WorkerStatus/", Method.Post);
+                    request.AddHeader("cache-control", "no-cache");
+                    request.AddHeader("Accept", "application/json");
+                    response = client.Execute(request);
+                    MessageBox.Show(response.Content);
+                }
+                else
+                {
+                    request = new RestRequest("/WorkerStatus/" + Properties.Settings.Default.workernumber + "/", Method.Patch);
+                    request.AddHeader("cache-control", "no-cache");
+                    request.AddHeader("Accept", "application/json");
+                    request.AddParameter("worker_name", Properties.Settings.Default.workername);
+                    request.AddParameter("worker_ip", Properties.Settings.Default.workerip);
+                    request.AddParameter("last_update", now.ToLocalTime());
+                    request.AddParameter("processing_app", app_index);
+                    response = client.Execute(request);
 
+                }
+
+
+                    if (response.ResponseStatus == ResponseStatus.Completed)
+                {
+                    process_backgroundWorker.ReportProgress(0, "Idle");
+                    return true;
+
+
+
+                }
+                else
+
+                {
+                    process_backgroundWorker.ReportProgress(0, "No Response from Server");
+                    process_backgroundWorker.ReportProgress(0, "Idle");
+                    return false;
+
+                }
+                    
             }
         }
 
 
         private void ReadResult(int queuepk, string analysis_name, bool keep_result)
         {
-            string resultfile = Properties.Settings.Default.temp_folder + "\\result.txt";
 
-            string export_file = Properties.Settings.Default.temp_folder + "\\export_file.csv";
+            string output_file_1 = process_temp_folder.Text + $"\\{output_1.Text}";
+
+            string output_file_2 = process_temp_folder.Text + $"\\{output_2.Text}";
+
+            string output_file_3 = process_temp_folder.Text + $"\\{output_3.Text}";
+            string resultfile = process_temp_folder.Text + $"\\{result_file.Text}";
 
 
 
@@ -513,37 +534,51 @@ namespace Proteomics_Data_Processor
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
 
+
             var request = new RestRequest("/DataAnalysisQueue/" + queuepk + "/", Method.Patch);
            // client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
 
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
-            request.AddHeader("Content-Type", "multipart/form-data");
             //request.Parameters.Clear();
 
             request.AddParameter("run_status", true);
 
-            request.AddParameter("finished_time", now.ToString("yyyy-MM-dd hh:mm:ss"));
-            if (keep_result)
-            {
-                request.AddFile("result_file", Properties.Settings.Default.temp_folder + "\\" + analysis_name + ".pdResult");
-            }
+            request.AddParameter("finish_time", now.ToString("yyyy-MM-dd hh:mm:ss"));
+
+
+
             if (File.Exists(resultfile))
             {
+                request.AddHeader("Content-Type", "multipart/form-data");
+
                 List<string> lines = File.ReadLines(resultfile).ToList();
 
-                request.AddParameter("peptide_id", lines[1]);
-                request.AddParameter("protein_id", lines[0]);
+                request.AddParameter("output_QC_number_1 ", lines[0]);
+                request.AddParameter("output_QC_number_2 ", lines[1]);
+                request.AddParameter("output_QC_number_3 ", lines[2]);
+                request.AddParameter("output_QC_number_4 ", lines[3]);
+
+
             }
 
-            if (File.Exists(export_file))
+            if (File.Exists(output_file_1))
             {
-                request.AddFile("export_file", Properties.Settings.Default.temp_folder + "\\export_file");
+                request.AddFile("output_file_1", output_file_1);
 
             }
+            if (File.Exists(output_file_2))
+            {
+                request.AddFile("output_file_2", output_file_2);
 
+            }
+            if (File.Exists(output_file_3))
+            {
+                request.AddFile("output_file_3", output_file_3);
 
+            }
             var response = client.Execute(request);
+           
 
             //update result info
 
@@ -559,6 +594,7 @@ namespace Proteomics_Data_Processor
             var client = new RestClient(Properties.Settings.Default.hostip);
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
+
 
             var request = new RestRequest("/DataAnalysisQueue/" + queuepk + "/", Method.Patch);
             request.AddObject(new
@@ -623,8 +659,11 @@ namespace Proteomics_Data_Processor
                                                 - e custom ANY &&input_1&&; &&input_2&&";*/
 
 
-            string template_string = script.Text;
-            string output = "";
+            string template_string = Properties.Settings.Default.script;
+
+
+
+            string output = @"";
             if (input_1 != null)
                 output = template_string.Replace("&&input_1&&", input_1);
             if (input_2 != null)
@@ -654,7 +693,7 @@ namespace Proteomics_Data_Processor
 
             File.WriteAllText(path, strCmdText);
 
-            System.Diagnostics.Process.Start(process_app_path.Text, strCmdText).WaitForExit();
+            Process.Start("cmd.exe", strCmdText).WaitForExit();
             return true;
 
         }
@@ -674,7 +713,8 @@ namespace Proteomics_Data_Processor
 
         private void Check_server_Click_1(object sender, EventArgs e)
         {
-            var client = new RestClient(hostip.Text);
+            try{
+                var client = new RestClient(hostip.Text);
             client.Authenticator = new HttpBasicAuthenticator(system_username.Text, system_pwd.Text);
             var request = new RestRequest("/ProcessingApp/", Method.Get);
             request.AddHeader("cache-control", "no-cache");
@@ -691,11 +731,18 @@ namespace Proteomics_Data_Processor
             }
             if (process_app_selector.Items.Count != 0)
                 process_app_selector.SelectedIndex = 0;
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("Can not obtain server address, check server condition or put in manully. "+ err.Message);
+
+            }
         }
 
         private void Manual_start_Click(object sender, EventArgs e)
         {
             SaveSettings();
+
 
             if (!Directory.Exists(process_temp_folder.Text))
                 Directory.CreateDirectory(process_temp_folder.Text);
@@ -709,6 +756,8 @@ namespace Proteomics_Data_Processor
 
         private void Manual_stop_Click(object sender, EventArgs e)
         {
+            ReadResult(5770,"test",false);
+
             //stop the thread.
             //Check if background worker is doing anything and send a cancellation if it is
             if (process_backgroundWorker.IsBusy)
@@ -732,12 +781,15 @@ namespace Proteomics_Data_Processor
 
             };
 
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                process_app_path.Text = openFileDialog1.FileName;
+
+        }
 
 
-            }
+
+
+        private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/xiaofengxie128/Proteomics_Data_Processor");
         }
     }
 
@@ -765,7 +817,6 @@ namespace Proteomics_Data_Processor
 
 
 
-           //PD related Classes
 
            /// <summary>
            /// QueueResponse used for modeling the data structure of the process queue from the server.
