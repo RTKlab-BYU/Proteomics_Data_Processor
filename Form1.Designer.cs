@@ -51,20 +51,17 @@ namespace Proteomics_Data_Processor
             this.script = new System.Windows.Forms.RichTextBox();
             this.reset_to_default = new System.Windows.Forms.Button();
             this.pd = new System.Windows.Forms.TabPage();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.output_6 = new System.Windows.Forms.TextBox();
+            this.output_5 = new System.Windows.Forms.TextBox();
+            this.output_4 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.result_file = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.output_3 = new System.Windows.Forms.TextBox();
             this.output_2 = new System.Windows.Forms.TextBox();
             this.output_1 = new System.Windows.Forms.TextBox();
             this.process_temp_folder = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.temp_button = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -97,13 +94,10 @@ namespace Proteomics_Data_Processor
             this.label11 = new System.Windows.Forms.Label();
             this.system_pwd = new System.Windows.Forms.TextBox();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.parallel_processing = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.custom.SuspendLayout();
             this.pd.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.mainsettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workder_number)).BeginInit();
             this.tabControl.SuspendLayout();
@@ -248,20 +242,17 @@ namespace Proteomics_Data_Processor
             // 
             // pd
             // 
-            this.pd.Controls.Add(this.numericUpDown4);
-            this.pd.Controls.Add(this.numericUpDown2);
-            this.pd.Controls.Add(this.label18);
-            this.pd.Controls.Add(this.numericUpDown3);
-            this.pd.Controls.Add(this.label10);
             this.pd.Controls.Add(this.label16);
-            this.pd.Controls.Add(this.numericUpDown1);
+            this.pd.Controls.Add(this.output_6);
+            this.pd.Controls.Add(this.output_5);
+            this.pd.Controls.Add(this.output_4);
+            this.pd.Controls.Add(this.label8);
             this.pd.Controls.Add(this.label9);
-            this.pd.Controls.Add(this.result_file);
+            this.pd.Controls.Add(this.label10);
             this.pd.Controls.Add(this.output_3);
             this.pd.Controls.Add(this.output_2);
             this.pd.Controls.Add(this.output_1);
             this.pd.Controls.Add(this.process_temp_folder);
-            this.pd.Controls.Add(this.label8);
             this.pd.Controls.Add(this.temp_button);
             this.pd.Controls.Add(this.label6);
             this.pd.Controls.Add(this.label7);
@@ -275,109 +266,81 @@ namespace Proteomics_Data_Processor
             this.pd.Text = "Input_output";
             this.pd.UseVisualStyleBackColor = true;
             // 
-            // numericUpDown4
-            // 
-            this.numericUpDown4.Location = new System.Drawing.Point(171, 552);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(100, 23);
-            this.numericUpDown4.TabIndex = 32;
-            this.numericUpDown4.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(172, 470);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(100, 23);
-            this.numericUpDown2.TabIndex = 32;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(8, 554);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(141, 15);
-            this.label18.TabIndex = 31;
-            this.label18.Text = "output_QC_number_4 [n]";
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(171, 508);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(100, 23);
-            this.numericUpDown3.TabIndex = 32;
-            this.numericUpDown3.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(9, 472);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(141, 15);
-            this.label10.TabIndex = 31;
-            this.label10.Text = "output_QC_number_2 [n]";
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(8, 510);
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label16.Location = new System.Drawing.Point(8, 134);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(141, 15);
-            this.label16.TabIndex = 31;
-            this.label16.Text = "output_QC_number_3 [n]";
+            this.label16.Size = new System.Drawing.Size(330, 15);
+            this.label16.TabIndex = 27;
+            this.label16.Text = "Output files to be uploaded(can leave empty if less than 6)";
             // 
-            // numericUpDown1
+            // output_6
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(172, 426);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(100, 23);
-            this.numericUpDown1.TabIndex = 32;
+            this.output_6.Location = new System.Drawing.Point(6, 537);
+            this.output_6.Name = "output_6";
+            this.output_6.Size = new System.Drawing.Size(353, 23);
+            this.output_6.TabIndex = 24;
+            // 
+            // output_5
+            // 
+            this.output_5.Location = new System.Drawing.Point(6, 470);
+            this.output_5.Name = "output_5";
+            this.output_5.Size = new System.Drawing.Size(353, 23);
+            this.output_5.TabIndex = 25;
+            // 
+            // output_4
+            // 
+            this.output_4.Location = new System.Drawing.Point(6, 397);
+            this.output_4.Name = "output_4";
+            this.output_4.Size = new System.Drawing.Size(353, 23);
+            this.output_4.TabIndex = 26;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 507);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 15);
+            this.label8.TabIndex = 21;
+            this.label8.Text = "Output 6";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 428);
+            this.label9.Location = new System.Drawing.Point(6, 440);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(141, 15);
-            this.label9.TabIndex = 31;
-            this.label9.Text = "output_QC_number_1 [n]";
+            this.label9.Size = new System.Drawing.Size(54, 15);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Output 5";
             // 
-            // result_file
+            // label10
             // 
-            this.result_file.Location = new System.Drawing.Point(3, 357);
-            this.result_file.Name = "result_file";
-            this.result_file.Size = new System.Drawing.Size(353, 23);
-            this.result_file.TabIndex = 14;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 368);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(54, 15);
+            this.label10.TabIndex = 23;
+            this.label10.Text = "Output 4";
             // 
             // output_3
             // 
-            this.output_3.Location = new System.Drawing.Point(8, 291);
+            this.output_3.Location = new System.Drawing.Point(6, 332);
             this.output_3.Name = "output_3";
             this.output_3.Size = new System.Drawing.Size(353, 23);
             this.output_3.TabIndex = 14;
             // 
             // output_2
             // 
-            this.output_2.Location = new System.Drawing.Point(8, 224);
+            this.output_2.Location = new System.Drawing.Point(6, 265);
             this.output_2.Name = "output_2";
             this.output_2.Size = new System.Drawing.Size(353, 23);
             this.output_2.TabIndex = 14;
             // 
             // output_1
             // 
-            this.output_1.Location = new System.Drawing.Point(8, 151);
+            this.output_1.Location = new System.Drawing.Point(6, 192);
             this.output_1.Name = "output_1";
             this.output_1.Size = new System.Drawing.Size(353, 23);
             this.output_1.TabIndex = 14;
@@ -388,15 +351,6 @@ namespace Proteomics_Data_Processor
             this.process_temp_folder.Name = "process_temp_folder";
             this.process_temp_folder.Size = new System.Drawing.Size(353, 23);
             this.process_temp_folder.TabIndex = 14;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(3, 327);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(132, 15);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "QC parameter result file";
             // 
             // temp_button
             // 
@@ -411,29 +365,29 @@ namespace Proteomics_Data_Processor
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(8, 261);
+            this.label6.Location = new System.Drawing.Point(6, 302);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(179, 15);
+            this.label6.Size = new System.Drawing.Size(54, 15);
             this.label6.TabIndex = 3;
-            this.label6.Text = "Output 3 full path with file name";
+            this.label6.Text = "Output 3";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 194);
+            this.label7.Location = new System.Drawing.Point(6, 235);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(179, 15);
+            this.label7.Size = new System.Drawing.Size(54, 15);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Output 2 full path with file name";
+            this.label7.Text = "Output 2";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 122);
+            this.label4.Location = new System.Drawing.Point(6, 163);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(179, 15);
+            this.label4.Size = new System.Drawing.Size(279, 15);
             this.label4.TabIndex = 3;
-            this.label4.Text = "Output 1 full path with file name";
+            this.label4.Text = "Output 1 full path with file name (relatevie to temp)";
             // 
             // label14
             // 
@@ -446,6 +400,7 @@ namespace Proteomics_Data_Processor
             // 
             // mainsettings
             // 
+            this.mainsettings.Controls.Add(this.parallel_processing);
             this.mainsettings.Controls.Add(this.process_thread_autostart);
             this.mainsettings.Controls.Add(this.Manual_start);
             this.mainsettings.Controls.Add(this.lblElapsed);
@@ -482,7 +437,7 @@ namespace Proteomics_Data_Processor
             // process_thread_autostart
             // 
             this.process_thread_autostart.AutoSize = true;
-            this.process_thread_autostart.Location = new System.Drawing.Point(3, 574);
+            this.process_thread_autostart.Location = new System.Drawing.Point(8, 562);
             this.process_thread_autostart.Name = "process_thread_autostart";
             this.process_thread_autostart.Size = new System.Drawing.Size(290, 19);
             this.process_thread_autostart.TabIndex = 42;
@@ -635,7 +590,7 @@ namespace Proteomics_Data_Processor
             // start_with_windows
             // 
             this.start_with_windows.AutoSize = true;
-            this.start_with_windows.Location = new System.Drawing.Point(3, 549);
+            this.start_with_windows.Location = new System.Drawing.Point(8, 537);
             this.start_with_windows.Name = "start_with_windows";
             this.start_with_windows.Size = new System.Drawing.Size(177, 19);
             this.start_with_windows.TabIndex = 26;
@@ -707,6 +662,16 @@ namespace Proteomics_Data_Processor
             this.tabControl.Size = new System.Drawing.Size(393, 710);
             this.tabControl.TabIndex = 25;
             // 
+            // parallel_processing
+            // 
+            this.parallel_processing.AutoSize = true;
+            this.parallel_processing.Location = new System.Drawing.Point(6, 587);
+            this.parallel_processing.Name = "parallel_processing";
+            this.parallel_processing.Size = new System.Drawing.Size(290, 19);
+            this.parallel_processing.TabIndex = 43;
+            this.parallel_processing.Text = "Ignore task with start time (for parallel processing)";
+            this.parallel_processing.UseVisualStyleBackColor = true;
+            // 
             // Proteomics_Data_Processor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -726,10 +691,6 @@ namespace Proteomics_Data_Processor
             this.custom.ResumeLayout(false);
             this.pd.ResumeLayout(false);
             this.pd.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.mainsettings.ResumeLayout(false);
             this.mainsettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.workder_number)).EndInit();
@@ -796,16 +757,14 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RichTextBox script_instructions;
-        private System.Windows.Forms.TextBox result_file;
+        private System.Windows.Forms.TextBox output_6;
+        private System.Windows.Forms.TextBox output_5;
+        private System.Windows.Forms.TextBox output_4;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.CheckBox parallel_processing;
     }
 }
 
