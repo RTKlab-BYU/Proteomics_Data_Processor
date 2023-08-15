@@ -41,7 +41,7 @@ namespace Proteomics_Data_Processor
             system_username.Text = "search_worker";
             system_pwd.Text = "searchadmin";
             workername.Text = "worker_" + Gethostname();
-            version_number.Text =  Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            version_number.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             process_temp_folder.Text = "c:\\temp";
             workder_number.Text = "1";
@@ -231,14 +231,15 @@ namespace Proteomics_Data_Processor
         {
             try
             {
-                StringBuilder sb = new StringBuilder();
-                String strHostName = string.Empty;
-                strHostName = Dns.GetHostName();
-                IPHostEntry ipHostEntry = Dns.GetHostEntry(strHostName);
-                IPAddress[] address = ipHostEntry.AddressList;
-                sb.Append(address[4].ToString());
-                sb.AppendLine();
-                return sb.ToString();
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+                return "1.1.1.1";
             }
             catch (Exception ex)
             {
@@ -441,14 +442,15 @@ namespace Proteomics_Data_Processor
         {
             //check if selected proper process
             int app_index;
-            try {
-               app_index = int.Parse(Properties.Settings.Default.process_setting.Split('_')[0]);
+            try
+            {
+                app_index = int.Parse(Properties.Settings.Default.process_setting.Split('_')[0]);
 
-                }
+            }
             catch (Exception e)
             {
                 MessageBox.Show($"Please select valid processor name. Exception: {e.Message}");
-                
+
                 return false;
 
             }
@@ -468,9 +470,9 @@ namespace Proteomics_Data_Processor
                 process_backgroundWorker.ReportProgress(0, "No Response from Server");
                 return false;
             }
-            else 
-            { 
-                    if (response.Content.Contains("Not found"))
+            else
+            {
+                if (response.Content.Contains("Not found"))
                 {
                     request = new RestRequest("/WorkerStatus/", Method.Post);
                     request.AddHeader("cache-control", "no-cache");
@@ -492,7 +494,7 @@ namespace Proteomics_Data_Processor
                 }
 
 
-                    if (response.ResponseStatus == ResponseStatus.Completed)
+                if (response.ResponseStatus == ResponseStatus.Completed)
                 {
                     process_backgroundWorker.ReportProgress(0, "Idle");
                     return true;
@@ -508,7 +510,7 @@ namespace Proteomics_Data_Processor
                     return false;
 
                 }
-                    
+
             }
         }
 
@@ -520,7 +522,7 @@ namespace Proteomics_Data_Processor
         /// <param name="keep_result">Whether keep the full result (not used)</param>
 
         private void UploadResult(int queuepk, string analysis_name, bool keep_result)
-          {
+        {
             string output_file_1 = "", output_file_2 = "", output_file_3 = "", output_file_4 = "", output_file_5 = "", output_file_6 = "";
             if (output_1.Text != "")
             { output_file_1 = process_temp_folder.Text + $"\\{output_1.Text}"; }
@@ -540,7 +542,7 @@ namespace Proteomics_Data_Processor
             var client = new RestClient(Properties.Settings.Default.hostip);
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
             var request = new RestRequest("/DataAnalysisQueue/" + queuepk + "/", Method.Patch);
-           // client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
+            // client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
 
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
@@ -615,8 +617,8 @@ namespace Proteomics_Data_Processor
         /// <returns>queuepk, rawfilelist, intput_1, intput_2, intput_3, outpu_file, keep_result.
         /// or 0,null,null,null,null,null,false </returns>
         /// 
-        private (int, List<string>,string,string,string,string, bool) GetJobs()
-{
+        private (int, List<string>, string, string, string, string, bool) GetJobs()
+        {
 
             int app_index = int.Parse(Properties.Settings.Default.process_setting.Split('_')[0]);
             var client = new RestClient(Properties.Settings.Default.hostip);
@@ -639,7 +641,7 @@ namespace Proteomics_Data_Processor
             }
             else
             {
-                return (0,null,null,null,null,null,false);
+                return (0, null, null, null, null, null, false);
             }
         }
 
@@ -656,7 +658,7 @@ namespace Proteomics_Data_Processor
         /// <param name="output_File">output_File/configure output_File.</param>
         /// <returns>bool</returns>
         ///
-        private bool processStart(List<string> rawfile, string input_1, string input_2,string input_3, string output_File)
+        private bool processStart(List<string> rawfile, string input_1, string input_2, string input_3, string output_File)
         {
 
 
@@ -732,28 +734,29 @@ namespace Proteomics_Data_Processor
         /// </summary>
         private void Check_server_Click_1(object sender, EventArgs e)
         {
-            try{
-                var client = new RestClient(hostip.Text);
-            client.Authenticator = new HttpBasicAuthenticator(system_username.Text, system_pwd.Text);
-            var request = new RestRequest("/ProcessingApp/", Method.Get);
-            request.AddHeader("cache-control", "no-cache");
-            request.AddHeader("Accept", "application/json");
-            var response = client.Execute(request);
-
-
-            ProcessAppResponseDictionary all_process_response = JsonConvert.DeserializeObject<ProcessAppResponseDictionary>(response.Content);
-            process_app_selector.Items.Clear();
-
-            foreach (ProcessApp app in all_process_response.ProcessApp)
+            try
             {
-                process_app_selector.Items.Add($"{app.pk}_{app.appname}");
-            }
-            if (process_app_selector.Items.Count != 0)
-                process_app_selector.SelectedIndex = 0;
+                var client = new RestClient(hostip.Text);
+                client.Authenticator = new HttpBasicAuthenticator(system_username.Text, system_pwd.Text);
+                var request = new RestRequest("/ProcessingApp/", Method.Get);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                var response = client.Execute(request);
+
+
+                ProcessAppResponseDictionary all_process_response = JsonConvert.DeserializeObject<ProcessAppResponseDictionary>(response.Content);
+                process_app_selector.Items.Clear();
+
+                foreach (ProcessApp app in all_process_response.ProcessApp)
+                {
+                    process_app_selector.Items.Add($"{app.pk}_{app.appname}");
+                }
+                if (process_app_selector.Items.Count != 0)
+                    process_app_selector.SelectedIndex = 0;
             }
             catch (Exception err)
             {
-                MessageBox.Show("Can not obtain server address, check server condition or put in manully. "+ err.Message);
+                MessageBox.Show("Can not obtain server address, check server condition or put in manully. " + err.Message);
 
             }
         }
@@ -780,7 +783,7 @@ namespace Proteomics_Data_Processor
         /// </summary>
         private void Manual_stop_Click(object sender, EventArgs e)
         {
-            UploadResult(3,"test",false); // used for debug
+            UploadResult(3, "test", false); // used for debug
 
             //stop the thread.
             //Check if background worker is doing anything and send a cancellation if it is
@@ -813,22 +816,22 @@ namespace Proteomics_Data_Processor
 
 
 
-           //Supporting classes
+//Supporting classes
 
 
-           /// <summary>
-           /// QueueResponse used for modeling the data structure of the process queue from the server.
-           /// </summary>
-           public class QueueResponse
-           {
-               [JsonProperty("count")]
-               public int count { get; set; }
-               [JsonProperty("next")]
-               public string next { get; set; }
-               [JsonProperty("previous")]
-               public string previous { get; set; }
-               [JsonProperty("results")]
-               public List<ProcessQueue> ProcessQueue { get; set; }
+/// <summary>
+/// QueueResponse used for modeling the data structure of the process queue from the server.
+/// </summary>
+public class QueueResponse
+{
+    [JsonProperty("count")]
+    public int count { get; set; }
+    [JsonProperty("next")]
+    public string next { get; set; }
+    [JsonProperty("previous")]
+    public string previous { get; set; }
+    [JsonProperty("results")]
+    public List<ProcessQueue> ProcessQueue { get; set; }
 
 
     /// <summary>
@@ -841,50 +844,50 @@ namespace Proteomics_Data_Processor
     /// or 0,null,null,null,null,null,false </returns>
     /// 
     public (int, List<string>, string, string, string, string, bool) GetCurrentJob(string hostip, string folderlocation, bool para_processing) // check if there is a pending run
-                                                                                                                 // download inputs files and raw ms files
-                       {
+                                                                                                                                               // download inputs files and raw ms files
+    {
 
 
-                           var client = new RestClient(hostip);
+        var client = new RestClient(hostip);
 
-                           client.Authenticator = new HttpBasicAuthenticator(Proteomics_Data_Processor.Properties.Settings.Default.system_user, Proteomics_Data_Processor.Properties.Settings.Default.system_pwd);
-
-
+        client.Authenticator = new HttpBasicAuthenticator(Proteomics_Data_Processor.Properties.Settings.Default.system_user, Proteomics_Data_Processor.Properties.Settings.Default.system_pwd);
 
 
-                           if (this.ProcessQueue.Count == 0)
-                                return (0, null, null, null, null, null, false); 
-
-                           else
-                           {
-                               Proteomics_Data_Processor.Proteomics_Data_Processor.CleanFolder(Proteomics_Data_Processor.Properties.Settings.Default.temp_folder);
 
 
-                        ProcessQueue NextTask=null; ;
-                        this.ProcessQueue.Reverse();
-                        foreach (ProcessQueue item in this.ProcessQueue)
-                        {
-                        if (para_processing)
-                        {
-                            if (string.IsNullOrEmpty(item.start_time))
-                            {
-                                NextTask = item;
-                                break;
+        if (this.ProcessQueue.Count == 0)
+            return (0, null, null, null, null, null, false);
+
+        else
+        {
+            Proteomics_Data_Processor.Proteomics_Data_Processor.CleanFolder(Proteomics_Data_Processor.Properties.Settings.Default.temp_folder);
 
 
-                            }
-                   
-                        }
-                        else
-                        {
-                            NextTask = item;
-                            break;
-                        }
+            ProcessQueue NextTask = null; ;
+            this.ProcessQueue.Reverse();
+            foreach (ProcessQueue item in this.ProcessQueue)
+            {
+                if (para_processing)
+                {
+                    if (string.IsNullOrEmpty(item.start_time))
+                    {
+                        NextTask = item;
+                        break;
+
+
+                    }
+
+                }
+                else
+                {
+                    NextTask = item;
+                    break;
+                }
 
 
 
             }
-                    if (NextTask is null)
+            if (NextTask is null)
             {
 
                 return (0, null, null, null, null, null, false);
@@ -894,105 +897,105 @@ namespace Proteomics_Data_Processor
 
             WebClient webClient = new WebClient();
 
-                    // download input files
-                    String input_1 = Path.GetFileName(NextTask.input_file_1);
-                    String input_2 = Path.GetFileName(NextTask.input_file_2);
-                    String input_3 = Path.GetFileName(NextTask.input_file_3);
+            // download input files
+            String input_1 = Path.GetFileName(NextTask.input_file_1);
+            String input_2 = Path.GetFileName(NextTask.input_file_2);
+            String input_3 = Path.GetFileName(NextTask.input_file_3);
 
-                    if (input_1 != null)
-                    {
-                        input_1 = folderlocation + "\\" + input_1;
-                        webClient.DownloadFile(NextTask.input_file_1, input_1);
-
-
-                    }
-                    if (input_2 != null)
-                    {
-                        input_2 = folderlocation + "\\" + input_2;
-                        webClient.DownloadFile(NextTask.input_file_2, input_2);
-                    }
-
-                    if (input_3 != null)
-                    {
-                        input_3 = folderlocation + "\\" + input_3;
-
-                        webClient.DownloadFile(NextTask.input_file_3, input_3);
-
-                    }
-
-                    // down all the raw files file 
-                    List<string> raw_fullpath = new List<string> { };
-
-                    List<int> rawlist = this.ProcessQueue.Last().rawfile;
-                               foreach (int number in rawlist)
-                               {
-                                   var request = new RestRequest( "/SampleRecord/" +number + "/" , Method.Get);
-
-                                   request.AddHeader("cache-control", "no-cache");
-                                   request.AddHeader("Accept", "application/json");
-                                   // request.Parameters.Clear();
-
-                                   var response = client.Execute(request);
+            if (input_1 != null)
+            {
+                input_1 = folderlocation + "\\" + input_1;
+                webClient.DownloadFile(NextTask.input_file_1, input_1);
 
 
-                                   SampleRecord rawurl = JsonConvert.DeserializeObject<SampleRecord>(response.Content);
+            }
+            if (input_2 != null)
+            {
+                input_2 = folderlocation + "\\" + input_2;
+                webClient.DownloadFile(NextTask.input_file_2, input_2);
+            }
 
-                                   request = new RestRequest("/FileStorage/" + rawurl.newest_raw + "/", Method.Get);
+            if (input_3 != null)
+            {
+                input_3 = folderlocation + "\\" + input_3;
 
-                                   request.AddHeader("cache-control", "no-cache");
-                                   request.AddHeader("Accept", "application/json");
-                                    // request.Parameters.Clear();
+                webClient.DownloadFile(NextTask.input_file_3, input_3);
 
-                                   response = client.Execute(request);
+            }
 
-                                   FileStorage file_storatge = JsonConvert.DeserializeObject<FileStorage>(response.Content);
-                                   string download_link = file_storatge.file_location;
-                                   raw_fullpath.Add(folderlocation + "\\" + number + Path.GetExtension(download_link));
+            // down all the raw files file 
+            List<string> raw_fullpath = new List<string> { };
 
-                                   webClient.DownloadFile(download_link, folderlocation + "\\" + number + Path.GetExtension(download_link));
+            List<int> rawlist = this.ProcessQueue.Last().rawfile;
+            foreach (int number in rawlist)
+            {
+                var request = new RestRequest("/SampleRecord/" + number + "/", Method.Get);
 
-                                }
-                               string run_name;
-                               if (this.ProcessQueue.Last().processing_name != "" && this.ProcessQueue.Last() is not null)
-                               {
-                                   run_name = this.ProcessQueue.Last().processing_name;
-                                   run_name = run_name.Replace(" ", "_");
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                // request.Parameters.Clear();
 
-                               }
-                               else
-                               {
-                                   run_name = "result";
-
-                               }
-                               return (this.ProcessQueue.Last().pk, raw_fullpath,input_1, input_2, input_3, folderlocation + "\\"+run_name, this.ProcessQueue.Last().keep_full_output);
-
-                           }
-                       }
+                var response = client.Execute(request);
 
 
+                SampleRecord rawurl = JsonConvert.DeserializeObject<SampleRecord>(response.Content);
+
+                request = new RestRequest("/FileStorage/" + rawurl.newest_raw + "/", Method.Get);
+
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                // request.Parameters.Clear();
+
+                response = client.Execute(request);
+
+                FileStorage file_storatge = JsonConvert.DeserializeObject<FileStorage>(response.Content);
+                string download_link = file_storatge.file_location;
+                raw_fullpath.Add(folderlocation + "\\" + number + Path.GetExtension(download_link));
+
+                webClient.DownloadFile(download_link, folderlocation + "\\" + number + Path.GetExtension(download_link));
+
+            }
+            string run_name;
+            if (this.ProcessQueue.Last().processing_name != "" && this.ProcessQueue.Last() is not null)
+            {
+                run_name = this.ProcessQueue.Last().processing_name;
+                run_name = run_name.Replace(" ", "_");
+
+            }
+            else
+            {
+                run_name = "result";
+
+            }
+            return (this.ProcessQueue.Last().pk, raw_fullpath, input_1, input_2, input_3, folderlocation + "\\" + run_name, this.ProcessQueue.Last().keep_full_output);
+
+        }
+    }
 
 
-                   }
 
-           public class ProcessQueue
-           {
-               public int pk { get; set; }
-               public bool run_status { get; set; }
 
-               public string processing_name { get; set; }
-               public string start_time { get; set; }
-               public bool keep_full_output { get; set; }
+}
 
-               public string input_file_1 { get; set; }
-               public string input_file_2 { get; set; }
-               public string input_file_3 { get; set; }
+public class ProcessQueue
+{
+    public int pk { get; set; }
+    public bool run_status { get; set; }
+
+    public string processing_name { get; set; }
+    public string start_time { get; set; }
+    public bool keep_full_output { get; set; }
+
+    public string input_file_1 { get; set; }
+    public string input_file_2 { get; set; }
+    public string input_file_3 { get; set; }
 
 
     //public int rawfile { get; set; }
-                [JsonProperty("sample_records")]
-                public List<int> rawfile { get; set; }
+    [JsonProperty("sample_records")]
+    public List<int> rawfile { get; set; }
 
-           }
+}
 
 
 
@@ -1012,11 +1015,11 @@ public class SampleRecord
     public int pk { get; set; }
     public int newest_raw { get; set; }
 
-/*    public string get_url()
-    {
-        return this.newest_raw.file_location;
+    /*    public string get_url()
+        {
+            return this.newest_raw.file_location;
 
-    }*/
+        }*/
 
 
 }
