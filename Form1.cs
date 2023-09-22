@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Proteomics_Data_Processor
 {
@@ -703,8 +704,23 @@ namespace Proteomics_Data_Processor
 
             //e.g., PD command example:  DiscovererDaemon.exe  -c custom - a custom "E:\PD_temp\1689.raw" - a custom "E:\PD_temp\1699.raw" - r "E:\PD_temp\result.msf" - b - e custom ANY "E:\PD_temp\1.pdProcessingWF"; "E:\PD_temp\1.pdConsensusWF"
 
-            var path = Properties.Settings.Default.temp_folder + "\\strCmdText.txt";
+            //check if there is any file in the folder ends with txt and contain "Cmd" in it's name, if so,add its content to the strCmdText without newline and space
+            string[] fileEntries = Directory.GetFiles(Properties.Settings.Default.temp_folder);
+            foreach (string fileName in fileEntries)
+            {
+                if ((fileName.Contains("Cmd") && fileName.Contains(".txt")) | (fileName.Contains("input_file_1.txt")))
+                {
+                    string cmd = File.ReadAllText(fileName).Replace(Environment.NewLine, "");
+                    strCmdText += cmd;
+                }
+            }
+            // remove extra line and space in strCmdText
 
+            string pattern = @"[\s\r\n]+"; // Matches one or more whitespace characters or newline characters
+            strCmdText = Regex.Replace(strCmdText, pattern, " ");
+
+
+            var path = Properties.Settings.Default.temp_folder + "\\strCmdText.txt";
             File.WriteAllText(path, strCmdText);
 
             Process.Start("cmd.exe", strCmdText).WaitForExit();
@@ -950,9 +966,17 @@ public class QueueResponse
 
                 FileStorage file_storatge = JsonConvert.DeserializeObject<FileStorage>(response.Content);
                 string download_link = file_storatge.file_location;
-                raw_fullpath.Add(folderlocation + "\\" + number + Path.GetExtension(download_link));
+                string file_location = folderlocation + "\\" + number + Path.GetExtension(download_link);
 
                 webClient.DownloadFile(download_link, folderlocation + "\\" + number + Path.GetExtension(download_link));
+                // check if download_link contains .d and .zip, if so, unzip it and delete the zip file with number.d folder
+                if (download_link.Contains(".d") && download_link.Contains(".zip"))
+                {
+                    ZipFile.ExtractToDirectory(folderlocation + "\\" + number + Path.GetExtension(download_link), folderlocation + "\\" + number + ".d");
+                    File.Delete(folderlocation + "\\" + number + Path.GetExtension(download_link));
+                    file_location = folderlocation + "\\" + number + ".d";
+                }
+                raw_fullpath.Add(file_location);
 
             }
             string run_name;
