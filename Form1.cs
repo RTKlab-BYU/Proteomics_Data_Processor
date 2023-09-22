@@ -689,17 +689,27 @@ namespace Proteomics_Data_Processor
                 output = output.Replace("&&input_3&&", input_3);
             if (output_File != null)
                 output = output.Replace("&&output&&", output_File);
-            List<string> stringList = output.Split("&&loop&&").ToList();
-            string loop_string = stringList[1];
-            string new_lopp = "";
-            foreach (string filename in rawfile)
+            // check if &&loop&& exist in output, if not, add it
+            string strCmdText;
+            if (output.Contains("&&loop&&"))
             {
-                new_lopp += loop_string.Replace("&&raw_file_name&&", filename);
+                List<string> stringList = output.Split("&&loop&&").ToList();
+                string loop_string = stringList[1];
+                string new_lopp = "";
+                foreach (string filename in rawfile)
+                {
+                    new_lopp += loop_string.Replace("&&raw_file_name&&", filename);
 
+                }
+
+
+                strCmdText = stringList[0] + new_lopp + stringList[2];
             }
-
-
-            string strCmdText = stringList[0] + new_lopp + stringList[2];
+            else
+            {
+                strCmdText = output;
+            }
+                      
 
 
             //e.g., PD command example:  DiscovererDaemon.exe  -c custom - a custom "E:\PD_temp\1689.raw" - a custom "E:\PD_temp\1699.raw" - r "E:\PD_temp\result.msf" - b - e custom ANY "E:\PD_temp\1.pdProcessingWF"; "E:\PD_temp\1.pdConsensusWF"
