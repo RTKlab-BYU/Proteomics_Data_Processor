@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Proteomics_Data_Processor
 {
@@ -41,7 +42,7 @@ namespace Proteomics_Data_Processor
             system_username.Text = "search_worker";
             system_pwd.Text = "searchadmin";
             workername.Text = "worker_" + Gethostname();
-            version_number.Text =  Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            version_number.Text = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
             process_temp_folder.Text = "c:\\temp";
             workder_number.Text = "1";
@@ -53,7 +54,7 @@ namespace Proteomics_Data_Processor
 
 
 
-            // Automatically load setting if Default.xml exist in the same folder, and start the process if it is checked
+            // Automatically load setting if Default.xml exist in the same folder, and start the process if it is checked.
             if (File.Exists("Default.xml"))
             {
                 loadingsettings("Default.xml");
@@ -81,68 +82,41 @@ namespace Proteomics_Data_Processor
 
 
 
-
-        private int CountLinesLINQ(string filepath)
-                => File.ReadLines(filepath).Count();
-
-
-        private void SaveSettings() // save all the UI setting to application settings
-        {
-            Properties.Settings.Default.hostip = hostip.Text;
-            Properties.Settings.Default.workerip = workerip.Text;
-            Properties.Settings.Default.system_user = system_username.Text;
-            Properties.Settings.Default.system_pwd = system_pwd.Text;
-            Properties.Settings.Default.workername = workername.Text;
-            Properties.Settings.Default.process_setting = process_app_selector.Text;
-
-            Properties.Settings.Default.workernumber = workder_number.Text;
-            Properties.Settings.Default.temp_folder = process_temp_folder.Text;
-            Properties.Settings.Default.script = script.Text;
-
-
-
-
-
-
-        }
-
+        /// <summary>
+        /// Method <c>loadingSettingsFromToolStripMenuItem_Click</c> loads settings from a saved xml file using loadingsettings method.
+        /// </summary>
 
         private void loadingSettingsFromToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Title = "Browse xml Files",
-
                 CheckFileExists = true,
                 CheckPathExists = true,
                 DefaultExt = "xml",
                 Filter = "Processor Configure files (*.xml)|*.xml|All files (*.*)|*.*",
                 RestoreDirectory = true,
-
             };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 loadingsettings(openFileDialog1.FileName);
-
-
             }
         }
+
+        /// <summary>
+        /// Method <c>loadingsettings</c> populates UI element from a saved xml file.
+        ///   </summary>
 
         private void loadingsettings(string filename)
         {
 
             SettingsProvider.setfilename(filename);
-
-
             TabControl.TabPageCollection pages = tabControl.TabPages;
-
             foreach (TabPage page in pages)
             {
-
                 foreach (Control control in page.Controls)
                 {
-
                     if (control is TextBox)
                     {
                         if (control.Name != "system_pwd")
@@ -151,11 +125,9 @@ namespace Proteomics_Data_Processor
                             ((TextBox)control).Text = SettingsProvider.GetValue(page.Name, control.Name, null);
                         }
                     }
-
                     else if (control is RichTextBox)
                     {
                         ((RichTextBox)control).Text = SettingsProvider.GetValue(page.Name, control.Name, null);
-
                     }
                     else if (control is CheckBox)
                     {
@@ -170,6 +142,10 @@ namespace Proteomics_Data_Processor
             }
         }
 
+        /// <summary>
+        /// Method <c>saveSettingsToToolStripMenuItem_Click</c> saves all the UI setting to application settings.
+        /// </summary>
+        ///
         private void saveSettingsToToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
@@ -180,21 +156,15 @@ namespace Proteomics_Data_Processor
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 SettingsProvider.setfilename(saveFileDialog1.FileName);
-
-
                 TabControl.TabPageCollection pages = tabControl.TabPages;
-
                 foreach (TabPage page in pages)
                 {
-
                     foreach (Control control in page.Controls)
                     {
-
                         if (control is TextBox)
                         {
                             if (control.Name != "system_pwd")
                                 SettingsProvider.SetValue(page.Name, control.Name, control.Text);
-
                         }
                         else if (control is CheckBox)
                         {
@@ -204,9 +174,7 @@ namespace Proteomics_Data_Processor
                         else if (control is RichTextBox)
                         {
                             SettingsProvider.SetValue(page.Name, control.Name, control.Text);
-
                         }
-
                         else if (control is ComboBox)
                         {
                             SettingsProvider.SetValue(page.Name, control.Name, ((ComboBox)control).Text);
@@ -218,13 +186,34 @@ namespace Proteomics_Data_Processor
                 }
             }
         }
-
-
-
-        // used for autostart in windows
-        private void SetStartup()
+        /// <summary>
+        /// Method <c>SaveSettings</c> saves UI settings to application setting (session) and then these can be accessed by different threads.
+        /// </summary>
+        private void SaveSettings() // 
         {
+            Properties.Settings.Default.hostip = hostip.Text;
+            Properties.Settings.Default.workerip = workerip.Text;
+            Properties.Settings.Default.system_user = system_username.Text;
+            Properties.Settings.Default.system_pwd = system_pwd.Text;
+            Properties.Settings.Default.workername = workername.Text;
+            Properties.Settings.Default.process_setting = process_app_selector.Text;
 
+            Properties.Settings.Default.workernumber = workder_number.Text;
+            Properties.Settings.Default.temp_folder = process_temp_folder.Text;
+            Properties.Settings.Default.script = script.Text;
+            Properties.Settings.Default.para_process = parallel_processing.Checked;
+        }
+
+
+
+
+
+
+        /// <summary>
+        /// Method <c>start_with_windows_CheckedChanged</c> allows for app to be automated started as windows boots.
+        /// </summary>
+        private void start_with_windows_CheckedChanged(object sender, EventArgs e)
+        {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey
                 ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
@@ -232,28 +221,26 @@ namespace Proteomics_Data_Processor
                 rk.SetValue(AppName, Application.ExecutablePath);
             else
                 rk.DeleteValue(AppName, false);
-
         }
 
 
-
-        private void start_with_windows_CheckedChanged(object sender, EventArgs e)
-        {
-            SetStartup();
-        }
-
+        /// <summary>
+        /// Method <c>GetIPAddress</c> gets ip address for the worker to be reported to the server.
+        /// </summary>
+        /// <returns>ip4 address or 1.1.1.1 if failed</returns>
         private string GetIPAddress()
         {
             try
             {
-                StringBuilder sb = new StringBuilder();
-                String strHostName = string.Empty;
-                strHostName = Dns.GetHostName();
-                IPHostEntry ipHostEntry = Dns.GetHostEntry(strHostName);
-                IPAddress[] address = ipHostEntry.AddressList;
-                sb.Append(address[4].ToString());
-                sb.AppendLine();
-                return sb.ToString();
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (var ip in host.AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+                return "1.1.1.1";
             }
             catch (Exception ex)
             {
@@ -262,44 +249,48 @@ namespace Proteomics_Data_Processor
             }
         }
 
-
+        /// <summary>
+        /// Method <c>CleanFolder</c> deletes all files and folders in the folder.
+        /// </summary>
         public static void CleanFolder(string foldername)
         {
-
-            try
-            {
-                // delelte all the files to save space
-                System.IO.DirectoryInfo di = new DirectoryInfo(foldername);
-
-                foreach (FileInfo file in di.GetFiles())
+            // delelte all the files to save space
+            DirectoryInfo di = new DirectoryInfo(foldername); foreach (FileInfo file in di.GetFiles())
+                try
                 {
                     file.Delete();
+
                 }
-                foreach (DirectoryInfo dir in di.GetDirectories())
+                catch (Exception ex)
+                {
+                    Thread _message_thread = new Thread(() => MessageBox.Show(Environment.NewLine + DateTime.Now + "Unable to delete file" + ex.Message));
+                    if (!_message_thread.IsAlive)
+                        _message_thread.Start();
+                }
+            foreach (DirectoryInfo dir in di.GetDirectories())
+            {
+                try
                 {
                     dir.Delete(true);
                 }
-
+                catch (Exception ex)
+                {
+                    Thread _message_thread = new Thread(() => MessageBox.Show(Environment.NewLine + DateTime.Now + "Unable to delete folder" + ex.Message));
+                    if (!_message_thread.IsAlive)
+                        _message_thread.Start();
+                }
             }
-            catch (Exception ex)
-            {
 
-                Thread _message_thread = new Thread(() => MessageBox.Show(Environment.NewLine + DateTime.Now + "Unable to delete file" + ex.Message));
-
-                if (!_message_thread.IsAlive)
-                    _message_thread.Start();
-
-            }
         }
 
 
 
 
 
-
-
-
-
+        /// <summary>
+        /// Method <c>Gethostname</c> gets computer hostname for reporting to server.
+        /// </summary>
+        /// <returns>hostname as string</returns>
         private string Gethostname()
         {
             StringBuilder sb = new StringBuilder();
@@ -311,6 +302,10 @@ namespace Proteomics_Data_Processor
 
 
 
+
+        /// <summary>
+        /// Method <c>process_backgroundWorker_DoWork</c> main background worker for obtain task, and process them.
+        /// </summary>
 
         private void process_backgroundWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -331,7 +326,7 @@ namespace Proteomics_Data_Processor
                         process_backgroundWorker.ReportProgress(10, $" running Process queue {queuepk}");
                         ReportStart(queuepk);
                         processStart(rawfilelist, intput_1, intput_2, intput_3, outpu_file);
-                        ReadResult(queuepk, outpu_file, keep_result);
+                        UploadResult(queuepk, outpu_file, keep_result);
                         process_backgroundWorker.ReportProgress(99, $" finished running Process queue {queuepk}");
 
                     }
@@ -356,6 +351,10 @@ namespace Proteomics_Data_Processor
 
         }
 
+
+        /// <summary>
+        /// Method <c>process_backgroundWorker_ProgressChanged</c> process progress changed and report to UI.
+        /// </summary>
         private void process_backgroundWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
             DateTime now = DateTime.Now;
@@ -381,7 +380,9 @@ namespace Proteomics_Data_Processor
             }
 
         }
-
+        /// <summary>
+        /// Method <c>process_backgroundWorker_RunWorkerCompleted</c> process finished and report to UI.
+        /// </summary>
         private void process_backgroundWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
 
@@ -401,8 +402,9 @@ namespace Proteomics_Data_Processor
 
 
 
-
-        // Display the new elapsed time.
+        /// <summary>
+        /// Method <c>tmrClock_Tick</c> Display the new elapsed time after a task starts before it finishes.
+        /// </summary>
         private void tmrClock_Tick(object sender, EventArgs e)
         {
 
@@ -432,26 +434,24 @@ namespace Proteomics_Data_Processor
 
 
 
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// Method <c>ProcessWorkerPing</c> updates worker status to the server.
+        /// </summary>
+        /// <returns>Boolean</returns>
+        ///
         private Boolean ProcessWorkerPing()
         {
             //check if selected proper process
             int app_index;
-            try {
-               app_index = int.Parse(Properties.Settings.Default.process_setting.Split('_')[0]);
+            try
+            {
+                app_index = int.Parse(Properties.Settings.Default.process_setting.Split('_')[0]);
 
-                }
+            }
             catch (Exception e)
             {
                 MessageBox.Show($"Please select valid processor name. Exception: {e.Message}");
-                
+
                 return false;
 
             }
@@ -471,9 +471,9 @@ namespace Proteomics_Data_Processor
                 process_backgroundWorker.ReportProgress(0, "No Response from Server");
                 return false;
             }
-            else 
-            { 
-                    if (response.Content.Contains("Not found"))
+            else
+            {
+                if (response.Content.Contains("Not found"))
                 {
                     request = new RestRequest("/WorkerStatus/", Method.Post);
                     request.AddHeader("cache-control", "no-cache");
@@ -495,7 +495,7 @@ namespace Proteomics_Data_Processor
                 }
 
 
-                    if (response.ResponseStatus == ResponseStatus.Completed)
+                if (response.ResponseStatus == ResponseStatus.Completed)
                 {
                     process_backgroundWorker.ReportProgress(0, "Idle");
                     return true;
@@ -511,32 +511,39 @@ namespace Proteomics_Data_Processor
                     return false;
 
                 }
-                    
+
             }
         }
 
+        /// <summary>
+        /// Method <c>UploadResult</c> Upload output files to the server .
+        /// </summary>
+        /// <param name="queuepk">the analysis queue pk.</param>
+        /// <param name="analysis_name">analysis name (not used).</param>
+        /// <param name="keep_result">Whether keep the full result (not used)</param>
 
-        private void ReadResult(int queuepk, string analysis_name, bool keep_result)
+        private void UploadResult(int queuepk, string analysis_name, bool keep_result)
         {
-
-            string output_file_1 = process_temp_folder.Text + $"\\{output_1.Text}";
-
-            string output_file_2 = process_temp_folder.Text + $"\\{output_2.Text}";
-
-            string output_file_3 = process_temp_folder.Text + $"\\{output_3.Text}";
-            string resultfile = process_temp_folder.Text + $"\\{result_file.Text}";
-
-
+            string output_file_1 = "", output_file_2 = "", output_file_3 = "", output_file_4 = "", output_file_5 = "", output_file_6 = "";
+            if (output_1.Text != "")
+            { output_file_1 = process_temp_folder.Text + $"\\{output_1.Text}"; }
+            if (output_2.Text != "")
+            { output_file_2 = process_temp_folder.Text + $"\\{output_2.Text}"; }
+            if (output_3.Text != "")
+            { output_file_3 = process_temp_folder.Text + $"\\{output_3.Text}"; }
+            if (output_4.Text != "")
+            { output_file_4 = process_temp_folder.Text + $"\\{output_4.Text}"; }
+            if (output_5.Text != "")
+            { output_file_5 = process_temp_folder.Text + $"\\{output_5.Text}"; }
+            if (output_6.Text != "")
+            { output_file_6 = process_temp_folder.Text + $"\\{output_6.Text}"; }
 
             //update queue info
             DateTime now = DateTime.Now;
             var client = new RestClient(Properties.Settings.Default.hostip);
-
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
-
-
             var request = new RestRequest("/DataAnalysisQueue/" + queuepk + "/", Method.Patch);
-           // client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
+            // client.Timeout = 30 * 60 * 1000;// 1000 ms = 1s, 30 min = 30*60*1000
 
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
@@ -546,47 +553,44 @@ namespace Proteomics_Data_Processor
 
             request.AddParameter("finish_time", now.ToString("yyyy-MM-dd hh:mm:ss"));
 
-
-
-            if (File.Exists(resultfile))
-            {
-                request.AddHeader("Content-Type", "multipart/form-data");
-
-                List<string> lines = File.ReadLines(resultfile).ToList();
-
-                request.AddParameter("output_QC_number_1 ", lines[0]);
-                request.AddParameter("output_QC_number_2 ", lines[1]);
-                request.AddParameter("output_QC_number_3 ", lines[2]);
-                request.AddParameter("output_QC_number_4 ", lines[3]);
-
-
-            }
-
-            if (File.Exists(output_file_1))
+            if (output_file_1 != "" && File.Exists(output_file_1))
             {
                 request.AddFile("output_file_1", output_file_1);
 
             }
-            if (File.Exists(output_file_2))
+            if (output_file_2 != "" && File.Exists(output_file_2))
             {
                 request.AddFile("output_file_2", output_file_2);
-
             }
-            if (File.Exists(output_file_3))
+
+            if (output_file_3 != "" && File.Exists(output_file_3))
             {
                 request.AddFile("output_file_3", output_file_3);
 
             }
+            if (output_file_4 != "" && File.Exists(output_file_4))
+            {
+                request.AddFile("output_file_4", output_file_4);
+
+            }
+            if (output_file_5 != "" && File.Exists(output_file_5))
+            {
+                request.AddFile("output_file_5", output_file_5);
+
+            }
+            if (output_file_6 != "" && File.Exists(output_file_6))
+            {
+                request.AddFile("output_file_6", output_file_6);
+            }
+
             var response = client.Execute(request);
-           
-
-            //update result info
-
-
-
 
         }
 
+        /// <summary>
+        /// Method <c>ReportStart</c>reports the starting of a task.
+        /// </summary>
+        /// <param name="queuepk">the analysis queue pk.</param>
 
         private void ReportStart(int queuepk)
         {
@@ -608,12 +612,14 @@ namespace Proteomics_Data_Processor
 
         }
 
-
-        private (int, List<string>,string,string,string,string, bool) GetJobs() //download all pending queue query
-
-
-
-{
+        /// <summary>
+        /// Methon <c>GetJobs</c> get first task to process with all the information needed
+        /// </summary>
+        /// <returns>queuepk, rawfilelist, intput_1, intput_2, intput_3, outpu_file, keep_result.
+        /// or 0,null,null,null,null,null,false </returns>
+        /// 
+        private (int, List<string>, string, string, string, string, bool) GetJobs()
+        {
 
             int app_index = int.Parse(Properties.Settings.Default.process_setting.Split('_')[0]);
             var client = new RestClient(Properties.Settings.Default.hostip);
@@ -632,19 +638,28 @@ namespace Proteomics_Data_Processor
             if (nextjob != null)
             {
 
-                return nextjob.GetCurrentJob(Properties.Settings.Default.hostip, Properties.Settings.Default.temp_folder);
+                return nextjob.GetCurrentJob(Properties.Settings.Default.hostip, Properties.Settings.Default.temp_folder, Properties.Settings.Default.para_process);
             }
             else
             {
-                return (0,null,null,null,null,null,false);
+                return (0, null, null, null, null, null, false);
             }
         }
 
 
 
 
-
-        private bool processStart(List<string> rawfile, string input_1, string input_2,string input_3, string output_File)
+        /// <summary>
+        /// Method <c>processStart</c> use the input files, raw files and script to start the analysis process.
+        /// </summary>
+        /// <param name="rawfile">list of raw file names.</param>
+        /// <param name="input_1">input_1/configure file 1.</param>
+        /// <param name="input_2">input_2/configure file 2.</param>
+        /// <param name="input_3">input_3/configure file 3.</param>
+        /// <param name="output_File">output_File/configure output_File.</param>
+        /// <returns>bool</returns>
+        ///
+        private bool processStart(List<string> rawfile, string input_1, string input_2, string input_3, string output_File)
         {
 
 
@@ -689,8 +704,23 @@ namespace Proteomics_Data_Processor
 
             //e.g., PD command example:  DiscovererDaemon.exe  -c custom - a custom "E:\PD_temp\1689.raw" - a custom "E:\PD_temp\1699.raw" - r "E:\PD_temp\result.msf" - b - e custom ANY "E:\PD_temp\1.pdProcessingWF"; "E:\PD_temp\1.pdConsensusWF"
 
-            var path = Properties.Settings.Default.temp_folder + "\\strCmdText.txt";
+            //check if there is any file in the folder ends with txt and contain "Cmd" in it's name, if so,add its content to the strCmdText without newline and space
+            string[] fileEntries = Directory.GetFiles(Properties.Settings.Default.temp_folder);
+            foreach (string fileName in fileEntries)
+            {
+                if ((fileName.Contains("Cmd") && fileName.Contains(".txt")) | (fileName.Contains("input_file_1.txt")))
+                {
+                    string cmd = File.ReadAllText(fileName).Replace(Environment.NewLine, "");
+                    strCmdText += cmd;
+                }
+            }
+            // remove extra line and space in strCmdText
 
+            string pattern = @"[\s\r\n]+"; // Matches one or more whitespace characters or newline characters
+            strCmdText = Regex.Replace(strCmdText, pattern, " ");
+
+
+            var path = Properties.Settings.Default.temp_folder + "\\strCmdText.txt";
             File.WriteAllText(path, strCmdText);
 
             Process.Start("cmd.exe", strCmdText).WaitForExit();
@@ -699,6 +729,9 @@ namespace Proteomics_Data_Processor
         }
 
 
+        /// <summary>
+        /// Method <c>temp_button_Click</c> uses to set the temp folder .
+        /// </summary>
 
         private void temp_button_Click(object sender, EventArgs e)
         {
@@ -711,34 +744,42 @@ namespace Proteomics_Data_Processor
             }
         }
 
+
+        /// <summary>
+        /// Method <c>Check_server_Click_1</c> obtains the list of process apps from the server.
+        /// </summary>
         private void Check_server_Click_1(object sender, EventArgs e)
         {
-            try{
-                var client = new RestClient(hostip.Text);
-            client.Authenticator = new HttpBasicAuthenticator(system_username.Text, system_pwd.Text);
-            var request = new RestRequest("/ProcessingApp/", Method.Get);
-            request.AddHeader("cache-control", "no-cache");
-            request.AddHeader("Accept", "application/json");
-            var response = client.Execute(request);
-
-
-            ProcessAppResponseDictionary all_process_response = JsonConvert.DeserializeObject<ProcessAppResponseDictionary>(response.Content);
-            process_app_selector.Items.Clear();
-
-            foreach (ProcessApp app in all_process_response.ProcessApp)
+            try
             {
-                process_app_selector.Items.Add($"{app.pk}_{app.appname}");
-            }
-            if (process_app_selector.Items.Count != 0)
-                process_app_selector.SelectedIndex = 0;
+                var client = new RestClient(hostip.Text);
+                client.Authenticator = new HttpBasicAuthenticator(system_username.Text, system_pwd.Text);
+                var request = new RestRequest("/ProcessingApp/", Method.Get);
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                var response = client.Execute(request);
+
+
+                ProcessAppResponseDictionary all_process_response = JsonConvert.DeserializeObject<ProcessAppResponseDictionary>(response.Content);
+                process_app_selector.Items.Clear();
+
+                foreach (ProcessApp app in all_process_response.ProcessApp)
+                {
+                    process_app_selector.Items.Add($"{app.pk}_{app.appname}");
+                }
+                if (process_app_selector.Items.Count != 0)
+                    process_app_selector.SelectedIndex = 0;
             }
             catch (Exception err)
             {
-                MessageBox.Show("Can not obtain server address, check server condition or put in manully. "+ err.Message);
+                MessageBox.Show("Can not obtain server address, check server condition or put in manully. " + err.Message);
 
             }
         }
 
+        /// <summary>
+        /// Method <c>Manual_start_Click</c>start the worker.
+        /// </summary>
         private void Manual_start_Click(object sender, EventArgs e)
         {
             SaveSettings();
@@ -753,10 +794,12 @@ namespace Proteomics_Data_Processor
                 output.AppendText(Environment.NewLine + DateTime.Now + " Started Process Worker ");
             }
         }
-
+        /// <summary>
+        /// Method <c>Manual_stop_Click</c>stops the worker, also used to debug with the server.
+        /// </summary>
         private void Manual_stop_Click(object sender, EventArgs e)
         {
-            ReadResult(5770,"test",false);
+            UploadResult(3, "test", false); // used for debug
 
             //stop the thread.
             //Check if background worker is doing anything and send a cancellation if it is
@@ -767,37 +810,15 @@ namespace Proteomics_Data_Processor
             output.AppendText(Environment.NewLine + DateTime.Now + " Worker stopped");
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                Title = "Browse process app File",
-
-                CheckFileExists = true,
-                CheckPathExists = true,
-                DefaultExt = "exe",
-                Filter = "Processor app exe file (*.exe)|*.exe|All files (*.*)|*.*",
-                RestoreDirectory = true,
-
-            };
-
-
-        }
-
-
-
-
+        /// <summary>
+        /// Method <c>helpToolStripMenuItem1_Click</c> open github page for manual.
+        /// </summary>
         private void helpToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/xiaofengxie128/Proteomics_Data_Processor");
         }
     }
-
-
-
-
-
-           }
+}
 
 
 
@@ -811,80 +832,110 @@ namespace Proteomics_Data_Processor
 
 
 
-           //Supporting classes
+//Supporting classes
+
+
+/// <summary>
+/// QueueResponse used for modeling the data structure of the process queue from the server.
+/// </summary>
+public class QueueResponse
+{
+    [JsonProperty("count")]
+    public int count { get; set; }
+    [JsonProperty("next")]
+    public string next { get; set; }
+    [JsonProperty("previous")]
+    public string previous { get; set; }
+    [JsonProperty("results")]
+    public List<ProcessQueue> ProcessQueue { get; set; }
+
+
+    /// <summary>
+    /// Methon <c>GetCurrentJob</c> get first task to process with all the information needed
+    /// </summary>
+    /// <param name="hostip">server IP.</param>
+    /// <param name="folderlocation">temp folder location for saving files</param>
+    ///     <param name="para_processing">if para processing is on</param>
+    /// <returns>queuepk, rawfilelist, intput_1, intput_2, intput_3, outpu_file, keep_result.
+    /// or 0,null,null,null,null,null,false </returns>
+    /// 
+    public (int, List<string>, string, string, string, string, bool) GetCurrentJob(string hostip, string folderlocation, bool para_processing) // check if there is a pending run
+                                                                                                                                               // download inputs files and raw ms files
+    {
+
+
+        var client = new RestClient(hostip);
+
+        client.Authenticator = new HttpBasicAuthenticator(Proteomics_Data_Processor.Properties.Settings.Default.system_user, Proteomics_Data_Processor.Properties.Settings.Default.system_pwd);
 
 
 
 
+        if (this.ProcessQueue.Count == 0)
+            return (0, null, null, null, null, null, false);
+
+        else
+        {
+            Proteomics_Data_Processor.Proteomics_Data_Processor.CleanFolder(Proteomics_Data_Processor.Properties.Settings.Default.temp_folder);
 
 
-           /// <summary>
-           /// QueueResponse used for modeling the data structure of the process queue from the server.
-           /// </summary>
-           /// <param name="param1">Some Parameter.</param>
-           /// <returns>What this method returns.</returns>
-           /// 
-           public class QueueResponse
-           {
+            ProcessQueue NextTask = null; ;
+            this.ProcessQueue.Reverse();
+            foreach (ProcessQueue item in this.ProcessQueue)
+            {
+                if (para_processing)
+                {
+                    if (string.IsNullOrEmpty(item.start_time))
+                    {
+                        NextTask = item;
+                        break;
 
 
-               [JsonProperty("count")]
-               public int count { get; set; }
-               [JsonProperty("next")]
+                    }
 
-               public string next { get; set; }
-               [JsonProperty("previous")]
-
-               public string previous { get; set; }
-               [JsonProperty("results")]
-               public List<ProcessQueue> ProcessQueue { get; set; }
-
-               public (int, List<string>, string, string, string, string, bool) GetCurrentJob(string hostip, string folderlocation) // check if there is a pending run
-                                                                                                         // download inputs files and raw ms files
-               {
-
-
-                   var client = new RestClient(hostip);
-
-                   client.Authenticator = new HttpBasicAuthenticator(Proteomics_Data_Processor.Properties.Settings.Default.system_user, Proteomics_Data_Processor.Properties.Settings.Default.system_pwd);
+                }
+                else
+                {
+                    NextTask = item;
+                    break;
+                }
 
 
 
+            }
+            if (NextTask is null)
+            {
 
-                   if (this.ProcessQueue.Count == 0)
-                        return (0, null, null, null, null, null, false); 
+                return (0, null, null, null, null, null, false);
 
-                   else
-                   {
-                       Proteomics_Data_Processor.Proteomics_Data_Processor.CleanFolder(Proteomics_Data_Processor.Properties.Settings.Default.temp_folder);
+            }
 
 
-
-                       WebClient webClient = new WebClient();
+            WebClient webClient = new WebClient();
 
             // download input files
-            String input_1 = Path.GetFileName(this.ProcessQueue.Last().input_file_1);
-            String input_2 = Path.GetFileName(this.ProcessQueue.Last().input_file_2);
-            String input_3 = Path.GetFileName(this.ProcessQueue.Last().input_file_3);
+            String input_1 = Path.GetFileName(NextTask.input_file_1);
+            String input_2 = Path.GetFileName(NextTask.input_file_2);
+            String input_3 = Path.GetFileName(NextTask.input_file_3);
 
             if (input_1 != null)
             {
                 input_1 = folderlocation + "\\" + input_1;
-                webClient.DownloadFile(this.ProcessQueue.Last().input_file_1, input_1);
+                webClient.DownloadFile(NextTask.input_file_1, input_1);
 
 
             }
             if (input_2 != null)
             {
                 input_2 = folderlocation + "\\" + input_2;
-                webClient.DownloadFile(this.ProcessQueue.Last().input_file_2, input_2);
+                webClient.DownloadFile(NextTask.input_file_2, input_2);
             }
 
             if (input_3 != null)
             {
                 input_3 = folderlocation + "\\" + input_3;
 
-                webClient.DownloadFile(this.ProcessQueue.Last().input_file_3, input_3);
+                webClient.DownloadFile(NextTask.input_file_3, input_3);
 
             }
 
@@ -892,76 +943,83 @@ namespace Proteomics_Data_Processor
             List<string> raw_fullpath = new List<string> { };
 
             List<int> rawlist = this.ProcessQueue.Last().rawfile;
-                       foreach (int number in rawlist)
-                       {
-                           var request = new RestRequest( "/SampleRecord/" +number + "/" , Method.Get);
+            foreach (int number in rawlist)
+            {
+                var request = new RestRequest("/SampleRecord/" + number + "/", Method.Get);
 
-                           request.AddHeader("cache-control", "no-cache");
-                           request.AddHeader("Accept", "application/json");
-                           // request.Parameters.Clear();
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                // request.Parameters.Clear();
 
-                           var response = client.Execute(request);
-
-
-                           SampleRecord rawurl = JsonConvert.DeserializeObject<SampleRecord>(response.Content);
-
-                           request = new RestRequest("/FileStorage/" + rawurl.newest_raw + "/", Method.Get);
-
-                           request.AddHeader("cache-control", "no-cache");
-                           request.AddHeader("Accept", "application/json");
-                            // request.Parameters.Clear();
-
-                           response = client.Execute(request);
-
-                           FileStorage file_storatge = JsonConvert.DeserializeObject<FileStorage>(response.Content);
-                           string download_link = file_storatge.file_location;
-                           raw_fullpath.Add(folderlocation + "\\" + number + Path.GetExtension(download_link));
-
-                           webClient.DownloadFile(download_link, folderlocation + "\\" + number + Path.GetExtension(download_link));
-
-                        }
-                       string run_name;
-                       if (this.ProcessQueue.Last().processing_name != "" && this.ProcessQueue.Last() is not null)
-                       {
-                           run_name = this.ProcessQueue.Last().processing_name;
-                           run_name = run_name.Replace(" ", "_");
-
-                       }
-                       else
-                       {
-                           run_name = "result";
-
-                       }
-                       return (this.ProcessQueue.Last().pk, raw_fullpath,input_1, input_2, input_3, folderlocation + "\\"+run_name, this.ProcessQueue.Last().keep_full_output);
-
-                   }
-               }
+                var response = client.Execute(request);
 
 
+                SampleRecord rawurl = JsonConvert.DeserializeObject<SampleRecord>(response.Content);
+
+                request = new RestRequest("/FileStorage/" + rawurl.newest_raw + "/", Method.Get);
+
+                request.AddHeader("cache-control", "no-cache");
+                request.AddHeader("Accept", "application/json");
+                // request.Parameters.Clear();
+
+                response = client.Execute(request);
+
+                FileStorage file_storatge = JsonConvert.DeserializeObject<FileStorage>(response.Content);
+                string download_link = file_storatge.file_location;
+                string file_location = folderlocation + "\\" + number + Path.GetExtension(download_link);
+
+                webClient.DownloadFile(download_link, folderlocation + "\\" + number + Path.GetExtension(download_link));
+                // check if download_link contains .d and .zip, if so, unzip it and delete the zip file with number.d folder
+                if (download_link.Contains(".d") && download_link.Contains(".zip"))
+                {
+                    ZipFile.ExtractToDirectory(folderlocation + "\\" + number + Path.GetExtension(download_link), folderlocation + "\\" + number + ".d");
+                    File.Delete(folderlocation + "\\" + number + Path.GetExtension(download_link));
+                    file_location = folderlocation + "\\" + number + ".d";
+                }
+                raw_fullpath.Add(file_location);
+
+            }
+            string run_name;
+            if (this.ProcessQueue.Last().processing_name != "" && this.ProcessQueue.Last() is not null)
+            {
+                run_name = this.ProcessQueue.Last().processing_name;
+                run_name = run_name.Replace(" ", "_");
+
+            }
+            else
+            {
+                run_name = "result";
+
+            }
+            return (this.ProcessQueue.Last().pk, raw_fullpath, input_1, input_2, input_3, folderlocation + "\\" + run_name, this.ProcessQueue.Last().keep_full_output);
+
+        }
+    }
 
 
-           }
 
-           public class ProcessQueue
-           {
-               public int pk { get; set; }
-               public bool run_status { get; set; }
 
-               public string processing_name { get; set; }
-               public bool keep_full_output { get; set; }
+}
 
-               public string input_file_1 { get; set; }
-               public string input_file_2 { get; set; }
-               public string input_file_3 { get; set; }
+public class ProcessQueue
+{
+    public int pk { get; set; }
+    public bool run_status { get; set; }
+
+    public string processing_name { get; set; }
+    public string start_time { get; set; }
+    public bool keep_full_output { get; set; }
+
+    public string input_file_1 { get; set; }
+    public string input_file_2 { get; set; }
+    public string input_file_3 { get; set; }
 
 
     //public int rawfile { get; set; }
-                [JsonProperty("sample_records")]
-                public List<int> rawfile { get; set; }
+    [JsonProperty("sample_records")]
+    public List<int> rawfile { get; set; }
 
-           }
-
-
+}
 
 
 
@@ -970,22 +1028,29 @@ namespace Proteomics_Data_Processor
 
 
 
-//General purpose Classes
 
 
+
+/// <summary>
+/// Class <c>SampleRecord</c> for unpack data from server SampleRecord object.
+/// </summary>
 public class SampleRecord
 {
     public int pk { get; set; }
     public int newest_raw { get; set; }
 
-/*    public string get_url()
-    {
-        return this.newest_raw.file_location;
+    /*    public string get_url()
+        {
+            return this.newest_raw.file_location;
 
-    }*/
+        }*/
 
 
 }
+
+/// <summary>
+/// Class <c>FileStorage</c> for unpack data from server FileStorage object.
+/// </summary>
 public class FileStorage
 {
     public string file_location;
@@ -994,9 +1059,10 @@ public class FileStorage
 }
 
 
-// processapp_response class
 
-
+/// <summary>
+/// Class <c>ProcessAppResponseDictionary</c> for unpack data from server ProcessAppResponseDictionary object.
+/// </summary>
 public class ProcessAppResponseDictionary
 {
     [JsonProperty("count")]
@@ -1011,6 +1077,10 @@ public class ProcessAppResponseDictionary
     public List<ProcessApp> ProcessApp { get; set; }
 }
 
+
+/// <summary>
+/// Class <c>ProcessApp</c> for unpack data from server ProcessApp object.
+/// </summary>
 public class ProcessApp
 {
     [JsonProperty("pk")]
@@ -1028,9 +1098,11 @@ public class ProcessApp
 
 
 
-//used for saving and loading settings
-//https://stackoverflow.com/questions/36820196/visual-c-sharp-storing-and-reading-custom-options-to-and-from-a-custom-xml-in-ap
 
+/// <summary>
+/// Class <c>SettingsProvider</c> uses for saving setting to xml file .
+/// from https://stackoverflow.com/questions/36820196/visual-c-sharp-storing-and-reading-custom-options-to-and-from-a-custom-xml-in-ap
+/// </summary>
 public static class SettingsProvider
 {
     private static string settingsFileName;
