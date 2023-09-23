@@ -626,7 +626,7 @@ namespace Proteomics_Data_Processor
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
 
-            var request = new RestRequest($"/DataAnalysisQueue/?processappid={app_index}", Method.Get);
+            var request = new RestRequest($"/DataAnalysisQueue/?processappid={app_index}&run_complete=no", Method.Get);
 
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
@@ -935,6 +935,7 @@ public class QueueResponse
 
 
             }
+
             if (input_2 != null)
             {
                 input_2 = folderlocation + "\\" + input_2;
