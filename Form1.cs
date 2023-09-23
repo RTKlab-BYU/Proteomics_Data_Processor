@@ -685,8 +685,9 @@ namespace Proteomics_Data_Processor
                 output = output.Replace("&&input_2&&", input_2);
             if (input_3 != null)
                 output = output.Replace("&&input_3&&", input_3);
-            if (input_3 != null)
-                output = output.Replace("&&input_3&&", input_3);
+            string input_2_text = File.ReadAllText(input_2);
+            string updated_text = input_2_text.Replace("ThisistempfoldeR", Properties.Settings.Default.temp_folder);
+            File.WriteAllText(input_2, updated_text);
             if (output_File != null)
                 output = output.Replace("&&output&&", output_File);
             // check if &&loop&& exist in output, if not, add it
