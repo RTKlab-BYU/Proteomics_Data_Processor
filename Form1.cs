@@ -633,7 +633,7 @@ namespace Proteomics_Data_Processor
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
 
-            var request = new RestRequest($"/DataAnalysisQueue/?processappid={app_index}", Method.Get);
+            var request = new RestRequest($"/DataAnalysisQueue/?processappid={app_index}&run_complete=no", Method.Get);
 
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
@@ -688,12 +688,20 @@ namespace Proteomics_Data_Processor
             string output = @"";
             if (input_1 != null)
                 output = template_string.Replace("&&input_1&&", input_1);
+
+
             if (input_2 != null)
+            {
                 output = output.Replace("&&input_2&&", input_2);
+
+                string input_2_text = File.ReadAllText(input_2);
+                string updated_text = input_2_text.Replace("ThisistempfoldeR", Properties.Settings.Default.temp_folder);
+                File.WriteAllText(input_2, updated_text);
+            }
+
             if (input_3 != null)
                 output = output.Replace("&&input_3&&", input_3);
-            if (input_3 != null)
-                output = output.Replace("&&input_3&&", input_3);
+
             if (output_File != null)
                 output = output.Replace("&&output&&", output_File);
             // check if &&loop&& exist in output, if not, add it
@@ -897,7 +905,7 @@ public class QueueResponse
 
 
             ProcessQueue NextTask = null; ;
-            this.ProcessQueue.Reverse();
+            //this.ProcessQueue.Reverse();
             foreach (ProcessQueue item in this.ProcessQueue)
             {
                 if (para_processing)
@@ -942,6 +950,7 @@ public class QueueResponse
 
 
             }
+
             if (input_2 != null)
             {
                 input_2 = folderlocation + "\\" + input_2;
