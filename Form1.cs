@@ -626,7 +626,7 @@ namespace Proteomics_Data_Processor
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
 
-            var request = new RestRequest($"/DataAnalysisQueue/?processappid={app_index}", Method.Get);
+            var request = new RestRequest($"/DataAnalysisQueue/?processappid={app_index}&run_complete=no", Method.Get);
 
             request.AddHeader("cache-control", "no-cache");
             request.AddHeader("Accept", "application/json");
@@ -681,25 +681,43 @@ namespace Proteomics_Data_Processor
             string output = @"";
             if (input_1 != null)
                 output = template_string.Replace("&&input_1&&", input_1);
-            if (input_2 != null)
-                output = output.Replace("&&input_2&&", input_2);
-            if (input_3 != null)
-                output = output.Replace("&&input_3&&", input_3);
-            if (input_3 != null)
-                output = output.Replace("&&input_3&&", input_3);
-            if (output_File != null)
-                output = output.Replace("&&output&&", output_File);
-            List<string> stringList = output.Split("&&loop&&").ToList();
-            string loop_string = stringList[1];
-            string new_lopp = "";
-            foreach (string filename in rawfile)
-            {
-                new_lopp += loop_string.Replace("&&raw_file_name&&", filename);
 
+
+            if (input_2 != null)
+            {
+                output = output.Replace("&&input_2&&", input_2);
+
+                string input_2_text = File.ReadAllText(input_2);
+                string updated_text = input_2_text.Replace("ThisistempfoldeR", Properties.Settings.Default.temp_folder);
+                File.WriteAllText(input_2, updated_text);
             }
 
+            if (input_3 != null)
+                output = output.Replace("&&input_3&&", input_3);
 
-            string strCmdText = stringList[0] + new_lopp + stringList[2];
+            if (output_File != null)
+                output = output.Replace("&&output&&", output_File);
+            // check if &&loop&& exist in output, if not, add it
+            string strCmdText;
+            if (output.Contains("&&loop&&"))
+            {
+                List<string> stringList = output.Split("&&loop&&").ToList();
+                string loop_string = stringList[1];
+                string new_lopp = "";
+                foreach (string filename in rawfile)
+                {
+                    new_lopp += loop_string.Replace("&&raw_file_name&&", filename);
+
+                }
+
+
+                strCmdText = stringList[0] + new_lopp + stringList[2];
+            }
+            else
+            {
+                strCmdText = output;
+            }
+                      
 
 
             //e.g., PD command example:  DiscovererDaemon.exe  -c custom - a custom "E:\PD_temp\1689.raw" - a custom "E:\PD_temp\1699.raw" - r "E:\PD_temp\result.msf" - b - e custom ANY "E:\PD_temp\1.pdProcessingWF"; "E:\PD_temp\1.pdConsensusWF"
@@ -880,7 +898,7 @@ public class QueueResponse
 
 
             ProcessQueue NextTask = null; ;
-            this.ProcessQueue.Reverse();
+            //this.ProcessQueue.Reverse();
             foreach (ProcessQueue item in this.ProcessQueue)
             {
                 if (para_processing)
@@ -925,6 +943,7 @@ public class QueueResponse
 
 
             }
+
             if (input_2 != null)
             {
                 input_2 = folderlocation + "\\" + input_2;
