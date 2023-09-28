@@ -137,6 +137,10 @@ namespace Proteomics_Data_Processor
                     {
                         ((ComboBox)control).Text = SettingsProvider.GetValue(page.Name, control.Name, null);
                     }
+                    else if (control is NumericUpDown)
+                    {
+                        ((NumericUpDown)control).Text = SettingsProvider.GetValue(page.Name, control.Name, null);
+                    }
                 }
 
             }
@@ -179,7 +183,10 @@ namespace Proteomics_Data_Processor
                         {
                             SettingsProvider.SetValue(page.Name, control.Name, ((ComboBox)control).Text);
                         }
-
+                        else if (control is NumericUpDown)
+                        {
+                            SettingsProvider.SetValue(page.Name, control.Name, ((NumericUpDown)control).Text);
+                        }
 
                     }
 
