@@ -23,6 +23,7 @@ using System.Xml.Linq;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Net.Cache;
 
 namespace Proteomics_Data_Processor
 {
@@ -139,7 +140,7 @@ namespace Proteomics_Data_Processor
                     }
                     else if (control is NumericUpDown)
                     {
-                        ((NumericUpDown)control).Text = SettingsProvider.GetValue(page.Name, control.Name, null);
+                        ((NumericUpDown)control).Value = Convert.ToDecimal(SettingsProvider.GetValue(page.Name, control.Name, null));
                     }
                 }
 
@@ -167,7 +168,7 @@ namespace Proteomics_Data_Processor
                     {
                         if (control is TextBox)
                         {
-                            if (control.Name != "system_pwd")
+                            if (control.Name != "system_pwd" && control.Name != "workername" && control.Name != "workerip")
                                 SettingsProvider.SetValue(page.Name, control.Name, control.Text);
                         }
                         else if (control is CheckBox)
@@ -209,6 +210,8 @@ namespace Proteomics_Data_Processor
             Properties.Settings.Default.temp_folder = process_temp_folder.Text;
             Properties.Settings.Default.script = script.Text;
             Properties.Settings.Default.para_process = parallel_processing.Checked;
+
+            Properties.Settings.Default.reverse_order = reverse_order.Checked;
         }
 
 
@@ -311,6 +314,7 @@ namespace Proteomics_Data_Processor
 
 
         /// <summary>
+        /// Main process to download files, process them and upload results.
         /// Method <c>process_backgroundWorker_DoWork</c> main background worker for obtain task, and process them.
         /// </summary>
 
@@ -465,7 +469,7 @@ namespace Proteomics_Data_Processor
 
             DateTime now = DateTime.Now;
             var client = new RestClient(Properties.Settings.Default.hostip);
-            // check if worker number exist
+           // check if worker number exist
 
             client.Authenticator = new HttpBasicAuthenticator(Properties.Settings.Default.system_user, Properties.Settings.Default.system_pwd);
             var request = new RestRequest("/WorkerStatus/" + Properties.Settings.Default.workernumber + "/", Method.Get);
@@ -904,18 +908,28 @@ public class QueueResponse
             Proteomics_Data_Processor.Proteomics_Data_Processor.CleanFolder(Proteomics_Data_Processor.Properties.Settings.Default.temp_folder);
 
 
-            ProcessQueue NextTask = null; ;
-            //this.ProcessQueue.Reverse();
+            ProcessQueue NextTask = null;
+
+            // check if reverse order is on, if so, reverse the queue to analyze newer runs first
+            if (!Proteomics_Data_Processor.Properties.Settings.Default.reverse_order)
+            {
+                this.ProcessQueue.Reverse();
+            }
             foreach (ProcessQueue item in this.ProcessQueue)
             {
-                if (para_processing)
+                if (Proteomics_Data_Processor.Properties.Settings.Default.para_process)
                 {
+
                     if (string.IsNullOrEmpty(item.start_time))
                     {
                         NextTask = item;
                         break;
 
 
+                    }
+                    else
+                    {
+                        continue;
                     }
 
                 }
@@ -968,7 +982,7 @@ public class QueueResponse
             // down all the raw files file 
             List<string> raw_fullpath = new List<string> { };
 
-            List<int> rawlist = this.ProcessQueue.Last().rawfile;
+            List<int> rawlist = NextTask.rawfile;
             foreach (int number in rawlist)
             {
                 var request = new RestRequest("/SampleRecord/" + number + "/", Method.Get);
@@ -1006,9 +1020,9 @@ public class QueueResponse
 
             }
             string run_name;
-            if (this.ProcessQueue.Last().processing_name != "" && this.ProcessQueue.Last() is not null)
+            if (NextTask.processing_name != "" && NextTask is not null)
             {
-                run_name = this.ProcessQueue.Last().processing_name;
+                run_name = NextTask.processing_name;
                 run_name = run_name.Replace(" ", "_");
 
             }
@@ -1017,7 +1031,7 @@ public class QueueResponse
                 run_name = "result";
 
             }
-            return (this.ProcessQueue.Last().pk, raw_fullpath, input_1, input_2, input_3, folderlocation + "\\" + run_name, this.ProcessQueue.Last().keep_full_output);
+            return (NextTask.pk, raw_fullpath, input_1, input_2, input_3, folderlocation + "\\" + run_name, NextTask.keep_full_output);
 
         }
     }

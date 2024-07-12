@@ -68,6 +68,7 @@ namespace Proteomics_Data_Processor
             label4 = new System.Windows.Forms.Label();
             label14 = new System.Windows.Forms.Label();
             mainsettings = new System.Windows.Forms.TabPage();
+            reverse_order = new System.Windows.Forms.CheckBox();
             parallel_processing = new System.Windows.Forms.CheckBox();
             process_thread_autostart = new System.Windows.Forms.CheckBox();
             Manual_start = new System.Windows.Forms.Button();
@@ -110,19 +111,22 @@ namespace Proteomics_Data_Processor
             // output
             // 
             output.BackColor = System.Drawing.SystemColors.Info;
-            output.Location = new System.Drawing.Point(395, 55);
+            output.Location = new System.Drawing.Point(564, 92);
+            output.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output.Name = "output";
             output.ReadOnly = true;
-            output.Size = new System.Drawing.Size(390, 696);
+            output.Size = new System.Drawing.Size(555, 927);
             output.TabIndex = 10;
             output.Text = "";
             // 
             // menuStrip1
             // 
+            menuStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { fileToolStripMenuItem, toolsToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new System.Drawing.Size(800, 24);
+            menuStrip1.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
+            menuStrip1.Size = new System.Drawing.Size(1143, 35);
             menuStrip1.TabIndex = 26;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -130,64 +134,66 @@ namespace Proteomics_Data_Processor
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { loadingSettingsFromToolStripMenuItem, saveSettingsToToolStripMenuItem, exitToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            fileToolStripMenuItem.Size = new System.Drawing.Size(54, 29);
             fileToolStripMenuItem.Text = "File";
             // 
             // loadingSettingsFromToolStripMenuItem
             // 
             loadingSettingsFromToolStripMenuItem.Name = "loadingSettingsFromToolStripMenuItem";
-            loadingSettingsFromToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            loadingSettingsFromToolStripMenuItem.Size = new System.Drawing.Size(294, 34);
             loadingSettingsFromToolStripMenuItem.Text = "Loading settings  from";
             loadingSettingsFromToolStripMenuItem.Click += loadingSettingsFromToolStripMenuItem_Click;
             // 
             // saveSettingsToToolStripMenuItem
             // 
             saveSettingsToToolStripMenuItem.Name = "saveSettingsToToolStripMenuItem";
-            saveSettingsToToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            saveSettingsToToolStripMenuItem.Size = new System.Drawing.Size(294, 34);
             saveSettingsToToolStripMenuItem.Text = "Save settings to";
             saveSettingsToToolStripMenuItem.Click += saveSettingsToToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            exitToolStripMenuItem.Size = new System.Drawing.Size(294, 34);
             exitToolStripMenuItem.Text = "Exit";
             // 
             // toolsToolStripMenuItem
             // 
             toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            toolsToolStripMenuItem.Size = new System.Drawing.Size(69, 29);
             toolsToolStripMenuItem.Text = "Tools";
             // 
             // helpToolStripMenuItem
             // 
             helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { helpToolStripMenuItem1 });
             helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            helpToolStripMenuItem.Size = new System.Drawing.Size(65, 29);
             helpToolStripMenuItem.Text = "Help";
             // 
             // helpToolStripMenuItem1
             // 
             helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            helpToolStripMenuItem1.Size = new System.Drawing.Size(99, 22);
+            helpToolStripMenuItem1.Size = new System.Drawing.Size(151, 34);
             helpToolStripMenuItem1.Text = "Help";
             helpToolStripMenuItem1.Click += helpToolStripMenuItem1_Click;
             // 
             // label26
             // 
             label26.AutoSize = true;
-            label26.Location = new System.Drawing.Point(395, 758);
+            label26.Location = new System.Drawing.Point(564, 1042);
+            label26.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label26.Name = "label26";
-            label26.Size = new System.Drawing.Size(138, 15);
+            label26.Size = new System.Drawing.Size(207, 25);
             label26.TabIndex = 27;
             label26.Text = "Current Version Number:";
             // 
             // version_number
             // 
             version_number.AutoSize = true;
-            version_number.Location = new System.Drawing.Point(551, 758);
+            version_number.Location = new System.Drawing.Point(787, 1263);
+            version_number.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             version_number.Name = "version_number";
-            version_number.Size = new System.Drawing.Size(0, 15);
+            version_number.Size = new System.Drawing.Size(0, 25);
             version_number.TabIndex = 27;
             // 
             // custom
@@ -195,10 +201,11 @@ namespace Proteomics_Data_Processor
             custom.Controls.Add(script_instructions);
             custom.Controls.Add(script);
             custom.Controls.Add(reset_to_default);
-            custom.Location = new System.Drawing.Point(4, 24);
+            custom.Location = new System.Drawing.Point(4, 34);
+            custom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             custom.Name = "custom";
-            custom.Padding = new System.Windows.Forms.Padding(3);
-            custom.Size = new System.Drawing.Size(385, 682);
+            custom.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            custom.Size = new System.Drawing.Size(553, 922);
             custom.TabIndex = 4;
             custom.Text = "Processing Script";
             custom.UseVisualStyleBackColor = true;
@@ -206,26 +213,29 @@ namespace Proteomics_Data_Processor
             // script_instructions
             // 
             script_instructions.BackColor = System.Drawing.SystemColors.Info;
-            script_instructions.Location = new System.Drawing.Point(3, 18);
+            script_instructions.Location = new System.Drawing.Point(4, 30);
+            script_instructions.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             script_instructions.Name = "script_instructions";
             script_instructions.ReadOnly = true;
-            script_instructions.Size = new System.Drawing.Size(376, 75);
+            script_instructions.Size = new System.Drawing.Size(535, 122);
             script_instructions.TabIndex = 1;
             script_instructions.Text = "Following command will be executed as a batch file， & can be used to connect multiple commands, must start with /c and limited to 8192 characters. Check help/github wiki for detailed instructions ";
             // 
             // script
             // 
-            script.Location = new System.Drawing.Point(3, 116);
+            script.Location = new System.Drawing.Point(4, 193);
+            script.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             script.Name = "script";
-            script.Size = new System.Drawing.Size(376, 496);
+            script.Size = new System.Drawing.Size(535, 824);
             script.TabIndex = 1;
             script.Text = "/k DiscovererDaemon.exe -c custom &&loop&& -a custom &&raw_file_name&& &&loop&&  -r &&output&&.msf -b  - e custom ANY &&input_1&&;&&input_2&&";
             // 
             // reset_to_default
             // 
-            reset_to_default.Location = new System.Drawing.Point(88, 629);
+            reset_to_default.Location = new System.Drawing.Point(126, 1048);
+            reset_to_default.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             reset_to_default.Name = "reset_to_default";
-            reset_to_default.Size = new System.Drawing.Size(184, 34);
+            reset_to_default.Size = new System.Drawing.Size(263, 57);
             reset_to_default.TabIndex = 0;
             reset_to_default.Text = "Reset to default";
             reset_to_default.UseVisualStyleBackColor = true;
@@ -248,10 +258,11 @@ namespace Proteomics_Data_Processor
             pd.Controls.Add(label7);
             pd.Controls.Add(label4);
             pd.Controls.Add(label14);
-            pd.Location = new System.Drawing.Point(4, 24);
+            pd.Location = new System.Drawing.Point(4, 34);
+            pd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pd.Name = "pd";
-            pd.Padding = new System.Windows.Forms.Padding(3);
-            pd.Size = new System.Drawing.Size(385, 682);
+            pd.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pd.Size = new System.Drawing.Size(553, 922);
             pd.TabIndex = 3;
             pd.Text = "Input_output";
             pd.UseVisualStyleBackColor = true;
@@ -260,93 +271,105 @@ namespace Proteomics_Data_Processor
             // 
             label16.AutoSize = true;
             label16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            label16.Location = new System.Drawing.Point(8, 134);
+            label16.Location = new System.Drawing.Point(11, 223);
+            label16.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label16.Name = "label16";
-            label16.Size = new System.Drawing.Size(330, 15);
+            label16.Size = new System.Drawing.Size(512, 25);
             label16.TabIndex = 27;
             label16.Text = "Output files to be uploaded(can leave empty if less than 6)";
             // 
             // output_6
             // 
-            output_6.Location = new System.Drawing.Point(6, 537);
+            output_6.Location = new System.Drawing.Point(9, 895);
+            output_6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output_6.Name = "output_6";
-            output_6.Size = new System.Drawing.Size(353, 23);
+            output_6.Size = new System.Drawing.Size(503, 31);
             output_6.TabIndex = 24;
             // 
             // output_5
             // 
-            output_5.Location = new System.Drawing.Point(6, 470);
+            output_5.Location = new System.Drawing.Point(9, 783);
+            output_5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output_5.Name = "output_5";
-            output_5.Size = new System.Drawing.Size(353, 23);
+            output_5.Size = new System.Drawing.Size(503, 31);
             output_5.TabIndex = 25;
             // 
             // output_4
             // 
-            output_4.Location = new System.Drawing.Point(6, 397);
+            output_4.Location = new System.Drawing.Point(9, 662);
+            output_4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output_4.Name = "output_4";
-            output_4.Size = new System.Drawing.Size(353, 23);
+            output_4.Size = new System.Drawing.Size(503, 31);
             output_4.TabIndex = 26;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(6, 507);
+            label8.Location = new System.Drawing.Point(9, 845);
+            label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(54, 15);
+            label8.Size = new System.Drawing.Size(84, 25);
             label8.TabIndex = 21;
             label8.Text = "Output 6";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(6, 440);
+            label9.Location = new System.Drawing.Point(9, 733);
+            label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(54, 15);
+            label9.Size = new System.Drawing.Size(84, 25);
             label9.TabIndex = 22;
             label9.Text = "Output 5";
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(6, 368);
+            label10.Location = new System.Drawing.Point(9, 613);
+            label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(54, 15);
+            label10.Size = new System.Drawing.Size(84, 25);
             label10.TabIndex = 23;
             label10.Text = "Output 4";
             // 
             // output_3
             // 
-            output_3.Location = new System.Drawing.Point(6, 332);
+            output_3.Location = new System.Drawing.Point(9, 553);
+            output_3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output_3.Name = "output_3";
-            output_3.Size = new System.Drawing.Size(353, 23);
+            output_3.Size = new System.Drawing.Size(503, 31);
             output_3.TabIndex = 14;
             // 
             // output_2
             // 
-            output_2.Location = new System.Drawing.Point(6, 265);
+            output_2.Location = new System.Drawing.Point(9, 442);
+            output_2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output_2.Name = "output_2";
-            output_2.Size = new System.Drawing.Size(353, 23);
+            output_2.Size = new System.Drawing.Size(503, 31);
             output_2.TabIndex = 14;
             // 
             // output_1
             // 
-            output_1.Location = new System.Drawing.Point(6, 192);
+            output_1.Location = new System.Drawing.Point(9, 320);
+            output_1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             output_1.Name = "output_1";
-            output_1.Size = new System.Drawing.Size(353, 23);
+            output_1.Size = new System.Drawing.Size(503, 31);
             output_1.TabIndex = 14;
             // 
             // process_temp_folder
             // 
-            process_temp_folder.Location = new System.Drawing.Point(8, 81);
+            process_temp_folder.Location = new System.Drawing.Point(11, 135);
+            process_temp_folder.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             process_temp_folder.Name = "process_temp_folder";
-            process_temp_folder.Size = new System.Drawing.Size(353, 23);
+            process_temp_folder.Size = new System.Drawing.Size(503, 31);
             process_temp_folder.TabIndex = 14;
             // 
             // temp_button
             // 
-            temp_button.Location = new System.Drawing.Point(135, 27);
+            temp_button.Location = new System.Drawing.Point(193, 45);
+            temp_button.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             temp_button.Name = "temp_button";
-            temp_button.Size = new System.Drawing.Size(75, 33);
+            temp_button.Size = new System.Drawing.Size(107, 55);
             temp_button.TabIndex = 20;
             temp_button.Text = "Broswer";
             temp_button.UseVisualStyleBackColor = true;
@@ -355,41 +378,46 @@ namespace Proteomics_Data_Processor
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(6, 302);
+            label6.Location = new System.Drawing.Point(9, 503);
+            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(54, 15);
+            label6.Size = new System.Drawing.Size(84, 25);
             label6.TabIndex = 3;
             label6.Text = "Output 3";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(6, 235);
+            label7.Location = new System.Drawing.Point(9, 392);
+            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(54, 15);
+            label7.Size = new System.Drawing.Size(84, 25);
             label7.TabIndex = 3;
             label7.Text = "Output 2";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(6, 163);
+            label4.Location = new System.Drawing.Point(9, 272);
+            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(279, 15);
+            label4.Size = new System.Drawing.Size(418, 25);
             label4.TabIndex = 3;
             label4.Text = "Output 1 full path with file name (relatevie to temp)";
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(8, 36);
+            label14.Location = new System.Drawing.Point(11, 60);
+            label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label14.Name = "label14";
-            label14.Size = new System.Drawing.Size(96, 15);
+            label14.Size = new System.Drawing.Size(147, 25);
             label14.TabIndex = 3;
             label14.Text = "Temp save folder";
             // 
             // mainsettings
             // 
+            mainsettings.Controls.Add(reverse_order);
             mainsettings.Controls.Add(parallel_processing);
             mainsettings.Controls.Add(process_thread_autostart);
             mainsettings.Controls.Add(Manual_start);
@@ -416,20 +444,33 @@ namespace Proteomics_Data_Processor
             mainsettings.Controls.Add(label12);
             mainsettings.Controls.Add(label11);
             mainsettings.Controls.Add(system_pwd);
-            mainsettings.Location = new System.Drawing.Point(4, 24);
+            mainsettings.Location = new System.Drawing.Point(4, 34);
+            mainsettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             mainsettings.Name = "mainsettings";
-            mainsettings.Padding = new System.Windows.Forms.Padding(3);
-            mainsettings.Size = new System.Drawing.Size(385, 682);
+            mainsettings.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            mainsettings.Size = new System.Drawing.Size(553, 922);
             mainsettings.TabIndex = 0;
             mainsettings.Text = "Main Settings";
             mainsettings.UseVisualStyleBackColor = true;
             // 
+            // reverse_order
+            // 
+            reverse_order.AutoSize = true;
+            reverse_order.Location = new System.Drawing.Point(7, 782);
+            reverse_order.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            reverse_order.Name = "reverse_order";
+            reverse_order.Size = new System.Drawing.Size(390, 29);
+            reverse_order.TabIndex = 43;
+            reverse_order.Text = "Reverse order";
+            reverse_order.UseVisualStyleBackColor = true;
+            // 
             // parallel_processing
             // 
             parallel_processing.AutoSize = true;
-            parallel_processing.Location = new System.Drawing.Point(6, 587);
+            parallel_processing.Location = new System.Drawing.Point(7, 740);
+            parallel_processing.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             parallel_processing.Name = "parallel_processing";
-            parallel_processing.Size = new System.Drawing.Size(290, 19);
+            parallel_processing.Size = new System.Drawing.Size(435, 29);
             parallel_processing.TabIndex = 43;
             parallel_processing.Text = "Ignore task with start time (for parallel processing)";
             parallel_processing.UseVisualStyleBackColor = true;
@@ -437,18 +478,20 @@ namespace Proteomics_Data_Processor
             // process_thread_autostart
             // 
             process_thread_autostart.AutoSize = true;
-            process_thread_autostart.Location = new System.Drawing.Point(8, 562);
+            process_thread_autostart.Location = new System.Drawing.Point(10, 698);
+            process_thread_autostart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             process_thread_autostart.Name = "process_thread_autostart";
-            process_thread_autostart.Size = new System.Drawing.Size(290, 19);
+            process_thread_autostart.Size = new System.Drawing.Size(438, 29);
             process_thread_autostart.TabIndex = 42;
             process_thread_autostart.Text = "Start process when app starts (save this to Default)";
             process_thread_autostart.UseVisualStyleBackColor = true;
             // 
             // Manual_start
             // 
-            Manual_start.Location = new System.Drawing.Point(17, 626);
+            Manual_start.Location = new System.Drawing.Point(7, 832);
+            Manual_start.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Manual_start.Name = "Manual_start";
-            Manual_start.Size = new System.Drawing.Size(92, 30);
+            Manual_start.Size = new System.Drawing.Size(131, 50);
             Manual_start.TabIndex = 37;
             Manual_start.Text = "Start";
             Manual_start.UseVisualStyleBackColor = true;
@@ -456,52 +499,58 @@ namespace Proteomics_Data_Processor
             // 
             // lblElapsed
             // 
-            lblElapsed.Location = new System.Drawing.Point(92, 447);
+            lblElapsed.Location = new System.Drawing.Point(137, 552);
+            lblElapsed.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             lblElapsed.Name = "lblElapsed";
             lblElapsed.ReadOnly = true;
-            lblElapsed.Size = new System.Drawing.Size(276, 23);
+            lblElapsed.Size = new System.Drawing.Size(393, 31);
             lblElapsed.TabIndex = 40;
             // 
             // textBox3
             // 
-            textBox3.Location = new System.Drawing.Point(91, 411);
+            textBox3.Location = new System.Drawing.Point(139, 502);
+            textBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             textBox3.Name = "textBox3";
             textBox3.ReadOnly = true;
-            textBox3.Size = new System.Drawing.Size(277, 23);
+            textBox3.Size = new System.Drawing.Size(394, 31);
             textBox3.TabIndex = 39;
             // 
             // last_check
             // 
             last_check.Enabled = false;
-            last_check.Location = new System.Drawing.Point(92, 499);
+            last_check.Location = new System.Drawing.Point(133, 600);
+            last_check.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             last_check.Name = "last_check";
             last_check.ReadOnly = true;
-            last_check.Size = new System.Drawing.Size(275, 23);
+            last_check.Size = new System.Drawing.Size(391, 31);
             last_check.TabIndex = 41;
             // 
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new System.Drawing.Point(3, 414);
+            label15.Location = new System.Drawing.Point(13, 508);
+            label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label15.Name = "label15";
-            label15.Size = new System.Drawing.Size(82, 15);
+            label15.Size = new System.Drawing.Size(125, 25);
             label15.TabIndex = 36;
             label15.Text = "Worker status:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(3, 499);
+            label5.Location = new System.Drawing.Point(6, 600);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(67, 15);
+            label5.Size = new System.Drawing.Size(99, 25);
             label5.TabIndex = 34;
             label5.Text = "Last Check:";
             // 
             // Manual_stop
             // 
-            Manual_stop.Location = new System.Drawing.Point(188, 624);
+            Manual_stop.Location = new System.Drawing.Point(260, 823);
+            Manual_stop.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Manual_stop.Name = "Manual_stop";
-            Manual_stop.Size = new System.Drawing.Size(115, 35);
+            Manual_stop.Size = new System.Drawing.Size(164, 58);
             Manual_stop.TabIndex = 38;
             Manual_stop.Text = "Stop";
             Manual_stop.UseVisualStyleBackColor = true;
@@ -510,25 +559,28 @@ namespace Proteomics_Data_Processor
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(3, 455);
+            label13.Location = new System.Drawing.Point(10, 565);
+            label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label13.Name = "label13";
-            label13.Size = new System.Drawing.Size(40, 15);
+            label13.Size = new System.Drawing.Size(60, 25);
             label13.TabIndex = 35;
             label13.Text = "Timer:";
             // 
             // process_app_selector
             // 
             process_app_selector.FormattingEnabled = true;
-            process_app_selector.Location = new System.Drawing.Point(90, 271);
+            process_app_selector.Location = new System.Drawing.Point(139, 348);
+            process_app_selector.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             process_app_selector.Name = "process_app_selector";
-            process_app_selector.Size = new System.Drawing.Size(277, 23);
+            process_app_selector.Size = new System.Drawing.Size(394, 33);
             process_app_selector.TabIndex = 33;
             // 
             // Check_server
             // 
-            Check_server.Location = new System.Drawing.Point(146, 232);
+            Check_server.Location = new System.Drawing.Point(219, 283);
+            Check_server.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Check_server.Name = "Check_server";
-            Check_server.Size = new System.Drawing.Size(195, 33);
+            Check_server.Size = new System.Drawing.Size(279, 55);
             Check_server.TabIndex = 32;
             Check_server.Text = "Pull list from Server";
             Check_server.UseVisualStyleBackColor = true;
@@ -537,62 +589,70 @@ namespace Proteomics_Data_Processor
             // label28
             // 
             label28.AutoSize = true;
-            label28.Location = new System.Drawing.Point(3, 241);
+            label28.Location = new System.Drawing.Point(14, 298);
+            label28.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label28.Name = "label28";
-            label28.Size = new System.Drawing.Size(115, 15);
+            label28.Size = new System.Drawing.Size(176, 25);
             label28.TabIndex = 31;
             label28.Text = "Choose Process App";
             // 
             // workder_number
             // 
-            workder_number.Location = new System.Drawing.Point(155, 195);
+            workder_number.Location = new System.Drawing.Point(237, 218);
+            workder_number.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             workder_number.Name = "workder_number";
-            workder_number.Size = new System.Drawing.Size(100, 23);
+            workder_number.Size = new System.Drawing.Size(143, 31);
             workder_number.TabIndex = 30;
             // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new System.Drawing.Point(3, 203);
+            label17.Location = new System.Drawing.Point(20, 232);
+            label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label17.Name = "label17";
-            label17.Size = new System.Drawing.Size(58, 15);
+            label17.Size = new System.Drawing.Size(89, 25);
             label17.TabIndex = 29;
             label17.Text = "Worker #:";
             // 
             // workerip
             // 
-            workerip.Location = new System.Drawing.Point(90, 360);
+            workerip.Location = new System.Drawing.Point(137, 455);
+            workerip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             workerip.Name = "workerip";
-            workerip.Size = new System.Drawing.Size(277, 23);
+            workerip.Size = new System.Drawing.Size(394, 31);
             workerip.TabIndex = 17;
             // 
             // workername
             // 
-            workername.Location = new System.Drawing.Point(91, 325);
+            workername.Location = new System.Drawing.Point(139, 397);
+            workername.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             workername.Name = "workername";
-            workername.Size = new System.Drawing.Size(277, 23);
+            workername.Size = new System.Drawing.Size(394, 31);
             workername.TabIndex = 16;
             // 
             // hostip
             // 
-            hostip.Location = new System.Drawing.Point(124, 65);
+            hostip.Location = new System.Drawing.Point(179, 40);
+            hostip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             hostip.Name = "hostip";
-            hostip.Size = new System.Drawing.Size(243, 23);
+            hostip.Size = new System.Drawing.Size(345, 31);
             hostip.TabIndex = 13;
             // 
             // system_username
             // 
-            system_username.Location = new System.Drawing.Point(92, 111);
+            system_username.Location = new System.Drawing.Point(149, 105);
+            system_username.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             system_username.Name = "system_username";
-            system_username.Size = new System.Drawing.Size(275, 23);
+            system_username.Size = new System.Drawing.Size(391, 31);
             system_username.TabIndex = 0;
             // 
             // start_with_windows
             // 
             start_with_windows.AutoSize = true;
-            start_with_windows.Location = new System.Drawing.Point(8, 537);
+            start_with_windows.Location = new System.Drawing.Point(10, 657);
+            start_with_windows.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             start_with_windows.Name = "start_with_windows";
-            start_with_windows.Size = new System.Drawing.Size(177, 19);
+            start_with_windows.Size = new System.Drawing.Size(267, 29);
             start_with_windows.TabIndex = 26;
             start_with_windows.Text = "Start app with Windows start";
             start_with_windows.UseVisualStyleBackColor = true;
@@ -601,53 +661,59 @@ namespace Proteomics_Data_Processor
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(3, 328);
+            label2.Location = new System.Drawing.Point(13, 402);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(79, 15);
+            label2.Size = new System.Drawing.Size(119, 25);
             label2.TabIndex = 14;
             label2.Text = "Woker Name:";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(3, 368);
+            label3.Location = new System.Drawing.Point(13, 468);
+            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(61, 15);
+            label3.Size = new System.Drawing.Size(93, 25);
             label3.TabIndex = 15;
             label3.Text = "Worker IP:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(3, 68);
+            label1.Location = new System.Drawing.Point(6, 45);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(115, 15);
+            label1.Size = new System.Drawing.Size(174, 25);
             label1.TabIndex = 12;
             label1.Text = "Server IP/Hostname:";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(3, 161);
+            label12.Location = new System.Drawing.Point(21, 175);
+            label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(57, 15);
+            label12.Size = new System.Drawing.Size(87, 25);
             label12.TabIndex = 1;
             label12.Text = "Password";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(3, 114);
+            label11.Location = new System.Drawing.Point(21, 110);
+            label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(59, 15);
+            label11.Size = new System.Drawing.Size(89, 25);
             label11.TabIndex = 1;
             label11.Text = "username";
             // 
             // system_pwd
             // 
-            system_pwd.Location = new System.Drawing.Point(92, 158);
+            system_pwd.Location = new System.Drawing.Point(149, 170);
+            system_pwd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             system_pwd.Name = "system_pwd";
-            system_pwd.Size = new System.Drawing.Size(275, 23);
+            system_pwd.Size = new System.Drawing.Size(391, 31);
             system_pwd.TabIndex = 0;
             system_pwd.UseSystemPasswordChar = true;
             // 
@@ -656,17 +722,18 @@ namespace Proteomics_Data_Processor
             tabControl.Controls.Add(mainsettings);
             tabControl.Controls.Add(pd);
             tabControl.Controls.Add(custom);
-            tabControl.Location = new System.Drawing.Point(0, 41);
+            tabControl.Location = new System.Drawing.Point(0, 68);
+            tabControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             tabControl.Name = "tabControl";
             tabControl.SelectedIndex = 0;
-            tabControl.Size = new System.Drawing.Size(393, 710);
+            tabControl.Size = new System.Drawing.Size(561, 960);
             tabControl.TabIndex = 25;
             // 
             // Proteomics_Data_Processor
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(800, 782);
+            ClientSize = new System.Drawing.Size(1143, 1000);
             Controls.Add(version_number);
             Controls.Add(label26);
             Controls.Add(tabControl);
@@ -674,6 +741,7 @@ namespace Proteomics_Data_Processor
             Controls.Add(menuStrip1);
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
+            Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Name = "Proteomics_Data_Processor";
             Text = "Omics Data Processor";
             menuStrip1.ResumeLayout(false);
@@ -754,6 +822,7 @@ namespace Proteomics_Data_Processor
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckBox parallel_processing;
+        private System.Windows.Forms.CheckBox reverse_order;
     }
 }
 
