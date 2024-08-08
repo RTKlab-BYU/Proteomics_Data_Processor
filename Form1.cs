@@ -779,6 +779,7 @@ namespace Proteomics_Data_Processor
         /// </summary>
         private void Check_server_Click_1(object sender, EventArgs e)
         {
+            string error_message="";
             try
             {
                 var client = new RestClient(hostip.Text);
@@ -787,7 +788,7 @@ namespace Proteomics_Data_Processor
                 request.AddHeader("cache-control", "no-cache");
                 request.AddHeader("Accept", "application/json");
                 var response = client.Execute(request);
-
+                error_message = response.Content;
 
                 ProcessAppResponseDictionary all_process_response = JsonConvert.DeserializeObject<ProcessAppResponseDictionary>(response.Content);
                 process_app_selector.Items.Clear();
@@ -801,7 +802,7 @@ namespace Proteomics_Data_Processor
             }
             catch (Exception err)
             {
-                MessageBox.Show("Can not obtain server address, check server condition or put in manully. " + err.Message);
+                MessageBox.Show("Can not obtain server address, check server condition or put in manully. " + err.Message + error_message);
 
             }
         }
